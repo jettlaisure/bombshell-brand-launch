@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
