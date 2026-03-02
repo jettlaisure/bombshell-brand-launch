@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
+    --background: 0 0% 8%;
     --foreground: 0 0% 100%;
 
     --card: 0 0% 5%;
@@ -104,7 +104,7 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(0 0% 0%);
+  background: hsl(0 0% 8%);
 }
 ::-webkit-scrollbar-thumb {
   background: hsl(0 0% 20%);
