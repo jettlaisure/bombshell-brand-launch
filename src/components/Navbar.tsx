@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
+import logo from "@/assets/logo.jpeg";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -23,8 +24,8 @@ const Navbar = () => {
       }`}
     >
       <nav className="flex items-center justify-between section-padding py-5">
-        <a href="/" className="font-heading text-xl font-bold uppercase tracking-[0.15em] text-foreground">
-          Bombshell
+        <a href="/">
+          <img src={logo} alt="Bombshell" className="h-8 w-auto" />
         </a>
 
         <div className="hidden md:flex items-center gap-10">

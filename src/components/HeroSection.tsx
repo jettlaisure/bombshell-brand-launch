@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
+import logo from "@/assets/logo.jpeg";
 
 const HeroSection = () => {
   const [muted, setMuted] = useState(true);
@@ -31,14 +32,14 @@ const HeroSection = () => {
 
       {/* Logo Overlay */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
-        <motion.h1
+        <motion.img
+          src={logo}
+          alt="Bombshell"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold uppercase tracking-[0.1em] text-foreground"
-        >
-          Bombshell
-        </motion.h1>
+          className="h-24 md:h-36 lg:h-44 w-auto"
+        />
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
