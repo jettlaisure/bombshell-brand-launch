@@ -1,15 +1,30 @@
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpg";
+import { Volume2, VolumeX } from "lucide-react";
 
 const HeroSection = () => {
+  const [muted, setMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !muted;
+      setMuted(!muted);
+    }
+  };
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt="Bombshell streetwear campaign"
-          className="w-full h-full object-cover object-center"
+        <video
+          ref={videoRef}
+          src="/hero-video.mov"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-background/40" />
       </div>
@@ -42,6 +57,15 @@ const HeroSection = () => {
           Shop Now
         </motion.a>
       </div>
+
+      {/* Mute Toggle */}
+      <button
+        onClick={toggleMute}
+        className="absolute bottom-8 right-8 z-20 p-2 text-foreground/40 hover:text-foreground transition-colors duration-300"
+        aria-label={muted ? "Unmute" : "Mute"}
+      >
+        {muted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+      </button>
 
       {/* Scroll Indicator */}
       <motion.div
