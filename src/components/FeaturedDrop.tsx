@@ -21,8 +21,8 @@ const FeaturedDrop = () => {
         transition={{ duration: 0.6 }}
         className="mb-16"
       >
-        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">Latest</p>
-        <h2 className="editorial-heading">Drop 001</h2>
+        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Latest</p>
+        <h2 className="editorial-heading">Coming Soon</h2>
       </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
