@@ -1,0 +1,57 @@
+import { motion } from "framer-motion";
+import product1 from "@/assets/product-1.jpg";
+import product2 from "@/assets/product-2.jpg";
+import product3 from "@/assets/product-3.jpg";
+import product4 from "@/assets/product-4.jpg";
+
+const products = [
+  { id: 1, name: "Stealth Hoodie", price: "$185", image: product1 },
+  { id: 2, name: "Warfare Tee", price: "$95", image: product2 },
+  { id: 3, name: "Tactical Vest", price: "$240", image: product3 },
+  { id: 4, name: "Cargo Joggers", price: "$145", image: product4 },
+];
+
+const FeaturedDrop = () => {
+  return (
+    <section id="shop" className="section-padding py-24 md:py-32">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="mb-16"
+      >
+        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">Latest</p>
+        <h2 className="editorial-heading">Drop 001</h2>
+      </motion.div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {products.map((product, i) => (
+          <motion.div
+            key={product.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="product-card group aspect-[3/4] bg-secondary"
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="product-info">
+              <p className="font-heading text-sm uppercase tracking-[0.1em] text-foreground">
+                {product.name}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">{product.price}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default FeaturedDrop;
