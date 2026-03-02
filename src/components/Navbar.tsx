@@ -25,7 +25,7 @@ const Navbar = () => {
     >
       <nav className="flex items-center justify-between section-padding py-5">
         <a href="/">
-          <img src={logo} alt="Bombshell" className="h-8 w-auto" />
+          <img src={logo} alt="Bombshell" className="h-12 w-auto" />
         </a>
 
         <div className="hidden md:flex items-center gap-10">

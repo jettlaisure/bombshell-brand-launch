@@ -38,7 +38,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="h-24 md:h-36 lg:h-44 w-auto"
+          className="h-32 md:h-48 lg:h-60 w-auto"
         />
         <motion.p
           initial={{ opacity: 0 }}
