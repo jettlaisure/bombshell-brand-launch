@@ -1,10 +1,10 @@
+import logo from "@/assets/logo.jpeg";
+
 const Footer = () => {
   return (
     <footer className="section-padding py-12 border-t border-border">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <p className="font-heading text-sm font-bold uppercase tracking-[0.15em] text-foreground">
-          Bombshell
-        </p>
+        <img src={logo} alt="Bombshell" className="h-6 w-auto" />
         <div className="flex items-center gap-8">
           <a href="#" className="nav-link">Instagram</a>
           <a href="#" className="nav-link">Twitter</a>
