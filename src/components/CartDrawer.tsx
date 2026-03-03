@@ -5,33 +5,43 @@ import { useCart } from "@/contexts/CartContext";
 const CartDrawer = () => {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
 
+  const handleClose = () => setIsOpen(false);
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
+    <>
+      <AnimatePresence>
+        {isOpen && (
           <motion.div
+            key="backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
             className="fixed inset-0 bg-background/60 backdrop-blur-sm z-50"
           />
+        )}
+      </AnimatePresence>
 
-          {/* Drawer */}
+      <AnimatePresence>
+        {isOpen && (
           <motion.div
+            key="drawer"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-border z-50 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+            className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-border z-[51] flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-border">
               <h2 className="font-heading text-xl uppercase tracking-[0.1em]">
                 Cart ({totalItems})
               </h2>
-              <button onClick={() => setIsOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">
+              <button
+                onClick={handleClose}
+                className="text-muted-foreground hover:text-foreground transition-colors p-1"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -95,7 +105,6 @@ const CartDrawer = () => {
                   className="w-full py-4 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/90 transition-colors duration-300"
                   onClick={() => {
                     // TODO: Replace with Shopify checkout URL
-                    // Use shopify.checkout.create() to generate checkout link
                     alert("Checkout will redirect to Shopify when integrated.");
                   }}
                 >
@@ -104,9 +113,9 @@ const CartDrawer = () => {
               </div>
             )}
           </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
