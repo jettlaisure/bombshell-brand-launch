@@ -22,7 +22,7 @@ const mockProducts: Product[] = [
     id: "1",
     title: "Bombshell Cropped Heavyweight Hoodie — Light Grey",
     handle: "bombshell-cropped-hoodie-light-grey",
-    description: "400 GSM cropped heavyweight hoodie. 100% cotton construction with a cropped fit designed for bold, relaxed layering. Engineered for weight and presence.",
+    description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
     images: [{ id: "img1", src: product1, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey" }],
     variants: [
       { id: "v1-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
@@ -39,7 +39,7 @@ const mockProducts: Product[] = [
     id: "2",
     title: "Bombshell Cropped Heavyweight Hoodie — Military Green",
     handle: "bombshell-cropped-hoodie-military-green",
-    description: "400 GSM cropped heavyweight hoodie. 100% cotton construction with a cropped fit designed for bold, relaxed layering. Engineered for weight and presence.",
+    description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
     images: [{ id: "img2", src: product2, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green" }],
     variants: [
       { id: "v2-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
