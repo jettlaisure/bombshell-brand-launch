@@ -15,7 +15,9 @@ import type { Product, Collection } from "@/types/shopify";
 import greyHoodie1 from "@/assets/grey-hoodie-1.jpeg";
 import greyHoodie2 from "@/assets/grey-hoodie-2.jpeg";
 import greyHoodie3 from "@/assets/grey-hoodie-3.jpeg";
-import product2 from "@/assets/product-2.jpg";
+import greenHoodie1 from "@/assets/green-hoodie-1.jpeg";
+import greenHoodie2 from "@/assets/green-hoodie-2.jpeg";
+import greenHoodie3 from "@/assets/green-hoodie-3.jpeg";
 
 // ─── Mock Data ───────────────────────────────────────────────
 
@@ -46,7 +48,11 @@ const mockProducts: Product[] = [
     title: "Bombshell Cropped Heavyweight Hoodie — Military Green",
     handle: "bombshell-cropped-hoodie-military-green",
     description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
-    images: [{ id: "img2", src: product2, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green" }],
+    images: [
+      { id: "img2a", src: greenHoodie1, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green — Front" },
+      { id: "img2b", src: greenHoodie2, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green — Full" },
+      { id: "img2c", src: greenHoodie3, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green — Detail" },
+    ],
     variants: [
       { id: "v2-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
       { id: "v2-m", title: "M", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "M" }] },
