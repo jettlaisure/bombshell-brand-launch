@@ -31,7 +31,21 @@ const Navbar = () => {
           <img src={logo} alt="Bombshell" className="h-24 w-auto" />
         </Link>
 
-        <button onClick={() => setIsOpen(true)} className="nav-link relative" aria-label="Cart">
+        <div className="hidden md:flex items-center gap-10">
+          <Link to="/shop" className="nav-link">Shop</Link>
+          <Link to="/collections" className="nav-link">Collections</Link>
+          <a href="/#about" className="nav-link">About</a>
+          <button onClick={() => setIsOpen(true)} className="nav-link relative" aria-label="Cart">
+            <ShoppingBag className="w-4 h-4" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[8px] flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+        </div>
+
+        <button onClick={() => setIsOpen(true)} className="md:hidden nav-link relative" aria-label="Cart">
           <ShoppingBag className="w-4 h-4" />
           {totalItems > 0 && (
             <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[8px] flex items-center justify-center">
