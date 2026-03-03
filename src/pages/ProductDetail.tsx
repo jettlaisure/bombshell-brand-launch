@@ -77,7 +77,11 @@ const ProductDetail = () => {
               <ul className="mt-6 space-y-2 max-w-md">
                 {product.description.split('. ').filter(Boolean).map((point, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <span className="block w-1 h-1 rounded-full bg-muted-foreground mt-2 shrink-0" />
+                    <svg viewBox="0 0 10 18" className="w-2 h-4 shrink-0 mt-0.5 fill-muted-foreground">
+                      <ellipse cx="5" cy="5" rx="3.5" ry="4.5" />
+                      <rect x="3" y="5" width="4" height="10" rx="1" />
+                      <rect x="2.5" y="14" width="5" height="3" rx="1.5" />
+                    </svg>
                     {point.replace(/\.$/, '')}
                   </li>
                 ))}
