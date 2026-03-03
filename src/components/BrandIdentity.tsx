@@ -37,26 +37,6 @@ const BrandIdentity = () => {
         </div>
       </div>
 
-      {/* Stats Row */}
-      <div className="section-padding py-16 grid grid-cols-3 gap-4 border-t border-border">
-        {[
-          { label: "Founded", value: "2025" },
-          { label: "Drops", value: "001" },
-          { label: "Culture", value: "∞" },
-        ].map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="text-center"
-          >
-            <p className="font-heading text-3xl md:text-5xl font-bold text-foreground">{stat.value}</p>
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-2">{stat.label}</p>
-          </motion.div>
-        ))}
-      </div>
     </section>
   );
 };
