@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Alte Haas Grotesk Bold', 'sans-serif'],
-        body: ['Alte Haas Grotesk Bold', 'sans-serif'],
+        heading: ['Bedug', 'sans-serif'],
+        body: ['Bedug', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
