@@ -19,7 +19,7 @@ const CollectionDetail = () => {
   if (!collection) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
+        <Navbar forceDark />
         <div className="pt-40 section-padding text-center text-muted-foreground">Loading...</div>
       </div>
     );
@@ -27,7 +27,7 @@ const CollectionDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar forceDark />
       <main className="pt-32 pb-24">
         <section className="section-padding">
           <motion.div

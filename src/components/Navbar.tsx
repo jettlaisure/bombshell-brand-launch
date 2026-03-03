@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 import { useCart } from "@/contexts/CartContext";
 
-const Navbar = () => {
+interface NavbarProps {
+  forceDark?: boolean;
+}
+
+const Navbar = ({ forceDark = false }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const { setIsOpen, totalItems } = useCart();
 
@@ -14,6 +18,8 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isDark = forceDark || scrolled;
 
   return (
     <motion.header
@@ -28,27 +34,27 @@ const Navbar = () => {
     >
       <nav className="flex items-center justify-between section-padding py-5">
         <Link to="/">
-          <img src={logo} alt="Bombshell" className={`h-24 w-auto transition-all duration-500 ${scrolled ? 'invert' : ''}`} />
+          <img src={logo} alt="Bombshell" className={`h-24 w-auto transition-all duration-500 ${isDark ? 'invert' : ''}`} />
         </Link>
 
         <div className="hidden md:flex items-center gap-10">
-          <Link to="/shop" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Shop</Link>
-          <Link to="/collections" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Collections</Link>
+          <Link to="/shop" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Shop</Link>
+          <Link to="/collections" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Collections</Link>
           
-          <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
+          <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
             <ShoppingBag className="w-4 h-4" />
             {totalItems > 0 && (
-              <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${scrolled ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
+              <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${isDark ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
                 {totalItems}
               </span>
             )}
           </button>
         </div>
 
-        <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative md:hidden ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
+        <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative md:hidden ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
           <ShoppingBag className="w-4 h-4" />
           {totalItems > 0 && (
-            <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${scrolled ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
+            <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${isDark ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
               {totalItems}
             </span>
           )}
