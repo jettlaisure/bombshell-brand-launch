@@ -29,7 +29,9 @@ const Collections = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {collections.map((collection, i) => (
+            {collections
+              .filter((c) => !["essentials", "outerwear"].includes(c.handle.toLowerCase()))
+              .map((collection, i) => (
               <motion.div
                 key={collection.id}
                 initial={{ opacity: 0, y: 30 }}
