@@ -77,10 +77,17 @@ const ProductDetail = () => {
               <ul className="mt-6 space-y-3 max-w-md">
                 {product.description.split('. ').filter(Boolean).map((point, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <svg viewBox="0 0 8 16" className="w-[6px] h-3 shrink-0 fill-muted-foreground/70">
-                      <rect x="1" y="0" width="6" height="3" rx="1" />
-                      <rect x="0" y="3" width="8" height="2" rx="0.5" />
-                      <path d="M1 5 L1 13 Q1 15 4 15 Q7 15 7 13 L7 5 Z" />
+                    <svg viewBox="0 0 12 20" className="w-3 h-4 shrink-0 fill-muted-foreground/70">
+                      {/* Pin ring */}
+                      <circle cx="6" cy="2" r="1.8" fill="none" stroke="currentColor" strokeWidth="1" className="text-muted-foreground/70" />
+                      {/* Lever */}
+                      <rect x="5.2" y="3" width="1.6" height="4" rx="0.5" />
+                      {/* Body */}
+                      <rect x="2" y="7" width="8" height="10" rx="2" />
+                      {/* Body lines */}
+                      <line x1="4" y1="9" x2="4" y2="15" stroke="currentColor" strokeWidth="0.5" className="text-background/20" />
+                      <line x1="6" y1="9" x2="6" y2="15" stroke="currentColor" strokeWidth="0.5" className="text-background/20" />
+                      <line x1="8" y1="9" x2="8" y2="15" stroke="currentColor" strokeWidth="0.5" className="text-background/20" />
                     </svg>
                     {point.replace(/\.$/, '')}
                   </li>
