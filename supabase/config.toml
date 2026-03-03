@@ -1,1 +1,4 @@
 project_id = "tlygguppuyrbcsmjiqug"
+
+[functions.shopify-proxy]
+verify_jwt = false
