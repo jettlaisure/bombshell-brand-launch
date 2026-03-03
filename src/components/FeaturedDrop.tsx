@@ -5,9 +5,9 @@ import greenHoodie1 from "@/assets/green-hoodie-1.jpeg";
 import blackHoodie1 from "@/assets/black-hoodie-1.jpeg";
 
 const products = [
-  { id: 1, name: "Light Grey", handle: "bombshell-cropped-hoodie-light-grey", price: "$249", image: greyHoodie1 },
-  { id: 2, name: "Military Green", handle: "bombshell-cropped-hoodie-military-green", price: "$249", image: greenHoodie1 },
-  { id: 3, name: "Black", handle: "bombshell-cropped-hoodie-black", price: "$249", image: blackHoodie1 },
+  { id: 1, name: "Heather Grey", handle: "combat-zip-up-heather-grey", price: "$249", image: greyHoodie1 },
+  { id: 2, name: "Military Green", handle: "combat-zip-up-military-green", price: "$249", image: greenHoodie1 },
+  { id: 3, name: "Black", handle: "combat-zip-up-black", price: "$249", image: blackHoodie1 },
 ];
 
 const FeaturedDrop = () => {
@@ -21,7 +21,7 @@ const FeaturedDrop = () => {
         className="mb-8"
       >
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Coming Soon</p>
-        <h2 className="editorial-heading">Cropped Heavyweight Hoodie</h2>
+        <h2 className="editorial-heading">Combat Zip Up</h2>
         <p className="text-sm text-muted-foreground mt-4 max-w-md leading-relaxed">
           400 GSM · 100% Cotton · Cropped Heavyweight Fit
         </p>

@@ -27,13 +27,13 @@ import blackHoodie3 from "@/assets/black-hoodie-3.jpeg";
 const mockProducts: Product[] = [
   {
     id: "1",
-    title: "Bombshell Cropped Heavyweight Hoodie — Light Grey",
-    handle: "bombshell-cropped-hoodie-light-grey",
+    title: "Combat Zip Up — Heather Grey",
+    handle: "combat-zip-up-heather-grey",
     description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
     images: [
-      { id: "img1a", src: greyHoodie1, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey — Front" },
-      { id: "img1b", src: greyHoodie2, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey — Detail" },
-      { id: "img1c", src: greyHoodie3, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey — Side" },
+      { id: "img1a", src: greyHoodie1, altText: "Combat Zip Up in Heather Grey — Front" },
+      { id: "img1b", src: greyHoodie2, altText: "Combat Zip Up in Heather Grey — Detail" },
+      { id: "img1c", src: greyHoodie3, altText: "Combat Zip Up in Heather Grey — Side" },
     ],
     variants: [
       { id: "v1-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
@@ -48,13 +48,13 @@ const mockProducts: Product[] = [
   },
   {
     id: "2",
-    title: "Bombshell Cropped Heavyweight Hoodie — Military Green",
-    handle: "bombshell-cropped-hoodie-military-green",
+    title: "Combat Zip Up — Military Green",
+    handle: "combat-zip-up-military-green",
     description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
     images: [
-      { id: "img2a", src: greenHoodie1, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green — Front" },
-      { id: "img2b", src: greenHoodie2, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green — Full" },
-      { id: "img2c", src: greenHoodie3, altText: "Bombshell Cropped Heavyweight Hoodie in Military Green — Detail" },
+      { id: "img2a", src: greenHoodie1, altText: "Combat Zip Up in Military Green — Front" },
+      { id: "img2b", src: greenHoodie2, altText: "Combat Zip Up in Military Green — Full" },
+      { id: "img2c", src: greenHoodie3, altText: "Combat Zip Up in Military Green — Detail" },
     ],
     variants: [
       { id: "v2-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
@@ -69,13 +69,13 @@ const mockProducts: Product[] = [
   },
   {
     id: "3",
-    title: "Bombshell Cropped Heavyweight Hoodie — Black",
-    handle: "bombshell-cropped-hoodie-black",
+    title: "Combat Zip Up — Black",
+    handle: "combat-zip-up-black",
     description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
     images: [
-      { id: "img3a", src: blackHoodie1, altText: "Bombshell Cropped Heavyweight Hoodie in Black — Front" },
-      { id: "img3b", src: blackHoodie2, altText: "Bombshell Cropped Heavyweight Hoodie in Black — Detail" },
-      { id: "img3c", src: blackHoodie3, altText: "Bombshell Cropped Heavyweight Hoodie in Black — Back" },
+      { id: "img3a", src: blackHoodie1, altText: "Combat Zip Up in Black — Front" },
+      { id: "img3b", src: blackHoodie2, altText: "Combat Zip Up in Black — Detail" },
+      { id: "img3c", src: blackHoodie3, altText: "Combat Zip Up in Black — Back" },
     ],
     variants: [
       { id: "v3-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
