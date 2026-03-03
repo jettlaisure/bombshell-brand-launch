@@ -18,6 +18,9 @@ import greyHoodie3 from "@/assets/grey-hoodie-3.jpeg";
 import greenHoodie1 from "@/assets/green-hoodie-1.jpeg";
 import greenHoodie2 from "@/assets/green-hoodie-2.jpeg";
 import greenHoodie3 from "@/assets/green-hoodie-3.jpeg";
+import blackHoodie1 from "@/assets/black-hoodie-1.jpeg";
+import blackHoodie2 from "@/assets/black-hoodie-2.jpeg";
+import blackHoodie3 from "@/assets/black-hoodie-3.jpeg";
 
 // ─── Mock Data ───────────────────────────────────────────────
 
@@ -58,6 +61,27 @@ const mockProducts: Product[] = [
       { id: "v2-m", title: "M", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "M" }] },
       { id: "v2-l", title: "L", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "L" }] },
       { id: "v2-xl", title: "XL", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "XL" }] },
+    ],
+    productType: "Hoodies",
+    tags: ["hoodie", "heavyweight", "new", "cropped"],
+    vendor: "Bombshell",
+    availableForSale: true,
+  },
+  {
+    id: "3",
+    title: "Bombshell Cropped Heavyweight Hoodie — Black",
+    handle: "bombshell-cropped-hoodie-black",
+    description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
+    images: [
+      { id: "img3a", src: blackHoodie1, altText: "Bombshell Cropped Heavyweight Hoodie in Black — Front" },
+      { id: "img3b", src: blackHoodie2, altText: "Bombshell Cropped Heavyweight Hoodie in Black — Detail" },
+      { id: "img3c", src: blackHoodie3, altText: "Bombshell Cropped Heavyweight Hoodie in Black — Back" },
+    ],
+    variants: [
+      { id: "v3-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
+      { id: "v3-m", title: "M", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "M" }] },
+      { id: "v3-l", title: "L", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "L" }] },
+      { id: "v3-xl", title: "XL", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "XL" }] },
     ],
     productType: "Hoodies",
     tags: ["hoodie", "heavyweight", "new", "cropped"],
