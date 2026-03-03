@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import { useCart } from "@/contexts/CartContext";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { setIsOpen, totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -24,21 +27,31 @@ const Navbar = () => {
       }`}
     >
       <nav className="flex items-center justify-between section-padding py-5">
-        <a href="/">
+        <Link to="/">
           <img src={logo} alt="Bombshell" className="h-24 w-auto" />
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-10">
-          <a href="#shop" className="nav-link">Shop</a>
-          <a href="#collections" className="nav-link">Collections</a>
-          <a href="#about" className="nav-link">About</a>
-          <a href="#" className="nav-link" aria-label="Cart">
+          <Link to="/shop" className="nav-link">Shop</Link>
+          <Link to="/collections" className="nav-link">Collections</Link>
+          <a href="/#about" className="nav-link">About</a>
+          <button onClick={() => setIsOpen(true)} className="nav-link relative" aria-label="Cart">
             <ShoppingBag className="w-4 h-4" />
-          </a>
+            {totalItems > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[8px] flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
 
-        <button className="md:hidden nav-link" aria-label="Cart">
+        <button onClick={() => setIsOpen(true)} className="md:hidden nav-link relative" aria-label="Cart">
           <ShoppingBag className="w-4 h-4" />
+          {totalItems > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[8px] flex items-center justify-center">
+              {totalItems}
+            </span>
+          )}
         </button>
       </nav>
     </motion.header>
