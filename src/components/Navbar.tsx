@@ -31,24 +31,24 @@ const Navbar = () => {
           <img src={logo} alt="Bombshell" className={`h-24 w-auto transition-all duration-500 ${scrolled ? 'invert' : ''}`} />
         </Link>
 
-        <div className="hidden md:flex items-center gap-10">
+        <div className={`hidden md:flex items-center gap-10 transition-all duration-500 ${scrolled ? '' : 'text-white'}`}>
           <Link to="/shop" className="nav-link">Shop</Link>
           <Link to="/collections" className="nav-link">Collections</Link>
           
           <button onClick={() => setIsOpen(true)} className="nav-link relative" aria-label="Cart">
             <ShoppingBag className="w-4 h-4" />
             {totalItems > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[8px] flex items-center justify-center">
+              <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${scrolled ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
                 {totalItems}
               </span>
             )}
           </button>
         </div>
 
-        <button onClick={() => setIsOpen(true)} className="md:hidden nav-link relative" aria-label="Cart">
+        <button onClick={() => setIsOpen(true)} className={`md:hidden nav-link relative transition-all duration-500 ${scrolled ? '' : 'text-white'}`} aria-label="Cart">
           <ShoppingBag className="w-4 h-4" />
           {totalItems > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[8px] flex items-center justify-center">
+            <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${scrolled ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
               {totalItems}
             </span>
           )}
