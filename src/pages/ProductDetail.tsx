@@ -11,6 +11,7 @@ const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -43,19 +44,36 @@ const ProductDetail = () => {
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mt-8">
-            {/* Image */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="aspect-[3/4] bg-secondary overflow-hidden"
-            >
-              <img
-                src={product.images[0]?.src}
-                alt={product.images[0]?.altText || product.title}
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
+            {/* Images */}
+            <div className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="aspect-[3/4] bg-secondary overflow-hidden"
+              >
+                <img
+                  src={product.images[selectedImageIndex]?.src}
+                  alt={product.images[selectedImageIndex]?.altText || product.title}
+                  className="w-full h-full object-cover object-top"
+                />
+              </motion.div>
+              {product.images.length > 1 && (
+                <div className="flex gap-2">
+                  {product.images.map((img, idx) => (
+                    <button
+                      key={img.id}
+                      onClick={() => setSelectedImageIndex(idx)}
+                      className={`aspect-[3/4] w-20 overflow-hidden border-2 transition-all duration-300 ${
+                        selectedImageIndex === idx ? "border-foreground" : "border-transparent opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      <img src={img.src} alt={img.altText} className="w-full h-full object-cover object-top" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Info */}
             <motion.div
