@@ -28,7 +28,7 @@ const Navbar = () => {
     >
       <nav className="flex items-center justify-between section-padding py-5">
         <Link to="/">
-          <img src={logo} alt="Bombshell" className="h-24 w-auto" />
+          <img src={logo} alt="Bombshell" className={`h-24 w-auto transition-all duration-500 ${scrolled ? 'invert' : ''}`} />
         </Link>
 
         <div className="hidden md:flex items-center gap-10">

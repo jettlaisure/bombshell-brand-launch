@@ -44,7 +44,7 @@ const FeaturedDrop = () => {
                 loading="lazy"
               />
               <div className="product-info">
-                <p className="font-heading text-sm uppercase tracking-[0.1em] text-foreground">
+                <p className="font-heading text-sm uppercase tracking-[0.1em] text-white">
                   {product.name}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">{product.price}</p>
