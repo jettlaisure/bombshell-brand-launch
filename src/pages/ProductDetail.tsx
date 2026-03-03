@@ -74,9 +74,14 @@ const ProductDetail = () => {
                 ${selectedVariant.price}
               </p>
 
-              <p className="text-sm text-muted-foreground leading-relaxed mt-6 max-w-md">
-                {product.description}
-              </p>
+              <ul className="mt-6 space-y-2 max-w-md">
+                {product.description.split('. ').filter(Boolean).map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <span className="block w-1 h-1 rounded-full bg-muted-foreground mt-2 shrink-0" />
+                    {point.replace(/\.$/, '')}
+                  </li>
+                ))}
+              </ul>
 
               {/* Size Selector */}
               {product.variants.length > 1 && (
