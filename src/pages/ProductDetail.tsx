@@ -74,13 +74,13 @@ const ProductDetail = () => {
                 ${selectedVariant.price}
               </p>
 
-              <ul className="mt-6 space-y-2 max-w-md">
+              <ul className="mt-6 space-y-3 max-w-md">
                 {product.description.split('. ').filter(Boolean).map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <svg viewBox="0 0 10 18" className="w-2 h-4 shrink-0 mt-0.5 fill-muted-foreground">
-                      <ellipse cx="5" cy="5" rx="3.5" ry="4.5" />
-                      <rect x="3" y="5" width="4" height="10" rx="1" />
-                      <rect x="2.5" y="14" width="5" height="3" rx="1.5" />
+                  <li key={idx} className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <svg viewBox="0 0 8 16" className="w-[6px] h-3 shrink-0 fill-muted-foreground/70">
+                      <rect x="1" y="0" width="6" height="3" rx="1" />
+                      <rect x="0" y="3" width="8" height="2" rx="0.5" />
+                      <path d="M1 5 L1 13 Q1 15 4 15 Q7 15 7 13 L7 5 Z" />
                     </svg>
                     {point.replace(/\.$/, '')}
                   </li>
