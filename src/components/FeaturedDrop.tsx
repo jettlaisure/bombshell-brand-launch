@@ -2,10 +2,12 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import greyHoodie1 from "@/assets/grey-hoodie-1.jpeg";
 import greenHoodie1 from "@/assets/green-hoodie-1.jpeg";
+import blackHoodie1 from "@/assets/black-hoodie-1.jpeg";
 
 const products = [
   { id: 1, name: "Light Grey", handle: "bombshell-cropped-hoodie-light-grey", price: "$249", image: greyHoodie1 },
   { id: 2, name: "Military Green", handle: "bombshell-cropped-hoodie-military-green", price: "$249", image: greenHoodie1 },
+  { id: 3, name: "Black", handle: "bombshell-cropped-hoodie-black", price: "$249", image: blackHoodie1 },
 ];
 
 const FeaturedDrop = () => {
@@ -35,7 +37,7 @@ const FeaturedDrop = () => {
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground/60">$249</p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl">
         {products.map((product, i) => (
           <motion.div
             key={product.id}
