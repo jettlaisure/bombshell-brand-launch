@@ -53,7 +53,7 @@ const Collections = () => {
                     <h2 className="font-heading text-3xl md:text-4xl uppercase tracking-tight text-foreground">
                       {collection.title}
                     </h2>
-                    <p className="text-xs text-foreground/60 mt-3 max-w-xs">{collection.description}</p>
+                    
                     <span className="mt-6 text-[10px] uppercase tracking-[0.25em] text-foreground/50 border-b border-foreground/20 pb-0.5 group-hover:text-foreground group-hover:border-foreground/50 transition-all duration-300">
                       View Collection
                     </span>
