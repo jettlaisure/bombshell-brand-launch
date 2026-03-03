@@ -5,9 +5,9 @@ import greenHoodie1 from "@/assets/green-hoodie-1.jpeg";
 import blackHoodie1 from "@/assets/black-hoodie-1.jpeg";
 
 const products = [
-  { id: 1, name: "Heather Grey", handle: "combat-zip-up-heather-grey", price: "$249", image: greyHoodie1 },
-  { id: 2, name: "Military Green", handle: "combat-zip-up-military-green", price: "$249", image: greenHoodie1 },
-  { id: 3, name: "Black", handle: "combat-zip-up-black", price: "$249", image: blackHoodie1 },
+  { id: 1, name: "Heather Grey", handle: "combat-zip-up-heather-grey", price: "$120", image: greyHoodie1 },
+  { id: 2, name: "Military Green", handle: "combat-zip-up-military-green", price: "$120", image: greenHoodie1 },
+  { id: 3, name: "Black", handle: "combat-zip-up-black", price: "$120", image: blackHoodie1 },
 ];
 
 const FeaturedDrop = () => {
