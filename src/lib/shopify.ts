@@ -12,7 +12,9 @@
  */
 
 import type { Product, Collection } from "@/types/shopify";
-import product1 from "@/assets/product-1.jpg";
+import greyHoodie1 from "@/assets/grey-hoodie-1.jpeg";
+import greyHoodie2 from "@/assets/grey-hoodie-2.jpeg";
+import greyHoodie3 from "@/assets/grey-hoodie-3.jpeg";
 import product2 from "@/assets/product-2.jpg";
 
 // ─── Mock Data ───────────────────────────────────────────────
@@ -23,7 +25,11 @@ const mockProducts: Product[] = [
     title: "Bombshell Cropped Heavyweight Hoodie — Light Grey",
     handle: "bombshell-cropped-hoodie-light-grey",
     description: "400 GSM cropped heavyweight hoodie. 100% cotton construction. Custom patchwork",
-    images: [{ id: "img1", src: product1, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey" }],
+    images: [
+      { id: "img1a", src: greyHoodie1, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey — Front" },
+      { id: "img1b", src: greyHoodie2, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey — Detail" },
+      { id: "img1c", src: greyHoodie3, altText: "Bombshell Cropped Heavyweight Hoodie in Light Grey — Side" },
+    ],
     variants: [
       { id: "v1-s", title: "S", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "S" }] },
       { id: "v1-m", title: "M", price: "249.00", available: true, selectedOptions: [{ name: "Size", value: "M" }] },
@@ -60,7 +66,7 @@ const mockCollections: Collection[] = [
     title: "Drop 001",
     handle: "drop-001",
     description: "The inaugural collection. Military precision meets streetwear edge.",
-    image: { id: "ci1", src: product1, altText: "Drop 001" },
+    image: { id: "ci1", src: greyHoodie1, altText: "Drop 001" },
     products: mockProducts,
   },
 ];
