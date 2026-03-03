@@ -31,11 +31,11 @@ const Navbar = () => {
           <img src={logo} alt="Bombshell" className={`h-24 w-auto transition-all duration-500 ${scrolled ? 'invert' : ''}`} />
         </Link>
 
-        <div className={`hidden md:flex items-center gap-10 transition-all duration-500 ${scrolled ? '' : 'text-white'}`}>
-          <Link to="/shop" className="nav-link">Shop</Link>
-          <Link to="/collections" className="nav-link">Collections</Link>
+        <div className="hidden md:flex items-center gap-10">
+          <Link to="/shop" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Shop</Link>
+          <Link to="/collections" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Collections</Link>
           
-          <button onClick={() => setIsOpen(true)} className="nav-link relative" aria-label="Cart">
+          <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
             <ShoppingBag className="w-4 h-4" />
             {totalItems > 0 && (
               <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${scrolled ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
@@ -45,7 +45,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        <button onClick={() => setIsOpen(true)} className={`md:hidden nav-link relative transition-all duration-500 ${scrolled ? '' : 'text-white'}`} aria-label="Cart">
+        <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative md:hidden ${scrolled ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
           <ShoppingBag className="w-4 h-4" />
           {totalItems > 0 && (
             <span className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-[8px] flex items-center justify-center ${scrolled ? 'bg-foreground text-background' : 'bg-white text-black'}`}>
