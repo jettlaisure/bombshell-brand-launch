@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Inter', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        heading: ['Alte Haas Grotesk', 'sans-serif'],
+        body: ['Alte Haas Grotesk', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
