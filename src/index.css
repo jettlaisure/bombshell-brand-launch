@@ -55,9 +55,14 @@
     @apply border-border;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -101,11 +106,11 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 0px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(0 0% 96%);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(0 0% 75%);
+  background: transparent;
 }
