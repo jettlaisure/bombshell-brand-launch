@@ -77,7 +77,7 @@ const ProductDetail = () => {
               <ul className="mt-6 space-y-3 max-w-md">
                 {product.description.split('. ').filter(Boolean).map((point, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <span className="block w-1.5 h-1.5 rounded bg-foreground shrink-0" />
+                    <span className="block w-1.5 h-1.5 rounded-[2px] bg-foreground shrink-0" />
                     {point.replace(/\.$/, '')}
                   </li>
                 ))}
