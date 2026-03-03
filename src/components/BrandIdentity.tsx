@@ -9,7 +9,7 @@ const BrandIdentity = () => {
         <img
           src={editorialBg}
           alt="Bombshell editorial campaign"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-[center_15%]"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-background/60" />
