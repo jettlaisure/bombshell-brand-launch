@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-10">
           <Link to="/shop" className="nav-link">Shop</Link>
           <Link to="/collections" className="nav-link">Collections</Link>
-          <a href="/#about" className="nav-link">About</a>
+          
           <button onClick={() => setIsOpen(true)} className="nav-link relative" aria-label="Cart">
             <ShoppingBag className="w-4 h-4" />
             {totalItems > 0 && (
