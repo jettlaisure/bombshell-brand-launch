@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -45,7 +45,7 @@
     --sidebar-border: 0 0% 88%;
     --sidebar-ring: 0 0% 8%;
 
-    --font-heading: 'Bebas Neue', sans-serif;
+    --font-heading: 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;
   }
 }
@@ -67,7 +67,8 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    font-weight: 700;
   }
 }
 
@@ -81,10 +82,8 @@
   }
 
   .editorial-heading {
-    font-family: var(--font-heading);
-    @apply text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-none;
+    @apply text-4xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight leading-none;
   }
-
   .editorial-subheading {
     font-family: var(--font-heading);
     @apply text-lg md:text-xl font-light uppercase tracking-[0.15em] text-muted-foreground;
