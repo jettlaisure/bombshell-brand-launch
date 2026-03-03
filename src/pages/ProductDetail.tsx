@@ -28,7 +28,7 @@ const ProductDetail = () => {
   if (!product || !selectedVariant) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
+        <Navbar forceDark />
         <div className="pt-40 section-padding text-center text-muted-foreground">Loading...</div>
       </div>
     );
@@ -36,7 +36,7 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar forceDark />
       <main className="pt-32 pb-24">
         <section className="section-padding">
           <Link to="/shop" className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors">

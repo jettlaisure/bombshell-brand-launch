@@ -15,7 +15,7 @@ const Collections = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar forceDark />
       <main className="pt-32 pb-24">
         <section className="section-padding">
           <motion.div
