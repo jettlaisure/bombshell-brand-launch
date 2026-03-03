@@ -82,7 +82,7 @@
   }
 
   .editorial-heading {
-    @apply text-4xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight leading-none;
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-none;
   }
   .editorial-subheading {
     font-family: var(--font-heading);
