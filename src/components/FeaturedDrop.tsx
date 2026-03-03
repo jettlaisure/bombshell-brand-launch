@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import greyHoodie1 from "@/assets/grey-hoodie-1.jpeg";
-import product2 from "@/assets/product-2.jpg";
+import greenHoodie1 from "@/assets/green-hoodie-1.jpeg";
 
 const products = [
   { id: 1, name: "Light Grey", handle: "bombshell-cropped-hoodie-light-grey", price: "$249", image: greyHoodie1 },
-  { id: 2, name: "Military Green", handle: "bombshell-cropped-hoodie-military-green", price: "$249", image: product2 },
+  { id: 2, name: "Military Green", handle: "bombshell-cropped-hoodie-military-green", price: "$249", image: greenHoodie1 },
 ];
 
 const FeaturedDrop = () => {
