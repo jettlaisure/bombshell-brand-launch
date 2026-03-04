@@ -77,7 +77,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               />
 
               <h1
-                className="text-2xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap"
+                className="text-2xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap -mt-2"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
               >
                 Coming Soon
@@ -105,7 +105,16 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <input
                       type="text"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (e.target.value === CORRECT_PASSWORD) {
+                          setExiting(true);
+                          setTimeout(() => {
+                            sessionStorage.setItem("bombshell_unlocked", "true");
+                            setUnlocked(true);
+                          }, 800);
+                        }
+                      }}
                       placeholder="Name"
                       maxLength={100}
                       className="w-full bg-transparent border-b border-foreground/20 py-3 text-center text-sm uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground transition-colors"
@@ -132,58 +141,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                   </form>
                 )}
               </div>
-
-              {/* Divider */}
-              <div className="w-full flex items-center gap-4 my-2">
-                <div className="flex-1 h-px bg-foreground/10" />
-                <span
-                  className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50"
-                  style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                >
-                  Admin
-                </span>
-                <div className="flex-1 h-px bg-foreground/10" />
-              </div>
-
-              {/* Password form */}
-              <form onSubmit={handleSubmit} className="w-full flex flex-col items-center gap-4">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  className="w-full bg-transparent border-b border-foreground/20 py-3 text-center text-sm uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground transition-colors"
-                  style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                />
-
-                <motion.div
-                  animate={error ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
-                  transition={{ duration: 0.4 }}
-                  className="w-full"
-                >
-                  <button
-                    type="submit"
-                    className="w-full py-3 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors"
-                    style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                  >
-                    Enter
-                  </button>
-                </motion.div>
-
-                <AnimatePresence>
-                  {error && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="text-destructive text-[10px] uppercase tracking-[0.2em]"
-                      style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                    >
-                      Incorrect Password
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </form>
             </motion.div>
           </motion.div>
         )}
