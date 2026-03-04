@@ -21,8 +21,41 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [consent, setConsent] = useState(false);
   const [smsSubmitted, setSmsSubmitted] = useState(false);
   const [smsLoading, setSmsLoading] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+
+  const formatPhoneNumber = (value: string): string => {
+    const digits = value.replace(/\D/g, "");
+    // Remove leading 1 for formatting, add back later
+    const national = digits.startsWith("1") ? digits.slice(1) : digits;
+    if (national.length <= 3) return national;
+    if (national.length <= 6) return `(${national.slice(0, 3)}) ${national.slice(3)}`;
+    return `(${national.slice(0, 3)}) ${national.slice(3, 6)}-${national.slice(6, 10)}`;
+  };
+
+  const toE164 = (value: string): string => {
+    const digits = value.replace(/\D/g, "");
+    if (digits.startsWith("1") && digits.length === 11) return `+${digits}`;
+    if (digits.length === 10) return `+1${digits}`;
+    return `+${digits}`;
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhone(formatted);
+    setPhoneError("");
+  };
+
+  const validatePhone = (): boolean => {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length < 10) {
+      setPhoneError("Enter a valid 10-digit phone number");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,23 +74,24 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   const handleSmsSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone.trim()) return;
+    if (!validatePhone()) return;
+    if (!consent) return;
     setSmsLoading(true);
-    const cleanPhone = phone.trim().slice(0, 20);
+    const e164Phone = toE164(phone);
     const cleanName = name.trim().slice(0, 100);
     const cleanEmail = email.trim().slice(0, 200);
 
     // Save to database and sync to Shopify in parallel
     await Promise.all([
       supabase.from("sms_subscribers").insert({
-        phone: cleanPhone,
+        phone: e164Phone,
         name: cleanName || null,
         email: cleanEmail || null,
       }),
       supabase.functions.invoke("shopify-customer-sync", {
         body: {
           name: cleanName || null,
-          phone: cleanPhone,
+          phone: e164Phone,
           email: cleanEmail || null,
         },
       }),
@@ -142,13 +176,21 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <input
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="Phone number"
-                      maxLength={20}
+                      onChange={handlePhoneChange}
+                      placeholder="(555) 555-5555"
+                      maxLength={14}
                       required
                       className="w-full bg-transparent border-b border-foreground/20 py-3 text-center text-sm uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
+                    {phoneError && (
+                      <p
+                        className="text-destructive text-[9px] uppercase tracking-[0.15em] -mt-2"
+                        style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                      >
+                        {phoneError}
+                      </p>
+                    )}
                     <input
                       type="email"
                       value={email}
@@ -158,9 +200,24 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       className="w-full bg-transparent border-b border-foreground/20 py-3 text-center text-sm uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
+                    <label className="flex items-start gap-3 cursor-pointer mt-1">
+                      <input
+                        type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
+                        className="mt-0.5 accent-foreground"
+                        required
+                      />
+                      <span
+                        className="text-[8px] md:text-[9px] leading-relaxed text-muted-foreground text-left"
+                        style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                      >
+                        By signing up, you agree to receive recurring marketing texts & emails. Msg & data rates may apply. Reply STOP to cancel.
+                      </span>
+                    </label>
                     <button
                       type="submit"
-                      disabled={smsLoading}
+                      disabled={smsLoading || !consent}
                       className="w-full py-3 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors disabled:opacity-50"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
