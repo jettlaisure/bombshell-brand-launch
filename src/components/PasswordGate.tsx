@@ -137,7 +137,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             }}
           >
             {/* Dark overlay for readability */}
-            <div className="absolute inset-0 bg-background/85" />
+            <div className="fixed inset-0 bg-background/85 pointer-events-none" />
             {/* Logo pinned near top */}
             <div className="relative z-10 w-full flex justify-center pt-6 md:pt-14">
               <img
