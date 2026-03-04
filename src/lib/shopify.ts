@@ -1,50 +1,52 @@
 /**
  * Shopify Service Layer
- * Fetches live data from Shopify Admin API via secure edge function proxy.
+ * Fetches live data from Shopify Storefront API via secure edge function proxy.
  */
 
 import type { Product, Collection, ProductImage, ProductVariant } from "@/types/shopify";
 import { supabase } from "@/integrations/supabase/client";
 
-// ─── Mappers ─────────────────────────────────────────────────
+// ─── Mappers (Storefront API shape) ─────────────────────────
 
-function mapShopifyProduct(p: any): Product {
+function mapEdges<T>(edges: any[] | undefined): T[] {
+  return (edges || []).map((e: any) => e.node);
+}
+
+function mapStorefrontProduct(p: any): Product {
   return {
     id: String(p.id),
     title: p.title,
     handle: p.handle,
-    description: p.body_html?.replace(/<[^>]*>/g, "") || "",
-    descriptionHtml: p.body_html || "",
-    images: (p.images || []).map((img: any): ProductImage => ({
+    description: p.description || "",
+    descriptionHtml: p.descriptionHtml || "",
+    images: mapEdges<any>(p.images?.edges).map((img: any): ProductImage => ({
       id: String(img.id),
       src: img.src,
-      altText: img.alt || p.title,
+      altText: img.altText || p.title,
     })),
-    variants: (p.variants || []).map((v: any): ProductVariant => ({
+    variants: mapEdges<any>(p.variants?.edges).map((v: any): ProductVariant => ({
       id: String(v.id),
       title: v.title,
-      price: v.price,
-      compareAtPrice: v.compare_at_price || undefined,
-      available: v.inventory_quantity > 0,
-      selectedOptions: (v.option1 ? [{ name: "Size", value: v.option1 }] : [])
-        .concat(v.option2 ? [{ name: "Color", value: v.option2 }] : [])
-        .concat(v.option3 ? [{ name: "Material", value: v.option3 }] : []),
+      price: v.price?.amount || "0.00",
+      compareAtPrice: v.compareAtPrice?.amount || undefined,
+      available: v.availableForSale ?? true,
+      selectedOptions: v.selectedOptions || [],
     })),
-    productType: p.product_type || "",
-    tags: typeof p.tags === "string" ? p.tags.split(", ").filter(Boolean) : (p.tags || []),
+    productType: p.productType || "",
+    tags: Array.isArray(p.tags) ? p.tags : [],
     vendor: p.vendor || "",
-    availableForSale: p.status === "active",
+    availableForSale: p.availableForSale ?? true,
   };
 }
 
-function mapShopifyCollection(c: any, products: Product[] = []): Collection {
+function mapStorefrontCollection(c: any, products: Product[] = []): Collection {
   return {
     id: String(c.id),
     title: c.title,
     handle: c.handle,
-    description: c.body_html?.replace(/<[^>]*>/g, "") || "",
+    description: c.description || "",
     image: c.image
-      ? { id: String(c.image.id || c.id), src: c.image.src, altText: c.image.alt || c.title }
+      ? { id: String(c.image.id || c.id), src: c.image.src, altText: c.image.altText || c.title }
       : undefined,
     products,
   };
@@ -62,28 +64,26 @@ async function callProxy(body: Record<string, string>): Promise<any> {
 
 export async function fetchAllProducts(): Promise<Product[]> {
   const data = await callProxy({ action: "products" });
-  return (data.products || []).map(mapShopifyProduct);
+  return (data.products || []).map(mapStorefrontProduct);
 }
 
 export async function fetchProductByHandle(handle: string): Promise<Product | undefined> {
   const data = await callProxy({ action: "product_by_handle", handle });
-  const products = (data.products || []).map(mapShopifyProduct);
-  return products[0];
+  return data.product ? mapStorefrontProduct(data.product) : undefined;
 }
 
 export async function fetchAllCollections(): Promise<Collection[]> {
   const data = await callProxy({ action: "collections" });
-  return (data.custom_collections || []).map((c: any) => mapShopifyCollection(c));
+  return (data.collections || []).map((c: any) => mapStorefrontCollection(c));
 }
 
 export async function fetchCollectionByHandle(handle: string): Promise<Collection | undefined> {
-  const data = await callProxy({ action: "collection_products", handle });
+  const data = await callProxy({ action: "collection_by_handle", handle });
   if (data.error) return undefined;
-  const products = (data.products || []).map(mapShopifyProduct);
-  return mapShopifyCollection(data.collection, products);
+  const products = (data.products || []).map(mapStorefrontProduct);
+  return mapStorefrontCollection(data.collection, products);
 }
 
 export function getProductTypes(): string[] {
-  // This now needs to be called after products are fetched
   return [];
 }

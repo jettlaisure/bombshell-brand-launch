@@ -6,73 +6,233 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SHOPIFY_DOMAIN = "bombshell-9199.myshopify.com";
+const SHOPIFY_DOMAIN = "kqskb1-wp.myshopify.com";
 const API_VERSION = "2024-01";
+
+const PRODUCTS_QUERY = `
+  query ($first: Int!, $after: String) {
+    products(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          descriptionHtml
+          productType
+          vendor
+          tags
+          availableForSale
+          images(first: 10) {
+            edges {
+              node {
+                id
+                src: url
+                altText
+              }
+            }
+          }
+          variants(first: 30) {
+            edges {
+              node {
+                id
+                title
+                price { amount currencyCode }
+                compareAtPrice { amount currencyCode }
+                availableForSale
+                selectedOptions { name value }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const PRODUCT_BY_HANDLE_QUERY = `
+  query ($handle: String!) {
+    productByHandle(handle: $handle) {
+      id
+      title
+      handle
+      description
+      descriptionHtml
+      productType
+      vendor
+      tags
+      availableForSale
+      images(first: 10) {
+        edges {
+          node {
+            id
+            src: url
+            altText
+          }
+        }
+      }
+      variants(first: 30) {
+        edges {
+          node {
+            id
+            title
+            price { amount currencyCode }
+            compareAtPrice { amount currencyCode }
+            availableForSale
+            selectedOptions { name value }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const COLLECTIONS_QUERY = `
+  query ($first: Int!) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          descriptionHtml
+          image {
+            id
+            src: url
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+
+const COLLECTION_BY_HANDLE_QUERY = `
+  query ($handle: String!) {
+    collectionByHandle(handle: $handle) {
+      id
+      title
+      handle
+      description
+      descriptionHtml
+      image {
+        id
+        src: url
+        altText
+      }
+      products(first: 50) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            descriptionHtml
+            productType
+            vendor
+            tags
+            availableForSale
+            images(first: 10) {
+              edges {
+                node {
+                  id
+                  src: url
+                  altText
+                }
+              }
+            }
+            variants(first: 30) {
+              edges {
+                node {
+                  id
+                  title
+                  price { amount currencyCode }
+                  compareAtPrice { amount currencyCode }
+                  availableForSale
+                  selectedOptions { name value }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+async function storefrontFetch(query: string, variables: Record<string, unknown>, token: string) {
+  const res = await fetch(
+    `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
+    {
+      method: "POST",
+      headers: {
+        "X-Shopify-Storefront-Access-Token": token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query, variables }),
+    }
+  );
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Shopify Storefront API error [${res.status}]: ${errText}`);
+  }
+
+  const json = await res.json();
+  if (json.errors) {
+    throw new Error(`Shopify GraphQL error: ${JSON.stringify(json.errors)}`);
+  }
+  return json.data;
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const SHOPIFY_ADMIN_API_KEY = Deno.env.get("SHOPIFY_ADMIN_API_KEY");
-  if (!SHOPIFY_ADMIN_API_KEY) {
+  const SHOPIFY_STOREFRONT_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_TOKEN");
+  if (!SHOPIFY_STOREFRONT_TOKEN) {
     return new Response(
-      JSON.stringify({ error: "SHOPIFY_ADMIN_API_KEY is not configured" }),
+      JSON.stringify({ error: "SHOPIFY_STOREFRONT_TOKEN is not configured" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 
   try {
     const { action, handle } = await req.json();
-
-    let endpoint = "";
+    let result: unknown;
 
     switch (action) {
-      case "products":
-        endpoint = `/admin/api/${API_VERSION}/products.json?status=active`;
+      case "products": {
+        const data = await storefrontFetch(PRODUCTS_QUERY, { first: 50 }, SHOPIFY_STOREFRONT_TOKEN);
+        result = { products: data.products.edges.map((e: any) => e.node) };
         break;
-      case "product_by_handle":
-        endpoint = `/admin/api/${API_VERSION}/products.json?handle=${handle}`;
+      }
+      case "product_by_handle": {
+        const data = await storefrontFetch(PRODUCT_BY_HANDLE_QUERY, { handle }, SHOPIFY_STOREFRONT_TOKEN);
+        result = { product: data.productByHandle };
         break;
-      case "collections":
-        endpoint = `/admin/api/${API_VERSION}/custom_collections.json`;
+      }
+      case "collections": {
+        const data = await storefrontFetch(COLLECTIONS_QUERY, { first: 50 }, SHOPIFY_STOREFRONT_TOKEN);
+        result = { collections: data.collections.edges.map((e: any) => e.node) };
         break;
-      case "collection_by_handle":
-        endpoint = `/admin/api/${API_VERSION}/custom_collections.json?handle=${handle}`;
-        break;
-      case "collection_products": {
-        // First get the collection ID, then its products
-        const colRes = await fetch(
-          `https://${SHOPIFY_DOMAIN}/admin/api/${API_VERSION}/custom_collections.json?handle=${handle}`,
-          {
-            headers: {
-              "X-Shopify-Access-Token": SHOPIFY_ADMIN_API_KEY,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const colData = await colRes.json();
-        const collection = colData.custom_collections?.[0];
-        if (!collection) {
+      }
+      case "collection_by_handle": {
+        const data = await storefrontFetch(COLLECTION_BY_HANDLE_QUERY, { handle }, SHOPIFY_STOREFRONT_TOKEN);
+        const col = data.collectionByHandle;
+        if (!col) {
           return new Response(
             JSON.stringify({ error: "Collection not found" }),
             { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
           );
         }
-        const prodsRes = await fetch(
-          `https://${SHOPIFY_DOMAIN}/admin/api/${API_VERSION}/products.json?collection_id=${collection.id}`,
-          {
-            headers: {
-              "X-Shopify-Access-Token": SHOPIFY_ADMIN_API_KEY,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const prodsData = await prodsRes.json();
-        return new Response(
-          JSON.stringify({ collection, products: prodsData.products || [] }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        result = {
+          collection: { ...col, products: undefined },
+          products: col.products.edges.map((e: any) => e.node),
+        };
+        break;
       }
       default:
         return new Response(
@@ -81,20 +241,7 @@ serve(async (req) => {
         );
     }
 
-    const response = await fetch(`https://${SHOPIFY_DOMAIN}${endpoint}`, {
-      headers: {
-        "X-Shopify-Access-Token": SHOPIFY_ADMIN_API_KEY,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`Shopify API error [${response.status}]: ${errText}`);
-    }
-
-    const data = await response.json();
-    return new Response(JSON.stringify(data), {
+    return new Response(JSON.stringify(result), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
