@@ -49,18 +49,18 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="flex flex-col items-center gap-8 px-6 w-full max-w-md"
             >
+              <img
+                src={logoGif}
+                alt="Bombshell"
+                className="w-56 md:w-80"
+              />
+
               <h1
                 className="text-2xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
               >
                 Coming Soon
               </h1>
-
-              <img
-                src={logoGif}
-                alt="Bombshell"
-                className="w-48 md:w-64"
-              />
 
               <p
                 className="text-xs uppercase tracking-[0.25em] text-muted-foreground"
