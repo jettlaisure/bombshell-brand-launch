@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const SHOPIFY_DOMAIN = "kqskb1-wp.myshopify.com";
-const API_VERSION = "2024-01";
+const API_VERSION = "2025-01";
 
 const PRODUCTS_QUERY = `
   query ($first: Int!, $after: String) {
