@@ -1,0 +1,1 @@
+ALTER TABLE public.sms_subscribers ADD COLUMN email text;
