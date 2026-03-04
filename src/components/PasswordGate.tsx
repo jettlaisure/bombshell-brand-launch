@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import logoGif from "@/assets/logo-animated.gif";
+import bombshellBg from "@/assets/bombshell-bg.jpeg";
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
@@ -128,9 +129,17 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] flex flex-col items-center bg-background overflow-y-auto"
+            style={{
+              backgroundImage: `url(${bombshellBg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
           >
+            {/* Dark overlay for readability */}
+            <div className="absolute inset-0 bg-background/85" />
             {/* Logo pinned near top */}
-            <div className="w-full flex justify-center pt-6 md:pt-14">
+            <div className="relative z-10 w-full flex justify-center pt-6 md:pt-14">
               <img
                 src={logoGif}
                 alt="Bombshell"
@@ -143,7 +152,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex flex-col items-center gap-6 md:gap-10 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-12 md:pb-20"
+              className="relative z-10 flex flex-col items-center gap-6 md:gap-10 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-12 md:pb-20"
             >
               <h1
                 className="text-2xl md:text-5xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap -mt-2 md:-mt-4"
