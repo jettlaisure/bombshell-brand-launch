@@ -1,26 +1,20 @@
-import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { fetchCollectionByHandle } from "@/lib/shopify";
+import { getCollectionByHandle } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
-import type { Collection } from "@/types/shopify";
 
 const CollectionDetail = () => {
   const { handle } = useParams<{ handle: string }>();
-  const [collection, setCollection] = useState<Collection | null>(null);
+  const collection = handle ? getCollectionByHandle(handle) : undefined;
   const { addItem } = useCart();
-
-  useEffect(() => {
-    if (handle) fetchCollectionByHandle(handle).then((c) => setCollection(c ?? null));
-  }, [handle]);
 
   if (!collection) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar forceDark />
-        <div className="pt-40 section-padding text-center text-muted-foreground">Loading...</div>
+        <div className="pt-40 section-padding text-center text-muted-foreground">Collection not found.</div>
       </div>
     );
   }

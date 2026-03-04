@@ -1,35 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { fetchProductByHandle } from "@/lib/shopify";
+import { getProductByHandle } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
-import type { Product, ProductVariant } from "@/types/shopify";
+import type { ProductVariant } from "@/types/shopify";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  const product = handle ? getProductByHandle(handle) : undefined;
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
+    product?.variants.find((v) => v.available) ?? product?.variants[0] ?? null
+  );
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addItem } = useCart();
-
-  useEffect(() => {
-    if (handle) {
-      fetchProductByHandle(handle).then((p) => {
-        if (p) {
-          setProduct(p);
-          setSelectedVariant(p.variants.find((v) => v.available) ?? p.variants[0]);
-        }
-      });
-    }
-  }, [handle]);
 
   if (!product || !selectedVariant) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar forceDark />
-        <div className="pt-40 section-padding text-center text-muted-foreground">Loading...</div>
+        <div className="pt-40 section-padding text-center text-muted-foreground">Product not found.</div>
       </div>
     );
   }
