@@ -76,7 +76,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               <img
                 src={logoGif}
                 alt="Bombshell"
-                className="w-56 md:w-80"
+                className="w-72 md:w-[28rem]"
               />
 
               <h1
