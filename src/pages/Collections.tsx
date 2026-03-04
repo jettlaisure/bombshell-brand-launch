@@ -1,18 +1,12 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { fetchAllCollections } from "@/lib/shopify";
-import type { Collection } from "@/types/shopify";
+import { getAllCollections } from "@/lib/products";
+
+const collections = getAllCollections();
 
 const Collections = () => {
-  const [collections, setCollections] = useState<Collection[]>([]);
-
-  useEffect(() => {
-    fetchAllCollections().then(setCollections);
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar forceDark />
@@ -53,7 +47,6 @@ const Collections = () => {
                     <h2 className="font-heading text-3xl md:text-4xl uppercase tracking-tight text-foreground">
                       {collection.title}
                     </h2>
-                    
                     <span className="mt-6 text-[10px] uppercase tracking-[0.25em] text-foreground/50 border-b border-foreground/20 pb-0.5 group-hover:text-foreground group-hover:border-foreground/50 transition-all duration-300">
                       View Collection
                     </span>

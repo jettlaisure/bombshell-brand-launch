@@ -1,22 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { fetchAllProducts, getProductTypes } from "@/lib/shopify";
-import type { Product } from "@/types/shopify";
+import { getAllProducts, getProductTypes } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
 
-const Shop = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filter, setFilter] = useState("All");
-  const [types, setTypes] = useState<string[]>([]);
-  const { addItem } = useCart();
+const products = getAllProducts();
+const types = getProductTypes();
 
-  useEffect(() => {
-    fetchAllProducts().then(setProducts);
-    setTypes(getProductTypes());
-  }, []);
+const Shop = () => {
+  const [filter, setFilter] = useState("All");
+  const { addItem } = useCart();
 
   const filtered = filter === "All" ? products : products.filter((p) => p.productType === filter);
 
