@@ -1,20 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getProductByHandle } from "@/lib/products";
+import { useProductByHandle } from "@/hooks/useShopify";
 import { useCart } from "@/contexts/CartContext";
 import type { ProductVariant } from "@/types/shopify";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
-  const product = handle ? getProductByHandle(handle) : undefined;
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
-    product?.variants.find((v) => v.available) ?? product?.variants[0] ?? null
-  );
+  const { data: product, isLoading } = useProductByHandle(handle);
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addItem } = useCart();
+
+  useEffect(() => {
+    if (product) {
+      setSelectedVariant(product.variants.find((v) => v.available) ?? product.variants[0] ?? null);
+      setSelectedImageIndex(0);
+    }
+  }, [product]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar forceDark />
+        <div className="pt-40 section-padding text-center text-muted-foreground text-sm uppercase tracking-widest">
+          Loading…
+        </div>
+      </div>
+    );
+  }
 
   if (!product || !selectedVariant) {
     return (
@@ -127,13 +143,15 @@ const ProductDetail = () => {
               </button>
 
               {/* Tags */}
-              <div className="flex gap-2 mt-8">
-                {product.tags.map((tag) => (
-                  <span key={tag} className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground border border-border px-3 py-1">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {product.tags.length > 0 && (
+                <div className="flex gap-2 mt-8">
+                  {product.tags.map((tag) => (
+                    <span key={tag} className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground border border-border px-3 py-1">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </motion.div>
           </div>
         </section>

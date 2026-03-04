@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getAllCollections } from "@/lib/products";
-
-const collections = getAllCollections();
+import { useCollections } from "@/hooks/useShopify";
 
 const Collections = () => {
+  const { data: collections = [], isLoading } = useCollections();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar forceDark />
@@ -21,6 +21,12 @@ const Collections = () => {
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Explore</p>
             <h1 className="editorial-heading">Collections</h1>
           </motion.div>
+
+          {isLoading && (
+            <div className="text-center py-20 text-muted-foreground text-sm uppercase tracking-widest">
+              Loading collections…
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {collections.map((collection, i) => (

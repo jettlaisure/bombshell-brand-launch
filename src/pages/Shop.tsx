@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getAllProducts, getProductTypes } from "@/lib/products";
+import { useProducts } from "@/hooks/useShopify";
 import { useCart } from "@/contexts/CartContext";
-
-const products = getAllProducts();
-const types = getProductTypes();
 
 const Shop = () => {
   const [filter, setFilter] = useState("All");
   const { addItem } = useCart();
+  const { data: products = [], isLoading } = useProducts();
+
+  const types = useMemo(
+    () => [...new Set(products.map((p) => p.productType).filter(Boolean))],
+    [products]
+  );
 
   const filtered = filter === "All" ? products : products.filter((p) => p.productType === filter);
 
@@ -31,26 +34,35 @@ const Shop = () => {
           </motion.div>
 
           {/* Filters */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-wrap gap-3 mb-12"
-          >
-            {["All", ...types].map((type) => (
-              <button
-                key={type}
-                onClick={() => setFilter(type)}
-                className={`px-5 py-2 text-xs uppercase tracking-[0.2em] border transition-all duration-300 ${
-                  filter === type
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground"
-                }`}
-              >
-                {type}
-              </button>
-            ))}
-          </motion.div>
+          {types.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap gap-3 mb-12"
+            >
+              {["All", ...types].map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setFilter(type)}
+                  className={`px-5 py-2 text-xs uppercase tracking-[0.2em] border transition-all duration-300 ${
+                    filter === type
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground"
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+            </motion.div>
+          )}
+
+          {/* Loading */}
+          {isLoading && (
+            <div className="text-center py-20 text-muted-foreground text-sm uppercase tracking-widest">
+              Loading products…
+            </div>
+          )}
 
           {/* Product Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
