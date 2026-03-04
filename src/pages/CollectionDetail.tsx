@@ -2,13 +2,24 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getCollectionByHandle } from "@/lib/products";
+import { useCollectionByHandle } from "@/hooks/useShopify";
 import { useCart } from "@/contexts/CartContext";
 
 const CollectionDetail = () => {
   const { handle } = useParams<{ handle: string }>();
-  const collection = handle ? getCollectionByHandle(handle) : undefined;
+  const { data: collection, isLoading } = useCollectionByHandle(handle);
   const { addItem } = useCart();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar forceDark />
+        <div className="pt-40 section-padding text-center text-muted-foreground text-sm uppercase tracking-widest">
+          Loading…
+        </div>
+      </div>
+    );
+  }
 
   if (!collection) {
     return (
