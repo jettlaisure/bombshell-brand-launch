@@ -46,11 +46,23 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     const cleanPhone = phone.trim().slice(0, 20);
     const cleanName = name.trim().slice(0, 100);
     const cleanEmail = email.trim().slice(0, 200);
-    await supabase.from("sms_subscribers").insert({
-      phone: cleanPhone,
-      name: cleanName || null,
-      email: cleanEmail || null,
-    });
+
+    // Save to database and sync to Shopify in parallel
+    await Promise.all([
+      supabase.from("sms_subscribers").insert({
+        phone: cleanPhone,
+        name: cleanName || null,
+        email: cleanEmail || null,
+      }),
+      supabase.functions.invoke("shopify-customer-sync", {
+        body: {
+          name: cleanName || null,
+          phone: cleanPhone,
+          email: cleanEmail || null,
+        },
+      }),
+    ]);
+
     setSmsLoading(false);
     setSmsSubmitted(true);
   };
