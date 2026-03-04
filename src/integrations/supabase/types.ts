@@ -17,18 +17,21 @@ export type Database = {
       sms_subscribers: {
         Row: {
           created_at: string
+          email: string | null
           id: string
           name: string | null
           phone: string
         }
         Insert: {
           created_at?: string
+          email?: string | null
           id?: string
           name?: string | null
           phone: string
         }
         Update: {
           created_at?: string
+          email?: string | null
           id?: string
           name?: string | null
           phone?: string

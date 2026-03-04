@@ -19,6 +19,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   // SMS signup state
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [smsSubmitted, setSmsSubmitted] = useState(false);
   const [smsLoading, setSmsLoading] = useState(false);
@@ -44,9 +45,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setSmsLoading(true);
     const cleanPhone = phone.trim().slice(0, 20);
     const cleanName = name.trim().slice(0, 100);
+    const cleanEmail = email.trim().slice(0, 200);
     await supabase.from("sms_subscribers").insert({
       phone: cleanPhone,
       name: cleanName || null,
+      email: cleanEmail || null,
     });
     setSmsLoading(false);
     setSmsSubmitted(true);
@@ -127,6 +130,15 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       placeholder="Phone number"
                       maxLength={20}
                       required
+                      className="w-full bg-transparent border-b border-foreground/20 py-3 text-center text-sm uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground transition-colors"
+                      style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                    />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Email"
+                      maxLength={200}
                       className="w-full bg-transparent border-b border-foreground/20 py-3 text-center text-sm uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
