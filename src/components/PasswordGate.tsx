@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import logoGif from "@/assets/logo-animated.gif";
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
+const LAUNCH_PASSWORD = "Bombshell_Launch";
 
 interface PasswordGateProps {
   children: React.ReactNode;
 }
 
 const PasswordGate = ({ children }: PasswordGateProps) => {
+  const [launched, setLaunched] = useState<boolean | null>(null);
   const [unlocked, setUnlocked] = useState(() => {
     return sessionStorage.getItem("bombshell_unlocked") === "true";
   });
+
+  // Check if site has been globally launched
+  useEffect(() => {
+    supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "site_launched")
+      .single()
+      .then(({ data }) => {
+        setLaunched(data?.value === "true");
+      });
+  }, []);
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [exiting, setExiting] = useState(false);
@@ -101,7 +115,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setSmsSubmitted(true);
   };
 
-  if (unlocked) return <>{children}</>;
+  // Show nothing while checking launch status
+  if (launched === null) return null;
+  if (launched || unlocked) return <>{children}</>;
 
   return (
     <>
@@ -165,6 +181,14 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                           setTimeout(() => {
                             sessionStorage.setItem("bombshell_unlocked", "true");
                             setUnlocked(true);
+                          }, 800);
+                        } else if (e.target.value === LAUNCH_PASSWORD) {
+                          supabase.functions.invoke("toggle-launch", {
+                            body: { password: LAUNCH_PASSWORD },
+                          });
+                          setExiting(true);
+                          setTimeout(() => {
+                            setLaunched(true);
                           }, 800);
                         }
                       }}
