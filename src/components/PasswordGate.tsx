@@ -65,20 +65,24 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-start bg-background overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col items-center bg-background overflow-y-auto"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex flex-col items-center gap-6 px-6 w-full max-w-md pt-12 md:pt-20 pb-12"
-            >
+            {/* Logo pinned near top */}
+            <div className="w-full flex justify-center pt-6 md:pt-10">
               <img
                 src={logoGif}
                 alt="Bombshell"
                 className="w-72 md:w-[28rem]"
               />
+            </div>
 
+            {/* Centered content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex flex-col items-center gap-6 px-6 w-full max-w-md flex-1 justify-center pb-12"
+            >
               <h1
                 className="text-2xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap -mt-2"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
