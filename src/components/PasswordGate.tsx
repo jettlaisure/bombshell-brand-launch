@@ -132,8 +132,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             style={{
               backgroundImage: `url(${bombshellBg})`,
               backgroundSize: "cover",
-              backgroundPosition: "top center",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed",
             }}
           >
             {/* Dark overlay for readability */}
