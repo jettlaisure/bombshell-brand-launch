@@ -134,7 +134,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed",
             }}
           >
             {/* Dark overlay for readability */}
