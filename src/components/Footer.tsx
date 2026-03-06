@@ -7,7 +7,7 @@ const Footer = () => {
         <img src={logo} alt="Bombshell" className="h-24 w-auto invert" />
         <div className="flex items-center gap-8">
           <a href="https://www.instagram.com/bombshell.usa?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" className="nav-link">Instagram</a>
-          <a href="#" className="nav-link">Twitter</a>
+          
           <a href="https://www.tiktok.com/@bombshell.usa?_r=1&_t=ZT-94S57HVbxc5" target="_blank" rel="noopener noreferrer" className="nav-link">TikTok</a>
         </div>
         <p className="text-xs text-muted-foreground">
