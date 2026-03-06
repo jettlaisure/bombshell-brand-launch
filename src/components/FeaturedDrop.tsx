@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { useProducts } from "@/hooks/useShopify";
 import greyHoodieFeatured from "@/assets/grey-hoodie-featured.jpeg";
+import blackHoodieFeatured from "@/assets/black-hoodie-featured.jpeg";
 
 // Override images for the landing page cards (by handle)
 const featuredImageOverrides: Record<string, string> = {
   "combat-zip-up-heather-grey": greyHoodieFeatured,
   "combat-zip-up-heather-gray": greyHoodieFeatured,
+  "combat-zip-up-black": blackHoodieFeatured,
 };
 
 const FeaturedDrop = () => {
