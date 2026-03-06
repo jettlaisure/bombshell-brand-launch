@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
 import { useProducts } from "@/hooks/useShopify";
 
 const FeaturedDrop = () => {
@@ -17,20 +18,32 @@ const FeaturedDrop = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: i * 0.15 }}
-            className="product-card group aspect-[3/4] bg-secondary relative overflow-hidden"
+            className="group"
           >
-            <Link to={`/shop/${product.handle}`}>
-              <img
-                src={product.images[0]?.src}
-                alt={product.images[0]?.altText || product.title}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="product-info">
-                <p className="font-heading text-sm uppercase tracking-[0.1em] text-white">
-                  {product.title}
-                </p>
-                <p className="text-xs text-white/60 mt-1">${product.variants[0]?.price}</p>
+            <Link to={`/shop/${product.handle}`} className="block">
+              <div className="aspect-[3/4] bg-secondary relative overflow-hidden">
+                <img
+                  src={product.images[0]?.src}
+                  alt={product.images[0]?.altText || product.title}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-foreground text-background p-2.5 rounded-full">
+                    <ShoppingBag size={16} />
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3 flex items-start justify-between gap-2">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.1em] font-medium text-foreground">
+                    {product.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    ${product.variants[0]?.price}
+                  </p>
+                </div>
+                <ShoppingBag size={16} className="text-muted-foreground mt-1 shrink-0 md:hidden" />
               </div>
             </Link>
           </motion.div>
