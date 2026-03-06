@@ -139,7 +139,7 @@ const ProductDetail = () => {
                             : "border-border/50 text-muted-foreground/30 cursor-not-allowed line-through"
                         }`}
                       >
-                        {variant.selectedOptions[0]?.value}
+                        {variant.selectedOptions.find(o => o.name.toLowerCase() === "size")?.value || variant.title}
                       </button>
                     ))}
                   </div>
