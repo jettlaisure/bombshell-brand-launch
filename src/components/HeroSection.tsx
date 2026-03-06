@@ -33,7 +33,7 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.8 }}
           className="editorial-subheading mt-4 text-white/60"
         >
-          Drop 001 — Now Live
+          Combat — Now Live
         </motion.p>
         <motion.a
           href="#shop"
