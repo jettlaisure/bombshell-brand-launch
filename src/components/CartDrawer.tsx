@@ -20,7 +20,7 @@ const CartDrawer = () => {
         quantity: item.quantity,
       }));
       const { checkoutUrl } = await createShopifyCart(lines);
-      window.location.href = checkoutUrl;
+      window.open(checkoutUrl, "_blank");
     } catch (err) {
       console.error("Checkout error:", err);
       toast.error("Failed to start checkout. Please try again.");
