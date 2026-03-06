@@ -8,16 +8,6 @@ const FeaturedDrop = () => {
 
   return (
     <section id="shop" className="section-padding py-24 md:py-32">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-        className="mb-8"
-      >
-        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Latest Drop</p>
-        <h2 className="editorial-heading">Featured</h2>
-      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl">
         {featured.map((product, i) => (
