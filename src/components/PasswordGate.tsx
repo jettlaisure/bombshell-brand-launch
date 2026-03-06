@@ -138,10 +138,12 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                 backgroundSize: "cover",
                 backgroundPosition: "center -90vh",
                 backgroundRepeat: "no-repeat",
-                height: "100vh",
+                height: "150vh",
+                maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
               }}
             />
-            {/* Overlay on background area only */}
+            {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/40 pointer-events-none z-[1]" />
             {/* Logo pinned near top */}
             <div className="relative z-10 w-full flex justify-center pt-6 md:pt-14">
