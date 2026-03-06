@@ -136,7 +136,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               style={{
                 backgroundImage: `url(${bombshellBg})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center 5%",
+                backgroundPosition: "center -90vh",
                 backgroundRepeat: "no-repeat",
                 minHeight: "100%",
               }}
