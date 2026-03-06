@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { useProducts } from "@/hooks/useShopify";
+import greyHoodieFeatured from "@/assets/grey-hoodie-featured.jpeg";
+
+// Override images for the landing page cards (by handle)
+const featuredImageOverrides: Record<string, string> = {
+  "combat-zip-up-heather-grey": greyHoodieFeatured,
+};
 
 const FeaturedDrop = () => {
   const { data: products = [] } = useProducts();
@@ -23,7 +29,7 @@ const FeaturedDrop = () => {
             <Link to={`/shop/${product.handle}`} className="block">
               <div className="aspect-[3/4] bg-secondary relative overflow-hidden">
                 <img
-                  src={product.images[0]?.src}
+                  src={featuredImageOverrides[product.handle] || product.images[0]?.src}
                   alt={product.images[0]?.altText || product.title}
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   loading="lazy"
