@@ -93,7 +93,7 @@ const ProductDetail = () => {
                 {product.productType}
               </p>
               <h1 className="font-heading text-4xl md:text-5xl uppercase tracking-tight">
-                {product.title}
+                {product.title.replace(/-/g, ' ')}
               </h1>
               <p className="font-heading text-2xl text-foreground/80 mt-4">
                 ${selectedVariant.price}
