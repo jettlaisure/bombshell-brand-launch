@@ -7,6 +7,7 @@ import greyHoodieFeatured from "@/assets/grey-hoodie-featured.jpeg";
 // Override images for the landing page cards (by handle)
 const featuredImageOverrides: Record<string, string> = {
   "combat-zip-up-heather-grey": greyHoodieFeatured,
+  "combat-zip-up-heather-gray": greyHoodieFeatured,
 };
 
 const FeaturedDrop = () => {
