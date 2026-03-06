@@ -104,6 +104,16 @@
   }
 }
 
+.bg-position-mobile {
+  background-position: center -45vh;
+}
+
+@media (min-width: 768px) {
+  .bg-position-desktop {
+    background-position: center -110vh;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 0px;
