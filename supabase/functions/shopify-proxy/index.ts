@@ -161,6 +161,43 @@ const COLLECTION_BY_HANDLE_QUERY = `
   }
 `;
 
+const CART_CREATE_MUTATION = `
+  mutation cartCreate($input: CartInput!) {
+    cartCreate(input: $input) {
+      cart {
+        id
+        checkoutUrl
+        totalQuantity
+        cost {
+          totalAmount { amount currencyCode }
+          subtotalAmount { amount currencyCode }
+          totalTaxAmount { amount currencyCode }
+        }
+        lines(first: 50) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  price { amount currencyCode }
+                  product { title handle }
+                }
+              }
+            }
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
 async function storefrontFetch(query: string, variables: Record<string, unknown>, token: string) {
   const res = await fetch(
     `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
@@ -200,7 +237,7 @@ serve(async (req) => {
   }
 
   try {
-    const { action, handle } = await req.json();
+    const { action, handle, lines } = await req.json();
     let result: unknown;
 
     switch (action) {
@@ -232,6 +269,28 @@ serve(async (req) => {
           collection: { ...col, products: undefined },
           products: col.products.edges.map((e: any) => e.node),
         };
+        break;
+      }
+      case "create_cart": {
+        if (!lines || !Array.isArray(lines) || lines.length === 0) {
+          return new Response(
+            JSON.stringify({ error: "lines array is required for create_cart" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        const data = await storefrontFetch(
+          CART_CREATE_MUTATION,
+          { input: { lines } },
+          SHOPIFY_STOREFRONT_TOKEN
+        );
+        const cart = data.cartCreate;
+        if (cart.userErrors && cart.userErrors.length > 0) {
+          return new Response(
+            JSON.stringify({ error: cart.userErrors[0].message, userErrors: cart.userErrors }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        result = { cart: cart.cart };
         break;
       }
       default:

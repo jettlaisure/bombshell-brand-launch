@@ -1,11 +1,32 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus } from "lucide-react";
+import { X, Minus, Plus, Loader2 } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { createShopifyCart } from "@/lib/shopify";
+import { toast } from "sonner";
 
 const CartDrawer = () => {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
+  const [checkingOut, setCheckingOut] = useState(false);
 
   const handleClose = () => setIsOpen(false);
+
+  const handleCheckout = async () => {
+    if (items.length === 0) return;
+    setCheckingOut(true);
+    try {
+      const lines = items.map((item) => ({
+        merchandiseId: item.variantId,
+        quantity: item.quantity,
+      }));
+      const { checkoutUrl } = await createShopifyCart(lines);
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      console.error("Checkout error:", err);
+      toast.error("Failed to start checkout. Please try again.");
+      setCheckingOut(false);
+    }
+  };
 
   return (
     <>
@@ -102,13 +123,18 @@ const CartDrawer = () => {
                   <span className="font-heading text-lg">${totalPrice}</span>
                 </div>
                 <button
-                  className="w-full py-4 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/90 transition-colors duration-300"
-                  onClick={() => {
-                    // TODO: Replace with Shopify checkout URL
-                    alert("Checkout will redirect to Shopify when integrated.");
-                  }}
+                  className="w-full py-4 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  onClick={handleCheckout}
+                  disabled={checkingOut}
                 >
-                  Checkout
+                  {checkingOut ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Processing…
+                    </>
+                  ) : (
+                    "Checkout"
+                  )}
                 </button>
               </div>
             )}

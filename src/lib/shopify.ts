@@ -54,7 +54,7 @@ function mapStorefrontCollection(c: any, products: Product[] = []): Collection {
 
 // ─── API Calls ───────────────────────────────────────────────
 
-async function callProxy(body: Record<string, string>): Promise<any> {
+async function callProxy(body: Record<string, unknown>): Promise<any> {
   const { data, error } = await supabase.functions.invoke("shopify-proxy", {
     body,
   });
@@ -82,6 +82,14 @@ export async function fetchCollectionByHandle(handle: string): Promise<Collectio
   if (data.error) return undefined;
   const products = (data.products || []).map(mapStorefrontProduct);
   return mapStorefrontCollection(data.collection, products);
+}
+
+export async function createShopifyCart(
+  lines: { merchandiseId: string; quantity: number }[]
+): Promise<{ checkoutUrl: string }> {
+  const data = await callProxy({ action: "create_cart", lines } as any);
+  if (data.error) throw new Error(data.error);
+  return { checkoutUrl: data.cart.checkoutUrl };
 }
 
 export function getProductTypes(): string[] {
