@@ -11,7 +11,7 @@ const Footer = () => {
           <a href="#" className="nav-link">TikTok</a>
         </div>
         <p className="text-xs text-muted-foreground">
-          © 2025 Bombshell. All rights reserved.
+          © 2026 Bombshell. All rights reserved.
         </p>
       </div>
     </footer>
