@@ -62,7 +62,16 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+**Netlify** (recommended for this repo):
+
+1. Push this repo to GitHub/GitLab/Bitbucket and [import the site in Netlify](https://app.netlify.com/start).
+2. Netlify will use the included `netlify.toml` (build: `npm run build`, publish: `dist`).
+3. In **Site settings → Environment variables**, add:
+   - `VITE_SUPABASE_URL` — your Supabase project URL
+   - `VITE_SUPABASE_PUBLISHABLE_KEY` — your Supabase anon/public key
+4. Trigger a new deploy. The SPA redirect is already configured so routes like `/shop` work on refresh.
+
+**Lovable**: Open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click Share → Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 

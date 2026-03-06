@@ -1,0 +1,16 @@
+# Netlify build configuration for Vite + React SPA
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA: serve index.html for all routes so React Router works on refresh/direct links
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Optional: set in Netlify Dashboard → Site settings → Environment variables
+# - VITE_SUPABASE_URL
+# - VITE_SUPABASE_PUBLISHABLE_KEY
