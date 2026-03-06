@@ -34,12 +34,12 @@ const FeaturedDrop = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-3 flex items-start justify-between gap-2">
+              <div className="mt-3 flex items-start justify-between gap-2" style={{ fontFamily: "'Akira Expanded', sans-serif" }}>
                 <div>
-                  <p className="text-sm uppercase tracking-[0.1em] font-medium text-foreground">
+                  <p className="text-[10px] md:text-xs uppercase tracking-[0.1em] font-medium text-foreground">
                     {product.title}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <p className="text-[9px] md:text-[10px] text-muted-foreground mt-1">
                     ${product.variants[0]?.price}
                   </p>
                 </div>
