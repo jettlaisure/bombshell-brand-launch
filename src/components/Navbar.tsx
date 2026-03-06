@@ -39,7 +39,7 @@ const Navbar = ({ forceDark = false }: NavbarProps) => {
 
         <div className="hidden md:flex items-center gap-10">
           <Link to="/shop" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Shop</Link>
-          <Link to="/collections" className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}>Collections</Link>
+          
           
           <button onClick={() => setIsOpen(true)} className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 relative ${isDark ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`} aria-label="Cart">
             <ShoppingBag className="w-4 h-4" />
