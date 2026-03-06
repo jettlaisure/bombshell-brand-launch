@@ -99,20 +99,27 @@ const ProductDetail = () => {
                 ${selectedVariant.price}
               </p>
 
-              <ul className="mt-6 space-y-3 max-w-md">
-                {product.description
-                  .replace(/<br\s*\/?>/gi, '\n')
-                  .replace(/<[^>]*>/g, '')
-                  .split('\n')
-                  .map(line => line.trim())
-                  .filter(Boolean)
-                  .map((point, idx) => (
-                    <li key={idx} className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <span className="block w-1.5 h-1.5 rounded-[2px] bg-muted-foreground shrink-0" />
-                      {point.replace(/^[-•·]\s*/, '')}
-                    </li>
-                  ))}
-              </ul>
+              {product.descriptionHtml ? (
+                <div
+                  className="mt-6 max-w-md text-sm text-muted-foreground space-y-2 [&_ul]:space-y-2 [&_ul]:list-none [&_li]:flex [&_li]:items-center [&_li]:gap-3 [&_li]:before:content-[''] [&_li]:before:block [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-[2px] [&_li]:before:bg-muted-foreground [&_li]:before:shrink-0"
+                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                />
+              ) : (
+                <ul className="mt-6 space-y-3 max-w-md">
+                  {product.description
+                    .replace(/<br\s*\/?>/gi, '\n')
+                    .replace(/<[^>]*>/g, '')
+                    .split('\n')
+                    .map(line => line.trim())
+                    .filter(Boolean)
+                    .map((point, idx) => (
+                      <li key={idx} className="flex items-center gap-3 text-sm text-muted-foreground">
+                        <span className="block w-1.5 h-1.5 rounded-[2px] bg-muted-foreground shrink-0" />
+                        {point.replace(/^[-•·]\s*/, '')}
+                      </li>
+                    ))}
+                </ul>
+              )}
 
               {/* Size Selector */}
               {product.variants.length > 1 && (
