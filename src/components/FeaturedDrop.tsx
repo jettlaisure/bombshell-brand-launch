@@ -21,7 +21,7 @@ const FeaturedDrop = () => {
   return (
     <section id="shop" className="section-padding py-24 md:py-32">
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
         {featured.map((product, i) => (
           <motion.div
             key={product.id}
