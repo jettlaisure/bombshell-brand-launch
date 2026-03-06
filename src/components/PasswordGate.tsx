@@ -132,7 +132,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
           >
             {/* Background that scrolls with content */}
             <div
-              className="absolute top-0 left-0 right-0 bg-position-mobile md:bg-position-desktop"
+              className="absolute top-0 left-0 right-0 bg-position-mobile bg-position-desktop"
               style={{
                 backgroundImage: `url(${bombshellBg})`,
                 backgroundSize: "cover",
