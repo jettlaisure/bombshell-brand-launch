@@ -129,15 +129,20 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] flex flex-col items-center bg-background overflow-y-auto"
-            style={{
-              backgroundImage: `url(${bombshellBg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center 20%",
-              backgroundRepeat: "no-repeat",
-            }}
           >
+            {/* Background that scrolls with content */}
+            <div
+              className="absolute inset-0 w-full"
+              style={{
+                backgroundImage: `url(${bombshellBg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center 15%",
+                backgroundRepeat: "no-repeat",
+                minHeight: "100%",
+              }}
+            />
             {/* Dark overlay for readability */}
-            <div className="fixed inset-0 bg-white/40 pointer-events-none" />
+            <div className="absolute inset-0 bg-white/40 pointer-events-none" style={{ minHeight: "100%" }} />
             {/* Logo pinned near top */}
             <div className="relative z-10 w-full flex justify-center pt-6 md:pt-14">
               <img
