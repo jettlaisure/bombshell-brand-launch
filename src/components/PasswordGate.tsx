@@ -16,6 +16,18 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [unlocked, setUnlocked] = useState(() => {
     return sessionStorage.getItem("bombshell_unlocked") === "true";
   });
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [exiting, setExiting] = useState(false);
+  const [isPreview, setIsPreview] = useState(false);
+
+  // Check for preview mode on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("preview") === "true") {
+      setIsPreview(true);
+    }
+  }, []);
 
   // Check if site has been globally launched
   useEffect(() => {
@@ -28,9 +40,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
         setLaunched(data?.value === "true");
       });
   }, []);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [exiting, setExiting] = useState(false);
 
   // SMS signup state
   const [phone, setPhone] = useState("");
@@ -116,9 +125,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setSmsSubmitted(true);
   };
 
-  // Show nothing while checking launch status
-  if (launched === null) return null;
-  if (launched || unlocked) return <>{children}</>;
+  // Show nothing while checking launch status (unless in preview mode)
+  if (launched === null && !isPreview) return null;
+  if (launched || unlocked || isPreview) return <>{children}</>;
 
   return (
     <>
