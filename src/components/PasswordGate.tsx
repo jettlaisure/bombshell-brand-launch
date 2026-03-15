@@ -130,9 +130,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setSmsSubmitted(true);
   };
 
-  // Show nothing while checking launch status
-  if (launched === null) return null;
-  if (launched || unlocked) return <>{children}</>;
+  // Show nothing while checking launch status (unless in preview mode)
+  if (launched === null && !isPreview) return null;
+  if (launched || unlocked || isPreview) return <>{children}</>;
 
   return (
     <>
