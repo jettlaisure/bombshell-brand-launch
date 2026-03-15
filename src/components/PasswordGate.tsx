@@ -17,6 +17,11 @@ interface PasswordGateProps {
 }
 
 const PasswordGate = ({ children }: PasswordGateProps) => {
+  // Skip gate entirely in preview mode
+  if (isPreviewMode()) {
+    return <>{children}</>;
+  }
+
   const [launched, setLaunched] = useState<boolean | null>(null);
   const [unlocked, setUnlocked] = useState(() => {
     return sessionStorage.getItem("bombshell_unlocked") === "true";
