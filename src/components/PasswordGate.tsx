@@ -7,6 +7,11 @@ import bombshellBg from "@/assets/bombshell-bg-dark.jpeg";
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
 
+const isPreviewMode = () => {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("preview") === "true";
+};
+
 interface PasswordGateProps {
   children: React.ReactNode;
 }
