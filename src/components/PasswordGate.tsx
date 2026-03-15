@@ -17,15 +17,22 @@ interface PasswordGateProps {
 }
 
 const PasswordGate = ({ children }: PasswordGateProps) => {
-  // Skip gate entirely in preview mode
-  if (isPreviewMode()) {
-    return <>{children}</>;
-  }
-
   const [launched, setLaunched] = useState<boolean | null>(null);
   const [unlocked, setUnlocked] = useState(() => {
     return sessionStorage.getItem("bombshell_unlocked") === "true";
   });
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [exiting, setExiting] = useState(false);
+  const [isPreview, setIsPreview] = useState(false);
+
+  // Check for preview mode on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("preview") === "true") {
+      setIsPreview(true);
+    }
+  }, []);
 
   // Check if site has been globally launched
   useEffect(() => {
@@ -38,9 +45,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
         setLaunched(data?.value === "true");
       });
   }, []);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [exiting, setExiting] = useState(false);
 
   // SMS signup state
   const [phone, setPhone] = useState("");
