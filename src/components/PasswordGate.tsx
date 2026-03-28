@@ -137,7 +137,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col items-center bg-white overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col items-center bg-white overflow-hidden"
           >
             {/* Video background */}
             <video
@@ -156,11 +156,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/40 pointer-events-none z-[1]" />
             {/* Logo pinned near top */}
-            <div className="relative z-10 w-full flex justify-center pt-6 md:pt-14">
+            <div className="relative z-10 w-full flex justify-center pt-4 md:pt-8">
               <img
                 src={logoGif}
                 alt="Bombshell"
-                className="w-72 md:w-[38rem]"
+                className="w-56 md:w-[30rem]"
               />
             </div>
 
@@ -169,17 +169,17 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative z-10 flex flex-col items-center gap-6 md:gap-10 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-12 md:pb-20"
+              className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-6 md:pb-10"
             >
-              <h1
-                className="text-2xl md:text-5xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap -mt-2 md:-mt-4"
+               <h1
+                className="text-xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
               >
                 Coming Soon
               </h1>
 
               {/* SMS Signup */}
-              <div className="w-full mt-2 md:mt-6">
+              <div className="w-full mt-1 md:mt-3">
                 {smsSubmitted ? (
                   <motion.p
                     initial={{ opacity: 0, y: 5 }}
@@ -190,7 +190,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     You're on the list ✦
                   </motion.p>
                 ) : (
-                  <form onSubmit={handleSmsSignup} className="flex flex-col items-center gap-4 md:gap-6">
+                  <form onSubmit={handleSmsSignup} className="flex flex-col items-center gap-2 md:gap-4">
                     <p
                       className="text-[10px] md:text-sm uppercase tracking-[0.2em] text-foreground/70 text-center"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
@@ -220,7 +220,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       }}
                       placeholder="Name"
                       maxLength={100}
-                      className="w-full bg-transparent border-b border-foreground/30 py-3 md:py-4 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     <input
@@ -230,7 +230,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       placeholder="(555) 555-5555"
                       maxLength={14}
                       required
-                      className="w-full bg-transparent border-b border-foreground/30 py-3 md:py-4 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     {phoneError && (
@@ -247,10 +247,10 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
                       maxLength={200}
-                      className="w-full bg-transparent border-b border-foreground/30 py-3 md:py-4 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
-                    <label className="flex items-start gap-3 cursor-pointer mt-1 md:mt-2">
+                    <label className="flex items-start gap-3 cursor-pointer mt-0 md:mt-1">
                       <input
                         type="checkbox"
                         checked={consent}
@@ -268,7 +268,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <button
                       type="submit"
                       disabled={smsLoading || !consent}
-                      className="w-full py-3 md:py-4 bg-foreground text-background text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors disabled:opacity-50"
+                      className="w-full py-2.5 md:py-3 bg-foreground text-background text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors disabled:opacity-50"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
                       {smsLoading ? "..." : "Join the List"}
