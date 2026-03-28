@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import logoGif from "@/assets/logo-animated.gif";
-import bombshellBg from "@/assets/bombshell-bg-dark.jpeg";
+
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
