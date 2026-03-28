@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import logoGif from "@/assets/logo-animated.gif";
-import bombshellBg from "@/assets/bombshell-bg-dark.jpeg";
+
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
@@ -139,18 +139,20 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] flex flex-col items-center bg-white overflow-y-auto"
           >
-            {/* Background that scrolls with content */}
-            <div
-              className="absolute top-0 left-0 right-0 bg-position-mobile bg-position-desktop"
+            {/* Video background */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute top-0 left-0 w-full h-full object-cover"
               style={{
-                backgroundImage: `url(${bombshellBg})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                height: "150vh",
                 maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
                 WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
               }}
-            />
+            >
+              <source src="/bombshell-bg-video.mov" type="video/quicktime" />
+            </video>
             {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/40 pointer-events-none z-[1]" />
             {/* Logo pinned near top */}
