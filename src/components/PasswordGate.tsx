@@ -154,7 +154,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
             {/* Overlay covers everything */}
-            <div className="fixed inset-0 bg-white/40 pointer-events-none z-[1]" />
+            <div className="fixed inset-0 bg-white/25 pointer-events-none z-[1]" />
             {/* Logo pinned near top */}
             <div className="relative z-10 w-full flex justify-center pt-2 md:pt-4">
               <img
