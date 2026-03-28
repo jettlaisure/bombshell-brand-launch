@@ -156,11 +156,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/40 pointer-events-none z-[1]" />
             {/* Logo pinned near top */}
-            <div className="relative z-10 w-full flex justify-center pt-6 md:pt-14">
+            <div className="relative z-10 w-full flex justify-center pt-4 md:pt-8">
               <img
                 src={logoGif}
                 alt="Bombshell"
-                className="w-72 md:w-[38rem]"
+                className="w-56 md:w-[30rem]"
               />
             </div>
 
@@ -169,7 +169,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative z-10 flex flex-col items-center gap-6 md:gap-10 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-12 md:pb-20"
+              className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-6 md:pb-10"
             >
               <h1
                 className="text-2xl md:text-5xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap -mt-2 md:-mt-4"
