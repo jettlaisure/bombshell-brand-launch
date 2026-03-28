@@ -190,7 +190,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     You're on the list ✦
                   </motion.p>
                 ) : (
-                  <form onSubmit={handleSmsSignup} className="flex flex-col items-center gap-4 md:gap-6">
+                  <form onSubmit={handleSmsSignup} className="flex flex-col items-center gap-2 md:gap-4">
                     <p
                       className="text-[10px] md:text-sm uppercase tracking-[0.2em] text-foreground/70 text-center"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
