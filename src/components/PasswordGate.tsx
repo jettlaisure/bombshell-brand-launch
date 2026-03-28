@@ -171,15 +171,15 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-6 md:pb-10"
             >
-              <h1
-                className="text-2xl md:text-5xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap -mt-2 md:-mt-4"
+               <h1
+                className="text-xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
               >
                 Coming Soon
               </h1>
 
               {/* SMS Signup */}
-              <div className="w-full mt-2 md:mt-6">
+              <div className="w-full mt-1 md:mt-3">
                 {smsSubmitted ? (
                   <motion.p
                     initial={{ opacity: 0, y: 5 }}
