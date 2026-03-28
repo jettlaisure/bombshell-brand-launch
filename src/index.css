@@ -124,6 +124,8 @@
     bottom: auto;
     height: 135%;
     object-position: center center;
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
   }
 }
 
