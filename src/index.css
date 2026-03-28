@@ -120,7 +120,10 @@
 
 @media (max-width: 767px) {
   .password-gate-video {
-    object-position: center -15%;
+    top: -15%;
+    bottom: auto;
+    height: 115%;
+    object-position: center center;
   }
 }
 
