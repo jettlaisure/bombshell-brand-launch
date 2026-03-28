@@ -151,7 +151,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                 WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
               }}
             >
-              <source src="/bombshell-bg-video.mov" type="video/quicktime" />
+              <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
             {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/40 pointer-events-none z-[1]" />
