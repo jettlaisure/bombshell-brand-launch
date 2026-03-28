@@ -220,7 +220,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       }}
                       placeholder="Name"
                       maxLength={100}
-                      className="w-full bg-transparent border-b border-foreground/30 py-3 md:py-4 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     <input
