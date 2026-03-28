@@ -147,8 +147,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               playsInline
               className="absolute inset-0 w-full h-full object-cover password-gate-video"
               style={{
-                maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+                maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
               }}
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
