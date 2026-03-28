@@ -145,9 +145,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               loop
               muted
               playsInline
-              className="absolute top-0 left-0 w-full h-full object-cover md:object-center"
+              className="absolute top-0 left-0 w-full h-full object-cover"
               style={{
-                objectPosition: "center -10vh",
                 maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
                 WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
               }}
