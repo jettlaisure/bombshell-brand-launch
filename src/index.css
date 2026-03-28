@@ -114,6 +114,16 @@
   }
 }
 
+.password-gate-video {
+  object-position: center center;
+}
+
+@media (max-width: 767px) {
+  .password-gate-video {
+    object-position: center 15%;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 0px;
