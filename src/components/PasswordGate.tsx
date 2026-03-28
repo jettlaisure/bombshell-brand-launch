@@ -137,7 +137,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col items-center bg-white overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col items-center bg-white overflow-hidden"
           >
             {/* Video background */}
             <video
