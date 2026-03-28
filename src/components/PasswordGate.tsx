@@ -230,7 +230,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       placeholder="(555) 555-5555"
                       maxLength={14}
                       required
-                      className="w-full bg-transparent border-b border-foreground/30 py-3 md:py-4 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     {phoneError && (
@@ -247,10 +247,10 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
                       maxLength={200}
-                      className="w-full bg-transparent border-b border-foreground/30 py-3 md:py-4 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
-                    <label className="flex items-start gap-3 cursor-pointer mt-1 md:mt-2">
+                    <label className="flex items-start gap-3 cursor-pointer mt-0 md:mt-1">
                       <input
                         type="checkbox"
                         checked={consent}
@@ -268,7 +268,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <button
                       type="submit"
                       disabled={smsLoading || !consent}
-                      className="w-full py-3 md:py-4 bg-foreground text-background text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors disabled:opacity-50"
+                      className="w-full py-2.5 md:py-3 bg-foreground text-background text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors disabled:opacity-50"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
                       {smsLoading ? "..." : "Join the List"}
