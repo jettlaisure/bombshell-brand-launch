@@ -160,7 +160,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               <img
                 src={logoGif}
                 alt="Bombshell"
-                className="w-56 md:w-[30rem]"
+                className="w-72 md:w-[30rem]"
               />
             </div>
 
