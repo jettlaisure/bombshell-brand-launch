@@ -156,7 +156,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       className="text-[10px] md:text-sm uppercase tracking-[0.2em] text-white/70 text-center drop-shadow"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
-                      Sign up for exclusive drops & updates
+                      Enter your email to get notified for early access
                     </p>
                     <input
                       type="email"
