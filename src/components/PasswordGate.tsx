@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import logoGif from "@/assets/logo-animated.gif";
 
-
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
 
@@ -21,7 +20,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [exiting, setExiting] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
 
-  // Check for preview mode on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("preview") === "true") {
@@ -29,7 +27,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     }
   }, []);
 
-  // Check if site has been globally launched
   useEffect(() => {
     supabase
       .from("site_settings")
@@ -41,91 +38,64 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
       });
   }, []);
 
-  // SMS signup state
-  const [phone, setPhone] = useState("");
+  // Email signup state
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [consent, setConsent] = useState(false);
-  const [smsSubmitted, setSmsSubmitted] = useState(false);
-  const [smsLoading, setSmsLoading] = useState(false);
-  const [phoneError, setPhoneError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const formatPhoneNumber = (value: string): string => {
-    const digits = value.replace(/\D/g, "");
-    // Remove leading 1 for formatting, add back later
-    const national = digits.startsWith("1") ? digits.slice(1) : digits;
-    if (national.length <= 3) return national;
-    if (national.length <= 6) return `(${national.slice(0, 3)}) ${national.slice(3)}`;
-    return `(${national.slice(0, 3)}) ${national.slice(3, 6)}-${national.slice(6, 10)}`;
-  };
+  // Hidden password entry via keyboard shortcut
+  const [hiddenInput, setHiddenInput] = useState("");
 
-  const toE164 = (value: string): string => {
-    const digits = value.replace(/\D/g, "");
-    if (digits.startsWith("1") && digits.length === 11) return `+${digits}`;
-    if (digits.length === 10) return `+1${digits}`;
-    return `+${digits}`;
-  };
+  useEffect(() => {
+    let buffer = "";
+    let timer: ReturnType<typeof setTimeout>;
+    const handler = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      buffer += e.key;
+      clearTimeout(timer);
+      timer = setTimeout(() => { buffer = ""; }, 2000);
+      if (buffer.includes(CORRECT_PASSWORD)) {
+        setExiting(true);
+        setTimeout(() => {
+          sessionStorage.setItem("bombshell_unlocked", "true");
+          setUnlocked(true);
+        }, 800);
+      } else if (buffer.includes(LAUNCH_PASSWORD)) {
+        supabase.functions.invoke("toggle-launch", {
+          body: { password: LAUNCH_PASSWORD },
+        });
+        setExiting(true);
+        setTimeout(() => {
+          setLaunched(true);
+        }, 800);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatPhoneNumber(e.target.value);
-    setPhone(formatted);
-    setPhoneError("");
-  };
-
-  const validatePhone = (): boolean => {
-    const digits = phone.replace(/\D/g, "");
-    if (digits.length < 10) {
-      setPhoneError("Enter a valid 10-digit phone number");
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === CORRECT_PASSWORD) {
-      setError(false);
-      setExiting(true);
-      setTimeout(() => {
-        sessionStorage.setItem("bombshell_unlocked", "true");
-        setUnlocked(true);
-      }, 800);
-    } else {
-      setError(true);
-      setTimeout(() => setError(false), 1500);
-    }
-  };
-
-  const handleSmsSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validatePhone()) return;
     if (!consent) return;
-    setSmsLoading(true);
-    const e164Phone = toE164(phone);
-    const cleanName = name.trim().slice(0, 100);
     const cleanEmail = email.trim().slice(0, 200);
+    if (!cleanEmail) return;
+    setLoading(true);
 
-    // Save to database and sync to Shopify in parallel
     await Promise.all([
       supabase.from("sms_subscribers").insert({
-        phone: e164Phone,
-        name: cleanName || null,
-        email: cleanEmail || null,
+        phone: "email-only",
+        email: cleanEmail,
       }),
       supabase.functions.invoke("shopify-customer-sync", {
-        body: {
-          name: cleanName || null,
-          phone: e164Phone,
-          email: cleanEmail || null,
-        },
+        body: { email: cleanEmail },
       }),
     ]);
 
-    setSmsLoading(false);
-    setSmsSubmitted(true);
+    setLoading(false);
+    setSubmitted(true);
   };
 
-  // Show nothing while checking launch status (unless in preview mode)
   if (launched === null && !isPreview) return null;
   if (launched || unlocked || isPreview) return <>{children}</>;
 
@@ -139,7 +109,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white overflow-hidden"
           >
-            {/* Video background */}
             <video
               autoPlay
               loop
@@ -150,15 +119,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
-            {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/10 pointer-events-none z-[1]" />
+
             {/* Logo above form */}
             <div className="relative z-10 flex justify-center -mb-4 md:-mb-6">
-              <img
-                src={logoGif}
-                alt="Bombshell"
-                className="w-72 md:w-[30rem]"
-              />
+              <img src={logoGif} alt="Bombshell" className="w-72 md:w-[30rem]" />
             </div>
 
             {/* Centered content */}
@@ -168,16 +133,15 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg"
             >
-               <h1
+              <h1
                 className="text-xl md:text-4xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
               >
                 Coming Soon
               </h1>
 
-              {/* SMS Signup */}
               <div className="w-full mt-1 md:mt-3">
-                {smsSubmitted ? (
+                {submitted ? (
                   <motion.p
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -187,7 +151,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     You're on the list ✦
                   </motion.p>
                 ) : (
-                  <form onSubmit={handleSmsSignup} className="flex flex-col items-center gap-2 md:gap-4">
+                  <form onSubmit={handleEmailSignup} className="flex flex-col items-center gap-2 md:gap-4">
                     <p
                       className="text-[10px] md:text-sm uppercase tracking-[0.2em] text-white/70 text-center drop-shadow"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
@@ -195,55 +159,12 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       Sign up for exclusive drops & updates
                     </p>
                     <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => {
-                        setName(e.target.value);
-                        if (e.target.value === CORRECT_PASSWORD) {
-                          setExiting(true);
-                          setTimeout(() => {
-                            sessionStorage.setItem("bombshell_unlocked", "true");
-                            setUnlocked(true);
-                          }, 800);
-                        } else if (e.target.value === LAUNCH_PASSWORD) {
-                          supabase.functions.invoke("toggle-launch", {
-                            body: { password: LAUNCH_PASSWORD },
-                          });
-                          setExiting(true);
-                          setTimeout(() => {
-                            setLaunched(true);
-                          }, 800);
-                        }
-                      }}
-                      placeholder="Name"
-                      maxLength={100}
-                      className="w-full bg-transparent border-b border-white/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-white placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
-                      style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                    />
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={handlePhoneChange}
-                      placeholder="(555) 555-5555"
-                      maxLength={14}
-                      required
-                      className="w-full bg-transparent border-b border-white/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-white placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
-                      style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                    />
-                    {phoneError && (
-                      <p
-                        className="text-destructive text-[9px] md:text-[11px] uppercase tracking-[0.15em] -mt-2"
-                        style={{ fontFamily: "'Akira Expanded', sans-serif" }}
-                      >
-                        {phoneError}
-                      </p>
-                    )}
-                    <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
                       maxLength={200}
+                      required
                       className="w-full bg-transparent border-b border-white/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-white placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
@@ -259,16 +180,16 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                         className="text-[8px] md:text-[10px] leading-relaxed text-white/80 text-left"
                         style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                       >
-                        By signing up, you agree to receive recurring marketing texts & emails. Msg & data rates may apply. Reply STOP to cancel.
+                        By signing up, you agree to receive recurring marketing emails. Msg & data rates may apply.
                       </span>
                     </label>
                     <button
                       type="submit"
-                      disabled={smsLoading || !consent}
+                      disabled={loading || !consent}
                       className="w-full py-2.5 md:py-3 bg-white text-black text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-white/85 transition-colors disabled:opacity-50"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
-                      {smsLoading ? "..." : "Join the List"}
+                      {loading ? "..." : "Join the List"}
                     </button>
                   </form>
                 )}
