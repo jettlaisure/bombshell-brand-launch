@@ -56,9 +56,11 @@
     @apply border-border;
   }
 
-  html {
+  html, body {
     overflow-x: hidden;
+    height: 100%;
     height: -webkit-fill-available;
+    height: 100dvh;
   }
 
   body {
