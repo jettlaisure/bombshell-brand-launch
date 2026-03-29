@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
-import logoGif from "@/assets/logo-animated.gif";
+import logoImg from "@/assets/bombshell-logo.png";
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
@@ -124,7 +124,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
             {/* Logo above form */}
             <div className="relative z-10 flex justify-center -mb-4 md:-mb-6 -mt-[45vh] md:-mt-[20vh]">
-              <img src={logoGif} alt="Bombshell" className="w-72 md:w-[30rem]" />
+              <img src={logoImg} alt="Bombshell" className="w-72 md:w-[30rem]" />
             </div>
 
             {/* Centered content */}
