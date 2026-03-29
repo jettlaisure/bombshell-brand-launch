@@ -169,7 +169,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg flex-1 justify-center pb-4 md:pb-6 md:-mt-8"
             >
                <h1
-                className="text-xl md:text-4xl uppercase tracking-[0.15em] text-foreground whitespace-nowrap"
+                className="text-xl md:text-4xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
                 style={{ fontFamily: "'Akira Expanded', sans-serif" }}
               >
                 Coming Soon
@@ -181,7 +181,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                   <motion.p
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-muted-foreground"
+                    className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-white/80"
                     style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                   >
                     You're on the list ✦
@@ -189,7 +189,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                 ) : (
                   <form onSubmit={handleSmsSignup} className="flex flex-col items-center gap-2 md:gap-4">
                     <p
-                      className="text-[10px] md:text-sm uppercase tracking-[0.2em] text-foreground/70 text-center"
+                      className="text-[10px] md:text-sm uppercase tracking-[0.2em] text-white/70 text-center drop-shadow"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
                       Sign up for exclusive drops & updates
@@ -217,7 +217,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       }}
                       placeholder="Name"
                       maxLength={100}
-                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-white placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     <input
@@ -227,7 +227,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       placeholder="(555) 555-5555"
                       maxLength={14}
                       required
-                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-white placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     {phoneError && (
@@ -244,7 +244,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
                       maxLength={200}
-                      className="w-full bg-transparent border-b border-foreground/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-foreground placeholder:text-foreground/85 focus:outline-none focus:border-foreground transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-2 md:py-3 text-center text-sm md:text-base uppercase tracking-[0.15em] text-white placeholder:text-white/70 focus:outline-none focus:border-white transition-colors"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     />
                     <label className="flex items-start gap-3 cursor-pointer mt-0 md:mt-1">
@@ -252,11 +252,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                         type="checkbox"
                         checked={consent}
                         onChange={(e) => setConsent(e.target.checked)}
-                        className="mt-0.5 accent-foreground md:w-4 md:h-4"
+                        className="mt-0.5 accent-white md:w-4 md:h-4"
                         required
                       />
                       <span
-                        className="text-[8px] md:text-[10px] leading-relaxed text-foreground/85 text-left"
+                        className="text-[8px] md:text-[10px] leading-relaxed text-white/80 text-left"
                         style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                       >
                         By signing up, you agree to receive recurring marketing texts & emails. Msg & data rates may apply. Reply STOP to cancel.
@@ -265,7 +265,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <button
                       type="submit"
                       disabled={smsLoading || !consent}
-                      className="w-full py-2.5 md:py-3 bg-foreground text-background text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-foreground/85 transition-colors disabled:opacity-50"
+                      className="w-full py-2.5 md:py-3 bg-white text-black text-xs md:text-sm uppercase tracking-[0.25em] hover:bg-white/85 transition-colors disabled:opacity-50"
                       style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                     >
                       {smsLoading ? "..." : "Join the List"}
