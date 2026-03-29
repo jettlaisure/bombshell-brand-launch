@@ -137,7 +137,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col items-center bg-white overflow-hidden"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white overflow-hidden"
           >
             {/* Video background */}
             <video
@@ -152,8 +152,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             </video>
             {/* Overlay covers everything */}
             <div className="fixed inset-0 bg-white/10 pointer-events-none z-[1]" />
-            {/* Logo pinned near top */}
-            <div className="absolute top-2 md:top-4 w-full flex justify-center z-10">
+            {/* Logo above form */}
+            <div className="relative z-10 flex justify-center mb-2 md:mb-4">
               <img
                 src={logoGif}
                 alt="Bombshell"
