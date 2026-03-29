@@ -146,15 +146,12 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               muted
               playsInline
               className="absolute inset-0 w-full h-full object-cover password-gate-video"
-              style={{
-                maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-              }}
+              style={{}}
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
             {/* Overlay covers everything */}
-            <div className="fixed inset-0 bg-white/25 pointer-events-none z-[1]" />
+            <div className="fixed inset-0 bg-white/10 pointer-events-none z-[1]" />
             {/* Logo pinned near top */}
             <div className="relative z-10 w-full flex justify-center pt-2 md:pt-4">
               <img
