@@ -36,6 +36,7 @@
     --ring: 0 0% 8%;
 
     --radius: 0px;
+    --app-height: 100dvh;
 
     --sidebar-background: 0 0% 97%;
     --sidebar-foreground: 0 0% 15%;
@@ -56,11 +57,14 @@
     @apply border-border;
   }
 
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
     min-height: 100%;
     min-height: -webkit-fill-available;
     min-height: 100lvh;
+    min-height: var(--app-height);
+    background-color: hsl(var(--background));
   }
 
   body {
@@ -68,6 +72,10 @@
     font-family: var(--font-body);
     overflow-x: hidden;
     margin: 0;
+  }
+
+  #root {
+    min-height: var(--app-height);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -131,14 +139,6 @@
     mask-image: none;
     -webkit-mask-image: none;
   }
-}
-
-html, body, #root {
-  min-height: 100dvh;
-}
-
-body {
-  background-color: hsl(var(--background));
 }
 
 /* Scrollbar */
