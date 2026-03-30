@@ -126,25 +126,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               loop
               muted
               playsInline
-              className="absolute object-cover password-gate-video"
-              style={{
-                top: "calc(env(safe-area-inset-top, 0px) * -1 - 8%)",
-                left: "calc(env(safe-area-inset-left, 0px) * -1 - 8%)",
-                width: "calc(100% + env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px) + 16%)",
-                height: "calc(100% + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px) + 16%)",
-              }}
+              className="absolute inset-0 h-full w-full object-cover password-gate-video"
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
-            <div
-              className="absolute bg-white/10 pointer-events-none z-[1]"
-              style={{
-                top: "calc(env(safe-area-inset-top, 0px) * -1)",
-                left: "calc(env(safe-area-inset-left, 0px) * -1)",
-                width: "calc(100% + env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))",
-                height: "calc(100% + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px))",
-              }}
-            />
+            <div className="absolute inset-0 bg-white/10 pointer-events-none z-[1]" />
 
             {/* Logo above form */}
             <div className="relative z-10 flex justify-center -mb-4 md:-mb-6 mt-[5vh] md:-mt-[20vh]">
