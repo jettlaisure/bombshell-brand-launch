@@ -133,12 +133,12 @@
   }
 }
 
-html {
-  background-color: hsl(var(--foreground));
+html, body, #root {
+  min-height: 100dvh;
 }
 
 body {
-  min-height: 100dvh;
+  background-color: hsl(var(--background));
 }
 
 /* Scrollbar */
