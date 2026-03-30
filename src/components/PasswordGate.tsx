@@ -110,11 +110,10 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             className="z-[100] flex w-full flex-col items-center justify-center overflow-hidden bg-foreground"
             style={{
               position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              minHeight: "100dvh",
+              top: "calc(env(safe-area-inset-top, 0px) * -1)",
+              left: "calc(env(safe-area-inset-left, 0px) * -1)",
+              right: "calc(env(safe-area-inset-right, 0px) * -1)",
+              bottom: "calc(env(safe-area-inset-bottom, 0px) * -1)",
             }}
           >
             <video
