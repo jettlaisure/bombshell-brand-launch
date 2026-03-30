@@ -133,8 +133,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             <div className="absolute inset-0 bg-white/10 pointer-events-none z-[1]" />
 
             {/* Logo above form */}
-            <div className="relative z-10 flex justify-center -mb-4 md:-mb-6 mt-[5vh] md:-mt-[20vh]">
-              <img src={logoImg} alt="Bombshell" className="w-32 md:w-72" />
+            <div className="relative z-10 flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
+              <img src={logoImg} alt="Bombshell" className="w-[9.2rem] md:w-72" />
             </div>
 
             {/* Centered content */}
