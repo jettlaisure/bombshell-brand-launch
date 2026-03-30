@@ -18,24 +18,21 @@ const queryClient = new QueryClient();
 const App = () => {
   useEffect(() => {
     const setAppHeight = () => {
-      const height = window.visualViewport?.height ?? window.innerHeight;
-      document.documentElement.style.setProperty("--app-height", `${height}px`);
+      // Use window.innerHeight which stays stable when the keyboard opens
+      document.documentElement.style.setProperty("--app-height", `${window.innerHeight}px`);
     };
 
     setAppHeight();
 
-    const visualViewport = window.visualViewport;
-
     window.addEventListener("resize", setAppHeight);
-    window.addEventListener("orientationchange", setAppHeight);
-    visualViewport?.addEventListener("resize", setAppHeight);
-    visualViewport?.addEventListener("scroll", setAppHeight);
+    window.addEventListener("orientationchange", () => {
+      // Small delay to let orientation settle
+      setTimeout(setAppHeight, 100);
+    });
 
     return () => {
       window.removeEventListener("resize", setAppHeight);
       window.removeEventListener("orientationchange", setAppHeight);
-      visualViewport?.removeEventListener("resize", setAppHeight);
-      visualViewport?.removeEventListener("scroll", setAppHeight);
     };
   }, []);
 
