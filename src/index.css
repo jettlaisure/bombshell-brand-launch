@@ -64,7 +64,7 @@
     min-height: -webkit-fill-available;
     min-height: 100lvh;
     min-height: var(--app-height);
-    background-color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
   }
 
   body {
@@ -72,6 +72,10 @@
     font-family: var(--font-body);
     overflow-x: hidden;
     margin: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
 
   #root {
