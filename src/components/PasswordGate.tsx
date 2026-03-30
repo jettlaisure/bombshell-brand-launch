@@ -112,8 +112,13 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               position: "fixed",
               top: "calc(env(safe-area-inset-top, 0px) * -1)",
               left: "calc(env(safe-area-inset-left, 0px) * -1)",
-              right: "calc(env(safe-area-inset-right, 0px) * -1)",
-              bottom: "calc(env(safe-area-inset-bottom, 0px) * -1)",
+              width: "calc(100vw + env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))",
+              height: "calc(var(--app-height, 100dvh) + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px))",
+              paddingTop: "env(safe-area-inset-top, 0px)",
+              paddingRight: "env(safe-area-inset-right, 0px)",
+              paddingBottom: "env(safe-area-inset-bottom, 0px)",
+              paddingLeft: "env(safe-area-inset-left, 0px)",
+              boxSizing: "border-box",
             }}
           >
             <video
@@ -126,7 +131,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
-            <div className="fixed inset-0 bg-white/10 pointer-events-none z-[1]" />
+            <div className="absolute inset-0 bg-white/10 pointer-events-none z-[1]" />
 
             {/* Logo above form */}
             <div className="relative z-10 flex justify-center -mb-4 md:-mb-6 mt-[5vh] md:-mt-[20vh]">
