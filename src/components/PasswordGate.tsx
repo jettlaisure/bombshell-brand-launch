@@ -107,8 +107,13 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-x-0 z-[100] flex w-full flex-col items-center justify-center overflow-hidden bg-foreground"
-            style={{ top: "calc(env(safe-area-inset-top) * -1)", bottom: "calc(env(safe-area-inset-bottom) * -1)" }}
+            className="fixed inset-0 z-[100] flex w-full flex-col items-center justify-center overflow-hidden bg-foreground"
+            style={{
+              paddingTop: "env(safe-area-inset-top)",
+              paddingBottom: "env(safe-area-inset-bottom)",
+              paddingLeft: "env(safe-area-inset-left)",
+              paddingRight: "env(safe-area-inset-right)",
+            }}
           >
             <video
               autoPlay
