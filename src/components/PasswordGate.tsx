@@ -135,8 +135,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg"
             >
               <h1
-                className="text-xl md:text-4xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
-                style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                className="text-3xl md:text-6xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
+                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
               >
                 Coming Soon
               </h1>
