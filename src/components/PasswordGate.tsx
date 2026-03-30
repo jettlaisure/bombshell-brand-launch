@@ -128,10 +128,10 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               playsInline
               className="absolute object-cover password-gate-video"
               style={{
-                top: "-5%",
-                left: "-5%",
-                width: "110%",
-                height: "110%",
+                top: "calc(env(safe-area-inset-top, 0px) * -1 - 8%)",
+                left: "calc(env(safe-area-inset-left, 0px) * -1 - 8%)",
+                width: "calc(100% + env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px) + 16%)",
+                height: "calc(100% + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px) + 16%)",
               }}
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
