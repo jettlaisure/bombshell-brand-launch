@@ -60,7 +60,7 @@
   html {
     overflow-x: hidden;
     height: 100%;
-    background-color: hsl(var(--background));
+    background-color: #000;
   }
 
   body {
@@ -70,8 +70,6 @@
     margin: 0;
     min-height: 100%;
     min-height: 100dvh;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
   }
 
   #root {
