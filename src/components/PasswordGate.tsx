@@ -126,7 +126,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               loop
               muted
               playsInline
-              className="absolute inset-0 h-full w-full object-cover password-gate-video"
+              className="password-gate-video"
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>

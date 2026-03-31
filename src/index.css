@@ -134,11 +134,7 @@
 
 @media (max-width: 767px) {
   .password-gate-video {
-    transform: scale(1.12);
-    transform-origin: center center;
     object-position: center center;
-    mask-image: none;
-    -webkit-mask-image: none;
   }
 }
 
