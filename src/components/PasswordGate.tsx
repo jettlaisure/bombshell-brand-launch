@@ -109,33 +109,15 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   return (
     <>
-      {/* Video is outside motion.div so framer-motion's transform never
-          becomes its containing block — position:fixed resolves to the viewport */}
-      {!exiting && (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="password-gate-video"
-          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 99 }}
-        >
-          <source src="/bombshell-bg-video.mp4" type="video/mp4" />
-        </video>
-      )}
       <AnimatePresence>
         {!exiting && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="z-[100] flex w-full flex-col items-center justify-center"
+            className="relative w-screen overflow-hidden flex flex-col items-center justify-center"
             style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
+              height: "100lvh",
               paddingTop: "env(safe-area-inset-top, 0px)",
               paddingRight: "env(safe-area-inset-right, 0px)",
               paddingBottom: "env(safe-area-inset-bottom, 0px)",
@@ -143,6 +125,16 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               boxSizing: "border-box",
             }}
           >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="password-gate-video"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+            >
+              <source src="/bombshell-bg-video.mp4" type="video/mp4" />
+            </video>
             <div className="absolute inset-0 bg-black/60 pointer-events-none z-[1]" />
 
             {/* Logo above form */}
