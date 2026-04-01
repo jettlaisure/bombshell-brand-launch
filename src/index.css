@@ -129,12 +129,8 @@
 
 .password-gate-video {
   object-position: center center;
-}
-
-@media (max-width: 767px) {
-  .password-gate-video {
-    object-position: center center;
-  }
+  transform: scale(1.2);
+  transform-origin: center center;
 }
 
 /* Scrollbar */
