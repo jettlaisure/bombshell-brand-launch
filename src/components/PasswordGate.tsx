@@ -127,14 +127,14 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               muted
               playsInline
               className="password-gate-video"
-              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-white/10 pointer-events-none z-[1]" />
+            <div className="absolute inset-0 bg-white/10 pointer-events-none z-[2]" />
 
             {/* Logo above form */}
-            <div className="relative z-10 flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
+            <div className="relative z-[3] flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
               <img src={logoImg} alt="Bombshell" className="w-[9.2rem] md:w-72" />
             </div>
 
@@ -143,7 +143,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative z-10 flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg mt-[20vh] md:mt-0"
+              className="relative z-[3] flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg mt-[20vh] md:mt-0"
             >
               <h1
                 className="text-3xl md:text-6xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
