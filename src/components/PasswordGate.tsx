@@ -185,7 +185,14 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setEmail(val);
+                        if (bufferTimerRef.current) clearTimeout(bufferTimerRef.current);
+                        bufferRef.current = val;
+                        bufferTimerRef.current = setTimeout(() => { bufferRef.current = ""; }, 2000);
+                        checkBuffer(val);
+                      }}
                       placeholder="Email"
                       maxLength={200}
                       required
