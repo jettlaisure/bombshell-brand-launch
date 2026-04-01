@@ -20,21 +20,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [exiting, setExiting] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
 
-  // Lock scroll on the document while gate is showing so iOS rubber-band
-  // scroll can't reveal the body background behind the gate
-  useEffect(() => {
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.height = "100%";
-    document.body.style.overflow = "hidden";
-    document.body.style.height = "100%";
-    return () => {
-      document.documentElement.style.overflow = "";
-      document.documentElement.style.height = "";
-      document.body.style.overflow = "";
-      document.body.style.height = "";
-    };
-  }, []);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("preview") === "true") {
@@ -130,9 +115,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="relative w-screen overflow-hidden flex flex-col items-center justify-center"
+            className="overflow-hidden flex flex-col items-center justify-center"
             style={{
-              height: "100lvh",
+              position: "fixed",
+              inset: 0,
+              zIndex: 100,
               paddingTop: "env(safe-area-inset-top, 0px)",
               paddingRight: "env(safe-area-inset-right, 0px)",
               paddingBottom: "env(safe-area-inset-bottom, 0px)",
