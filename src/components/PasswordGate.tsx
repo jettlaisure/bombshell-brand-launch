@@ -105,16 +105,18 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
         {!exiting && (
           <motion.div
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -40 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="relative w-screen overflow-hidden flex flex-col items-center justify-center"
+            className="overflow-hidden flex flex-col items-center justify-center"
             style={{
-              height: "100lvh",
+              position: "fixed",
+              inset: 0,
               paddingTop: "env(safe-area-inset-top, 0px)",
               paddingRight: "env(safe-area-inset-right, 0px)",
               paddingBottom: "env(safe-area-inset-bottom, 0px)",
               paddingLeft: "env(safe-area-inset-left, 0px)",
               boxSizing: "border-box",
+              zIndex: 100,
             }}
           >
             <video
@@ -127,7 +129,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             >
               <source src="/bombshell-bg-video.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-black/60 pointer-events-none z-[1]" />
+            <div className="absolute inset-0 bg-black/40 pointer-events-none z-[1]" />
 
             {/* Logo above form */}
             <div className="relative z-[2] flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
