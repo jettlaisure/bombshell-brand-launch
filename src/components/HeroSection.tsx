@@ -3,7 +3,7 @@ import logo from "@/assets/logo.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-[100lvh] w-full overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0">
         <video
