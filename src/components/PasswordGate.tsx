@@ -47,29 +47,37 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   // Hidden password entry via keyboard shortcut
   const [hiddenInput, setHiddenInput] = useState("");
 
+  const bufferRef = { current: "" };
+  const bufferTimerRef = { current: null as ReturnType<typeof setTimeout> | null };
+
+  const checkBuffer = (buf: string) => {
+    if (buf.includes(CORRECT_PASSWORD)) {
+      setExiting(true);
+      setTimeout(() => {
+        sessionStorage.setItem("bombshell_unlocked", "true");
+        setUnlocked(true);
+      }, 800);
+      return true;
+    } else if (buf.includes(LAUNCH_PASSWORD)) {
+      supabase.functions.invoke("toggle-launch", {
+        body: { password: LAUNCH_PASSWORD },
+      });
+      setExiting(true);
+      setTimeout(() => {
+        setLaunched(true);
+      }, 800);
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
-    let buffer = "";
-    let timer: ReturnType<typeof setTimeout>;
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      buffer += e.key;
-      clearTimeout(timer);
-      timer = setTimeout(() => { buffer = ""; }, 2000);
-      if (buffer.includes(CORRECT_PASSWORD)) {
-        setExiting(true);
-        setTimeout(() => {
-          sessionStorage.setItem("bombshell_unlocked", "true");
-          setUnlocked(true);
-        }, 800);
-      } else if (buffer.includes(LAUNCH_PASSWORD)) {
-        supabase.functions.invoke("toggle-launch", {
-          body: { password: LAUNCH_PASSWORD },
-        });
-        setExiting(true);
-        setTimeout(() => {
-          setLaunched(true);
-        }, 800);
-      }
+      bufferRef.current += e.key;
+      if (bufferTimerRef.current) clearTimeout(bufferTimerRef.current);
+      bufferTimerRef.current = setTimeout(() => { bufferRef.current = ""; }, 2000);
+      checkBuffer(bufferRef.current);
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -177,7 +185,14 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setEmail(val);
+                        if (bufferTimerRef.current) clearTimeout(bufferTimerRef.current);
+                        bufferRef.current = val;
+                        bufferTimerRef.current = setTimeout(() => { bufferRef.current = ""; }, 2000);
+                        checkBuffer(val);
+                      }}
                       placeholder="Email"
                       maxLength={200}
                       required
