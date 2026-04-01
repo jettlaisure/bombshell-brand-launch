@@ -31,6 +31,7 @@ const Navbar = ({ forceDark = false }: NavbarProps) => {
           ? "bg-background/95 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
     >
       <nav className="flex items-center justify-between section-padding py-5">
         <Link to="/">
