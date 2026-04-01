@@ -129,7 +129,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="z-[100] flex w-full flex-col items-center justify-center bg-black"
+            className="z-[100] flex w-full flex-col items-center justify-center"
             style={{
               position: "fixed",
               top: 0,
