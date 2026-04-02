@@ -109,48 +109,54 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   return (
     <>
-      <AnimatePresence>
-        {!exiting && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-            className="overflow-hidden flex flex-col items-center justify-center"
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 100,
-              paddingTop: "env(safe-area-inset-top, 0px)",
-              paddingRight: "env(safe-area-inset-right, 0px)",
-              paddingBottom: "env(safe-area-inset-bottom, 0px)",
-              paddingLeft: "env(safe-area-inset-left, 0px)",
-              boxSizing: "border-box",
-            }}
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="password-gate-video"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
-            >
-              <source src="/bombshell-bg-video.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-black/40 pointer-events-none z-[1]" />
-
-            {/* Logo above form */}
-            <div className="relative z-[2] flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
-              <img src={logoImg} alt="Bombshell" className="w-[9.2rem] md:w-72" />
-            </div>
-
-            {/* Centered content */}
+      {/* Plain div owns the fixed positioning — framer-motion cannot interfere */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 100, overflow: "hidden" }}>
+        <AnimatePresence>
+          {!exiting && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative z-[2] flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg mt-[20vh] md:mt-0"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+              style={{ position: "absolute", inset: 0 }}
             >
+              {/* Video fills entire container */}
+              <div className="absolute inset-0">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full password-gate-video"
+                  style={{ objectFit: "cover" }}
+                >
+                  <source src="/bombshell-bg-video.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+              {/* Content layer — safe-area padding keeps content away from notch/home indicator */}
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center"
+                style={{
+                  paddingTop: "env(safe-area-inset-top, 0px)",
+                  paddingRight: "env(safe-area-inset-right, 0px)",
+                  paddingBottom: "env(safe-area-inset-bottom, 0px)",
+                  paddingLeft: "env(safe-area-inset-left, 0px)",
+                }}
+              >
+                {/* Logo above form */}
+                <div className="flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
+                  <img src={logoImg} alt="Bombshell" className="w-[9.2rem] md:w-72" />
+                </div>
+
+                {/* Centered content */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg mt-[20vh] md:mt-0"
+                >
               <h1
                 className="text-3xl md:text-6xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}
@@ -219,10 +225,12 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                   </form>
                 )}
               </div>
+                </motion.div>
+              </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
       {exiting && children}
     </>
   );
