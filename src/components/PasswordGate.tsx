@@ -20,12 +20,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [exiting, setExiting] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
 
-  // Scroll to bottom on mount so the 100lvh gate's bottom edge aligns with
-  // the visible viewport on iOS Safari (accounts for toolbar height offset)
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   // Make html/body black while gate is showing so any iOS rubber-band
   // overscroll reveals black instead of the white page background
   useEffect(() => {
@@ -128,9 +122,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   return (
     <>
-      {/* 100lvh normal-flow fills the full physical iPhone screen (including behind notch/home indicator).
-          position:fixed only fills the safe-area viewport on iOS Safari. */}
-      <div style={{ height: "100lvh", width: "100%", position: "relative", overflow: "hidden", zIndex: 100 }}>
+      {/* position:fixed inset:0 fills the full physical screen including above the notch.
+          This is a plain div — framer-motion cannot add transforms that would interfere. */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 100, overflow: "hidden" }}>
         <AnimatePresence>
           {!exiting && (
             <motion.div
