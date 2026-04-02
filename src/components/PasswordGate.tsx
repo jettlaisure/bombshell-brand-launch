@@ -141,16 +141,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
               <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-              {/* Content layer — safe-area padding keeps content away from notch/home indicator */}
-              <div
-                className="absolute inset-0 flex flex-col items-center justify-center"
-                style={{
-                  paddingTop: "env(safe-area-inset-top, 0px)",
-                  paddingRight: "env(safe-area-inset-right, 0px)",
-                  paddingBottom: "env(safe-area-inset-bottom, 0px)",
-                  paddingLeft: "env(safe-area-inset-left, 0px)",
-                }}
-              >
+              {/* Content layer — fills full physical screen including notch/home indicator areas */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
                 {/* Logo above form */}
                 <div className="flex justify-center -mb-4 md:-mb-6 mt-[-10vh] md:-mt-[20vh]">
                   <img src={logoImg} alt="Bombshell" className="w-[9.2rem] md:w-72" />
