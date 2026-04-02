@@ -114,9 +114,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   return (
     <>
-      {/* position:fixed inset:0 fills the full physical screen including above the notch.
-          This is a plain div — framer-motion cannot add transforms that would interfere. */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 100, overflow: "hidden" }}>
+      {/* 100lvh normal-flow fills the full physical iPhone screen (including behind notch/home indicator).
+          position:fixed only fills the safe-area viewport on iOS Safari. */}
+      <div style={{ height: "100lvh", width: "100%", position: "relative", overflow: "hidden", zIndex: 100 }}>
         <AnimatePresence>
           {!exiting && (
             <motion.div
