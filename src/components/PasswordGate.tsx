@@ -20,6 +20,19 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [exiting, setExiting] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
 
+  // Make html/body black while gate is showing so any iOS rubber-band
+  // overscroll reveals black instead of the white page background
+  useEffect(() => {
+    const prevHtml = document.documentElement.style.backgroundColor;
+    const prevBody = document.body.style.backgroundColor;
+    document.documentElement.style.backgroundColor = "#000";
+    document.body.style.backgroundColor = "#000";
+    return () => {
+      document.documentElement.style.backgroundColor = prevHtml;
+      document.body.style.backgroundColor = prevBody;
+    };
+  }, []);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("preview") === "true") {
@@ -109,8 +122,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
   return (
     <>
-      {/* Plain div owns the fixed positioning — framer-motion cannot interfere */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 100, overflow: "hidden" }}>
+      {/* 100lvh normal-flow fills the full physical iPhone screen (including behind notch/home indicator).
+          position:fixed only fills the safe-area viewport on iOS Safari. */}
+      <div style={{ height: "100lvh", width: "100%", position: "relative", overflow: "hidden", zIndex: 100 }}>
         <AnimatePresence>
           {!exiting && (
             <motion.div
