@@ -20,6 +20,12 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [exiting, setExiting] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
 
+  // Scroll to bottom on mount so the 100lvh gate's bottom edge aligns with
+  // the visible viewport on iOS Safari (accounts for toolbar height offset)
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
+
   // Make html/body black while gate is showing so any iOS rubber-band
   // overscroll reveals black instead of the white page background
   useEffect(() => {
