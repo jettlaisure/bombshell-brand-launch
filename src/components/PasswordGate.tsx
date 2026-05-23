@@ -111,6 +111,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
       supabase.functions.invoke("shopify-customer-sync", {
         body: { email: cleanEmail },
       }),
+      supabase.functions.invoke("klaviyo-subscribe", {
+        body: { email: cleanEmail },
+      }),
     ]);
 
     setLoading(false);
