@@ -62,7 +62,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     if (buf.includes(CORRECT_PASSWORD)) {
       setExiting(true);
       setTimeout(() => {
-        sessionStorage.setItem("bombshell_unlocked", "true");
+        sessionStorage.setItem("bombshell_unlocked_v2", "true");
         setUnlocked(true);
       }, 800);
       return true;
