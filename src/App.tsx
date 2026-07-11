@@ -43,15 +43,17 @@ const App = () => {
           <Toaster />
             <Sonner />
             <HashRouter>
-              <CartDrawer />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/shop/:handle" element={<ProductDetail />} />
-                <Route path="/order-confirmation" element={<OrderConfirmation />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <PasswordGate>
+                <CartDrawer />
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/shop/:handle" element={<ProductDetail />} />
+                  <Route path="/order-confirmation" element={<OrderConfirmation />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </PasswordGate>
             </HashRouter>
         </CartProvider>
       </TooltipProvider>
