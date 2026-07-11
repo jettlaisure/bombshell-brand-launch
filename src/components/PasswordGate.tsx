@@ -115,8 +115,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setSubmitted(true);
   };
 
-  if (launched === null && !isPreview) return null;
-  if (launched || unlocked || isPreview) return <>{children}</>;
+  if (launched === null) return null;
+  if (launched || unlocked) return <>{children}</>;
 
   return (
     <>
