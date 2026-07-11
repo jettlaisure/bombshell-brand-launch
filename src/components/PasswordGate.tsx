@@ -13,12 +13,13 @@ interface PasswordGateProps {
 const PasswordGate = ({ children }: PasswordGateProps) => {
   const [launched, setLaunched] = useState<boolean | null>(null);
   const [unlocked, setUnlocked] = useState(() => {
-    return sessionStorage.getItem("bombshell_unlocked") === "true";
+    // Clear any legacy unlock flags so the gate is guaranteed to reappear
+    sessionStorage.removeItem("bombshell_unlocked");
+    return sessionStorage.getItem("bombshell_unlocked_v2") === "true";
   });
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [exiting, setExiting] = useState(false);
-  const [isPreview, setIsPreview] = useState(false);
 
   // Make html/body black while gate is showing so any iOS rubber-band
   // overscroll reveals black instead of the white page background
@@ -33,12 +34,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("preview") === "true") {
-      setIsPreview(true);
-    }
-  }, []);
 
   useEffect(() => {
     supabase
@@ -67,7 +62,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     if (buf.includes(CORRECT_PASSWORD)) {
       setExiting(true);
       setTimeout(() => {
-        sessionStorage.setItem("bombshell_unlocked", "true");
+        sessionStorage.setItem("bombshell_unlocked_v2", "true");
         setUnlocked(true);
       }, 800);
       return true;
@@ -120,8 +115,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setSubmitted(true);
   };
 
-  if (launched === null && !isPreview) return null;
-  if (launched || unlocked || isPreview) return <>{children}</>;
+  if (launched === null) return null;
+  if (launched || unlocked) return <>{children}</>;
 
   return (
     <>
