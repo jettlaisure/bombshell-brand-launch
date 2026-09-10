@@ -184,12 +184,29 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="flex flex-col items-center gap-3 md:gap-5 px-6 w-full max-w-md md:max-w-lg mt-[20vh] md:mt-0"
                 >
-              <h1
-                className="text-3xl md:text-6xl uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-lg"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-              >
-                Coming Soon
-              </h1>
+              <div className="flex items-start justify-center gap-3 md:gap-6 text-white drop-shadow-lg">
+                {[
+                  { value: timeLeft.days, label: "Days" },
+                  { value: timeLeft.hours, label: "Hours" },
+                  { value: timeLeft.minutes, label: "Minutes" },
+                  { value: timeLeft.seconds, label: "Seconds" },
+                ].map((unit, i) => (
+                  <div key={unit.label} className="flex flex-col items-center">
+                    <span
+                      className="text-4xl md:text-7xl leading-none tracking-[0.05em]"
+                      style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    >
+                      {pad(unit.value)}
+                    </span>
+                    <span
+                      className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-white/80 mt-1"
+                      style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                    >
+                      {unit.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
 
               <div className="w-full mt-1 md:mt-3">
                 {submitted ? (
