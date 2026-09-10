@@ -190,7 +190,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                   { value: timeLeft.hours, label: "Hours" },
                   { value: timeLeft.minutes, label: "Minutes" },
                   { value: timeLeft.seconds, label: "Seconds" },
-                ].map((unit, i) => (
+                ].map((unit) => (
                   <div key={unit.label} className="flex flex-col items-center">
                     <span
                       className="text-4xl md:text-7xl leading-none tracking-[0.05em]"
