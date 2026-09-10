@@ -68,6 +68,13 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Countdown state
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+  useEffect(() => {
+    const timer = setInterval(() => setTimeLeft(getTimeRemaining()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Hidden password entry via keyboard shortcut
   const [hiddenInput, setHiddenInput] = useState("");
 
