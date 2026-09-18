@@ -4,12 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const pad = (n: number) => n.toString().padStart(2, "0");
 
 const getTimeRemaining = () => {
-  const now = new Date();
-  let target = new Date(now.getFullYear(), 8, 19, 0, 0, 0); // September 19
-  if (target.getTime() < now.getTime()) {
-    target = new Date(now.getFullYear() + 1, 8, 19, 0, 0, 0);
-  }
-  const diff = target.getTime() - now.getTime();
+  // 12:00 PM PDT on September 18, 2026 (fixed instant, timezone-safe)
+  const target = new Date("2026-09-18T12:00:00-07:00");
+  const diff = Math.max(0, target.getTime() - Date.now());
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
