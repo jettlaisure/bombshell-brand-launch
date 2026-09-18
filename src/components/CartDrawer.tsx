@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, Loader2 } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
@@ -9,7 +8,6 @@ import { toast } from "sonner";
 const CartDrawer = () => {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
   const [checkingOut, setCheckingOut] = useState(false);
-  const navigate = useNavigate();
 
   const handleClose = () => setIsOpen(false);
 
@@ -22,9 +20,12 @@ const CartDrawer = () => {
         quantity: item.quantity,
       }));
       const { checkoutUrl } = await createShopifyCart(lines);
-      window.open(checkoutUrl, "_blank");
       setIsOpen(false);
-      navigate("/order-confirmation");
+      // Same-tab redirect. window.open() runs after an await here, so it has lost
+      // user activation and popup blockers silently return null — the customer
+      // never reaches checkout. Shopify shows its own confirmation page once
+      // payment completes, so we must not route to /order-confirmation ourselves.
+      window.location.href = checkoutUrl;
     } catch (err) {
       console.error("Checkout error:", err);
       toast.error("Failed to start checkout. Please try again.");
