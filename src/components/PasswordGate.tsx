@@ -21,6 +21,7 @@ import logoImg from "@/assets/bombshell-logo.png";
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
+const EARLY_ACCESS_CODE = "Bombshell_Early";
 
 interface PasswordGateProps {
   children: React.ReactNode;
@@ -36,6 +37,28 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [exiting, setExiting] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
+  const [codeError, setCodeError] = useState(false);
+
+  const unlock = () => {
+    setExiting(true);
+    setTimeout(() => {
+      sessionStorage.setItem("bombshell_unlocked_v2", "true");
+      setUnlocked(true);
+    }, 800);
+  };
+
+  const handleAccessCodeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = accessCode.trim();
+    if (code === EARLY_ACCESS_CODE || code === CORRECT_PASSWORD) {
+      setCodeError(false);
+      unlock();
+    } else {
+      setCodeError(true);
+      setTimeout(() => setCodeError(false), 2500);
+    }
+  };
 
   // Make html/body black while gate is showing so any iOS rubber-band
   // overscroll reveals black instead of the white page background
