@@ -213,7 +213,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               {/* Early access code entry */}
               <form
                 onSubmit={handleAccessCodeSubmit}
-                className="w-full max-w-[16rem] md:max-w-xs flex flex-col items-center gap-2 mt-1 md:mt-2"
+                className="w-full max-w-[20rem] md:max-w-sm flex flex-col items-center gap-2 mt-1 md:mt-2"
               >
                 <div className="w-full flex border border-white/30 focus-within:border-white/70 transition-colors">
                   <input
@@ -222,7 +222,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                     onChange={(e) => setAccessCode(e.target.value)}
                     placeholder="EARLY ACCESS CODE"
                     aria-label="Early access code"
-                    className="flex-1 min-w-0 bg-transparent text-white placeholder-white/40 text-[10px] md:text-xs uppercase tracking-[0.2em] px-3 py-2.5 md:py-3 outline-none"
+                    className="flex-1 min-w-0 bg-transparent text-white placeholder-white/40 text-[10px] md:text-xs uppercase tracking-[0.12em] px-3 py-2.5 md:py-3 outline-none"
                     style={{ fontFamily: "'Akira Expanded', sans-serif" }}
                   />
                   <button
