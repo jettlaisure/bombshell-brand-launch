@@ -209,6 +209,37 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                   Sign up closed
                 </p>
               </div>
+
+              {/* Early access code entry */}
+              <form
+                onSubmit={handleAccessCodeSubmit}
+                className="w-full max-w-[16rem] md:max-w-xs flex flex-col items-center gap-2 mt-1 md:mt-2"
+              >
+                <div className="w-full flex border border-white/30 focus-within:border-white/70 transition-colors">
+                  <input
+                    type="text"
+                    value={accessCode}
+                    onChange={(e) => setAccessCode(e.target.value)}
+                    placeholder="EARLY ACCESS CODE"
+                    aria-label="Early access code"
+                    className="flex-1 min-w-0 bg-transparent text-white placeholder-white/40 text-[10px] md:text-xs uppercase tracking-[0.2em] px-3 py-2.5 md:py-3 outline-none"
+                    style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                  />
+                  <button
+                    type="submit"
+                    className="shrink-0 px-4 md:px-5 text-white text-[10px] md:text-xs uppercase tracking-[0.2em] border-l border-white/30 hover:bg-white hover:text-black transition-colors"
+                    style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                  >
+                    Enter
+                  </button>
+                </div>
+                <p
+                  className={`text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-red-400 transition-opacity duration-300 ${codeError ? "opacity-100" : "opacity-0"}`}
+                  style={{ fontFamily: "'Akira Expanded', sans-serif" }}
+                >
+                  Invalid code
+                </p>
+              </form>
                 </motion.div>
               </div>
             </motion.div>
