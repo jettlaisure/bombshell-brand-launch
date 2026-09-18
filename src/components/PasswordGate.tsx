@@ -62,12 +62,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
       });
   }, []);
 
-  // Email signup state
-  const [email, setEmail] = useState("");
-  const [consent, setConsent] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   // Countdown state
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
   useEffect(() => {
@@ -113,30 +107,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
-
-  const handleEmailSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!consent) return;
-    const cleanEmail = email.trim().slice(0, 200);
-    if (!cleanEmail) return;
-    setLoading(true);
-
-    await Promise.all([
-      supabase.from("sms_subscribers").insert({
-        phone: "email-only",
-        email: cleanEmail,
-      }),
-      supabase.functions.invoke("shopify-customer-sync", {
-        body: { email: cleanEmail },
-      }),
-      supabase.functions.invoke("klaviyo-subscribe", {
-        body: { email: cleanEmail },
-      }),
-    ]);
-
-    setLoading(false);
-    setSubmitted(true);
-  };
 
   if (launched === null) return null;
   if (launched || unlocked) return <>{children}</>;
