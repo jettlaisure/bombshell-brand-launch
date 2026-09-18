@@ -21,7 +21,7 @@ import logoImg from "@/assets/bombshell-logo.png";
 
 const CORRECT_PASSWORD = "Bombshell_Admin";
 const LAUNCH_PASSWORD = "Bombshell_Launch";
-const EARLY_ACCESS_CODE = "Bombshell_Early";
+const EARLY_ACCESS_CODE = "Shell2026";
 
 interface PasswordGateProps {
   children: React.ReactNode;
