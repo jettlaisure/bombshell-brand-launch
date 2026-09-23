@@ -98,57 +98,61 @@ const SmsOfferPopup = () => {
             </Button>
 
             {submitted ? (
-              <div className="py-2">
-                <h2 id="sms-offer-title" className="font-heading text-2xl uppercase leading-tight tracking-[0] text-foreground">
+              <div className="flex items-baseline justify-center gap-2 py-1 sm:block sm:py-2">
+                <h2 id="sms-offer-title" className="font-heading text-lg uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
                   Check Your Texts
                 </h2>
-                <p id="sms-offer-description" className="mt-2 text-xs leading-5 text-muted-foreground">
+                <p id="sms-offer-description" className="text-[9px] leading-4 text-muted-foreground sm:mt-2 sm:text-xs">
                   Your 15% off code is on its way.
                 </p>
               </div>
             ) : (
               <>
-                <p className="mb-1 text-[9px] uppercase tracking-[0.25em] text-accent">SMS Exclusive</p>
-                <h2 id="sms-offer-title" className="font-heading text-2xl uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
-                  Get 15% Off
-                </h2>
-                <p id="sms-offer-description" className="mx-auto mt-2 max-w-xs text-[10px] leading-4 text-muted-foreground sm:text-xs">
-                  Sign up for texts and we'll send the code to your phone.
-                </p>
+                <p className="mb-1 hidden text-[9px] uppercase tracking-[0.25em] text-accent sm:block">SMS Exclusive</p>
+                <div className="flex items-center justify-between gap-3 pr-6 sm:block sm:pr-0">
+                  <div className="min-w-0">
+                    <h2 id="sms-offer-title" className="font-heading text-lg uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
+                      Get 15% Off
+                    </h2>
+                    <p id="sms-offer-description" className="mt-0.5 truncate text-[9px] leading-4 text-muted-foreground sm:mt-2 sm:max-w-xs sm:truncate-normal sm:text-xs">
+                      Sign up for texts and we'll send the code to your phone.
+                    </p>
+                  </div>
 
-                <form onSubmit={handleSubmit} className="mt-3 flex">
-                  <input
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    placeholder="PHONE NUMBER"
-                    value={phone}
-                    onChange={(event) => {
-                      setPhone(event.target.value);
-                      if (error) setError(null);
-                    }}
-                    required
-                    maxLength={32}
-                    aria-label="Phone number"
-                    aria-invalid={Boolean(error)}
-                    aria-describedby={error ? "sms-offer-error" : undefined}
-                    className="h-10 min-w-0 flex-1 border border-border bg-secondary px-2 text-[10px] uppercase tracking-[0.08em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none"
-                  />
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="h-10 shrink-0 rounded-none px-3 text-[9px] uppercase tracking-[0.12em]"
-                  >
-                    {isSubmitting ? "Sending" : "Get Code"}
-                  </Button>
-                </form>
+                  <form onSubmit={handleSubmit} className="flex shrink-0 sm:mt-3 sm:w-full">
+                    <input
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      placeholder="PHONE NUMBER"
+                      value={phone}
+                      onChange={(event) => {
+                        setPhone(event.target.value);
+                        if (error) setError(null);
+                      }}
+                      required
+                      maxLength={32}
+                      aria-label="Phone number"
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? "sms-offer-error" : undefined}
+                      className="h-8 min-w-0 flex-1 border border-border bg-secondary px-2 text-[10px] uppercase tracking-[0.08em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10"
+                    />
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="h-8 shrink-0 rounded-none px-2.5 text-[9px] uppercase tracking-[0.12em] sm:h-10 sm:px-3"
+                    >
+                      {isSubmitting ? "Sending" : "Get Code"}
+                    </Button>
+                  </form>
+                </div>
                 {error && (
-                  <p id="sms-offer-error" className="mt-2 text-[10px] uppercase tracking-[0.1em] text-accent" role="alert">
+                  <p id="sms-offer-error" className="mt-1 text-[9px] uppercase tracking-[0.1em] text-accent sm:mt-2 sm:text-[10px]" role="alert">
                     {error}
                   </p>
                 )}
 
-                <p className="mt-2 text-[7px] leading-[10px] text-muted-foreground sm:text-[8px] sm:leading-3">
+                <p className="mt-1.5 pr-5 text-[7px] leading-[9px] text-muted-foreground sm:mt-2 sm:pr-0 sm:text-[8px] sm:leading-3">
                   By signing up via text, you agree to receive recurring automated marketing messages at the phone number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe, HELP for help. Msg &amp; data rates may apply. Msg frequency varies. View our{" "}
                   <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">Privacy Policy</Link> and{" "}
                   <Link to="/sms-terms" className="underline underline-offset-2 hover:text-foreground">SMS Terms</Link>.
