@@ -9,7 +9,7 @@ import { useProducts } from "@/hooks/useShopify";
 import { getBundleProducts, getCombatColor, isCombatZipUp } from "@/lib/combatBundle";
 
 const CartDrawer = () => {
-  const { items, isOpen, setIsOpen, addItem, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
+  const { items, isOpen, setIsOpen, addItems, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
   const [checkingOut, setCheckingOut] = useState(false);
   const { data: products = [] } = useProducts();
   const bundleProducts = getBundleProducts(products);
@@ -138,23 +138,20 @@ const CartDrawer = () => {
                     : `Add ${missingCount} more Combat Zip Up to save $100`}
                 </p>
                 {!bundleUnlocked && missingProducts.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {missingProducts.map((product) => {
-                      const variant = product.variants.find((item) => item.available);
-                      if (!variant) return null;
-                      return (
-                        <Button
-                          key={product.id}
-                          variant="outline"
-                          size="sm"
-                          className="h-8 rounded-none px-3 text-[9px] uppercase tracking-[0.1em]"
-                          onClick={() => addItem(product, variant)}
-                        >
-                          + {getCombatColor(product)}
-                        </Button>
-                      );
-                    })}
-                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-3 h-9 w-full rounded-none text-[9px] uppercase tracking-[0.15em]"
+                    onClick={() =>
+                      addItems(
+                        missingProducts
+                          .map((product) => ({ product, variant: product.variants.find((item) => item.available) }))
+                          .filter((entry): entry is { product: (typeof missingProducts)[number]; variant: NonNullable<(typeof missingProducts)[number]["variants"][number]> } => Boolean(entry.variant))
+                      )
+                    }
+                  >
+                    Add all 3 — save $100
+                  </Button>
                 )}
               </div>
             )}
