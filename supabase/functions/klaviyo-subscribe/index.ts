@@ -102,7 +102,7 @@ serve(async (req) => {
     if (!res.ok) {
       const text = await res.text();
       console.error("Klaviyo error", res.status, text);
-      return new Response(JSON.stringify({ error: "Klaviyo subscription failed", detail: text }), {
+      return new Response(JSON.stringify({ error: "Klaviyo subscription failed" }), {
         status: 502,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
