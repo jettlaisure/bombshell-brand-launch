@@ -134,7 +134,7 @@ const SmsOfferPopup = () => {
                       type="tel"
                       inputMode="tel"
                       autoComplete="tel"
-                      placeholder="PHONE NUMBER"
+                      placeholder={isDesktop ? "PHONE NUMBER" : "PHONE"}
                       value={phone}
                       onChange={(event) => {
                         setPhone(event.target.value);
