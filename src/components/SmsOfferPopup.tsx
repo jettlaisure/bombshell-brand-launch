@@ -94,7 +94,7 @@ const SmsOfferPopup = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="pointer-events-auto relative w-full border-y border-border bg-background px-3 pb-3.5 pt-4 text-left shadow-2xl sm:w-[20rem] sm:border sm:p-5 sm:text-center"
+            className="pointer-events-auto relative w-full border-y border-border bg-background px-4 pb-4 pt-4 text-left shadow-2xl sm:w-[21rem] sm:border sm:px-6 sm:py-5 sm:text-center"
           >
             <Button
               type="button"
@@ -102,26 +102,26 @@ const SmsOfferPopup = () => {
               size="icon"
               onClick={() => setOpen(false)}
               aria-label="Close SMS offer"
-              className="absolute right-0.5 top-0.5 h-6 w-6 rounded-none text-muted-foreground hover:text-foreground sm:h-8 sm:w-8"
+              className="absolute right-1 top-1 h-7 w-7 rounded-none text-muted-foreground hover:text-foreground sm:h-8 sm:w-8"
             >
               <X aria-hidden="true" />
             </Button>
 
             {submitted ? (
-              <div className="flex items-baseline justify-center gap-2 py-1 sm:block sm:py-2">
-                <h2 id="sms-offer-title" className="font-heading text-lg uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
+              <div className="flex items-baseline justify-center gap-2 py-1.5 pr-7 sm:block sm:py-2 sm:pr-0">
+                <h2 id="sms-offer-title" className="font-heading text-xl uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
                   Check Your Texts
                 </h2>
-                <p id="sms-offer-description" className="text-[9px] leading-4 text-muted-foreground sm:mt-2 sm:text-xs">
+                <p id="sms-offer-description" className="text-[10px] leading-4 text-muted-foreground sm:mt-2 sm:text-xs">
                   Your 15% off code is on its way.
                 </p>
               </div>
             ) : (
               <>
-                <p className="mb-1 hidden text-[9px] uppercase tracking-[0.25em] text-accent sm:block">SMS Exclusive</p>
-                <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 pr-6 sm:gap-3 sm:block sm:pr-0">
+                <p className="mb-2 hidden text-[9px] uppercase tracking-[0.25em] text-accent sm:block">SMS Exclusive</p>
+                <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3.5 pr-7 sm:gap-3 sm:block sm:pr-0">
                   <div className="min-w-0">
-                    <h2 id="sms-offer-title" className="whitespace-nowrap font-heading text-sm uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
+                    <h2 id="sms-offer-title" className="whitespace-nowrap font-heading text-base uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
                       Get 15% Off
                     </h2>
                     <p id="sms-offer-description" className="sr-only text-muted-foreground sm:not-sr-only sm:mt-2 sm:text-xs">
@@ -129,7 +129,7 @@ const SmsOfferPopup = () => {
                     </p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="flex shrink-0 sm:mt-3 sm:w-full">
+                  <form onSubmit={handleSubmit} className="flex shrink-0 sm:mt-4 sm:w-full">
                     <input
                       type="tel"
                       inputMode="tel"
@@ -145,24 +145,24 @@ const SmsOfferPopup = () => {
                       aria-label="Phone number"
                       aria-invalid={Boolean(error)}
                       aria-describedby={error ? "sms-offer-error" : undefined}
-                      className="h-9 min-w-0 flex-1 border border-border bg-secondary px-2 text-[9px] uppercase tracking-[0.05em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:text-[10px] sm:tracking-[0.08em]"
+                      className="h-10 min-w-0 flex-1 border border-border bg-secondary px-3 text-[10px] uppercase tracking-[0.05em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:tracking-[0.08em]"
                     />
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="h-9 shrink-0 rounded-none px-2 text-[9px] uppercase tracking-[0.12em] sm:h-10 sm:px-3"
+                      className="h-10 shrink-0 rounded-none px-3 text-[10px] uppercase tracking-[0.12em] sm:px-4"
                     >
                       {isSubmitting ? "Sending" : "Get Code"}
                     </Button>
                   </form>
                 </div>
                 {error && (
-                  <p id="sms-offer-error" className="mt-1 text-[9px] uppercase tracking-[0.1em] text-accent sm:mt-2 sm:text-[10px]" role="alert">
+                  <p id="sms-offer-error" className="mt-2 pr-7 text-[9px] uppercase leading-4 tracking-[0.1em] text-accent sm:mt-2 sm:text-[10px]" role="alert">
                     {error}
                   </p>
                 )}
 
-                <p className="mt-2.5 pr-5 text-[7px] leading-[9px] text-muted-foreground sm:mt-2 sm:pr-0 sm:text-[8px] sm:leading-3">
+                <p className="mt-3 pr-7 text-[8px] leading-[11px] text-muted-foreground sm:mt-4 sm:pr-0 sm:leading-3">
                   By signing up via text, you agree to receive recurring automated marketing messages at the phone number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe, HELP for help. Msg &amp; data rates may apply. Msg frequency varies. View our{" "}
                   <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">Privacy Policy</Link> and{" "}
                   <Link to="/sms-terms" className="underline underline-offset-2 hover:text-foreground">SMS Terms</Link>.
