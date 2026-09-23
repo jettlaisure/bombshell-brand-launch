@@ -114,7 +114,7 @@ const SmsOfferPopup = () => {
                     <h2 id="sms-offer-title" className="font-heading text-lg uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
                       Get 15% Off
                     </h2>
-                    <p id="sms-offer-description" className="mt-0.5 truncate text-[9px] leading-4 text-muted-foreground sm:mt-2 sm:max-w-xs sm:truncate-normal sm:text-xs">
+                    <p id="sms-offer-description" className="sr-only text-muted-foreground sm:not-sr-only sm:mt-2 sm:text-xs">
                       Sign up for texts and we'll send the code to your phone.
                     </p>
                   </div>
