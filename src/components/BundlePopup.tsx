@@ -67,8 +67,8 @@ const BundlePopup = () => {
           </div>
           <div className="p-5">
             <p className="font-heading text-xl uppercase">Get All 3 for $349.97 — Save $100</p>
-            <Button onClick={goToBundle} className="mt-4 h-11 w-full rounded-none text-[10px] uppercase tracking-[0.2em]">
-              Shop the Bundle
+            <Button onClick={addBundle} className="mt-4 h-11 w-full rounded-none text-[10px] uppercase tracking-[0.2em]">
+              Add All 3 — Save $100
             </Button>
           </div>
         </motion.aside>
