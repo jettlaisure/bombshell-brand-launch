@@ -6,7 +6,7 @@ serve(async () => {
     return new Response(JSON.stringify({ error: "no api key" }), { status: 500 });
   }
   const res = await fetch(
-    "https://a.klaviyo.com/api/lists/VqkTmC/profiles/?fields[profile]=phone_number",
+    "https://a.klaviyo.com/api/lists/VqkTmC/profiles/",
     {
       headers: {
         Authorization: `Klaviyo-API-Key ${apiKey}`,
