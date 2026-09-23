@@ -158,7 +158,8 @@ const ProductDetail = () => {
 
               {isCombatZipUp(product) && (
                 <Link
-                  to="/#bundle"
+                  to="/"
+                  onClick={() => window.setTimeout(() => document.getElementById("bundle")?.scrollIntoView({ behavior: "smooth" }), 100)}
                   className="mt-3 block w-full max-w-md border border-border px-4 py-3 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
                 >
                   Bundle all 3 colors and save $100

@@ -135,7 +135,7 @@ const CartDrawer = () => {
                 <p className="text-xs uppercase tracking-[0.12em]">
                   {bundleUnlocked
                     ? "Bundle unlocked — you’re saving $100"
-                    : `Add ${missingCount} more Combat Zip Up${missingCount === 1 ? "" : "s"} to save $100`}
+                    : `Add ${missingCount} more Combat Zip Up to save $100`}
                 </p>
                 {!bundleUnlocked && missingProducts.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-2">
