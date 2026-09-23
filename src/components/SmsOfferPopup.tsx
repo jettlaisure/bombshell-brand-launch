@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
-const SEEN_KEY = "bombshell_sms_offer_seen";
+const SIGNED_UP_KEY = "bombshell_sms_offer_signed_up";
 const DISPLAY_DELAY_MS = 10_000;
 
 const normalizePhone = (value: string) => {
@@ -39,12 +39,9 @@ const SmsOfferPopup = () => {
   }, []);
 
   useEffect(() => {
-    if (isLegalPage || window.localStorage.getItem(SEEN_KEY) === "true") return;
+    if (isLegalPage || window.localStorage.getItem(SIGNED_UP_KEY) === "true") return;
 
-    const timer = window.setTimeout(() => {
-      window.localStorage.setItem(SEEN_KEY, "true");
-      setOpen(true);
-    }, DISPLAY_DELAY_MS);
+    const timer = window.setTimeout(() => setOpen(true), DISPLAY_DELAY_MS);
     return () => window.clearTimeout(timer);
   }, [isLegalPage]);
 
@@ -69,6 +66,7 @@ const SmsOfferPopup = () => {
       if (submitError) throw submitError;
       if (data?.error) throw new Error(data.error);
 
+      window.localStorage.setItem(SIGNED_UP_KEY, "true");
       setSubmitted(true);
       setPhone("");
     } catch (submitError) {
