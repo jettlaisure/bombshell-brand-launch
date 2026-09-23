@@ -6,6 +6,7 @@ interface CartContextType {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   addItem: (product: Product, variant: ProductVariant) => void;
+  addItems: (items: { product: Product; variant: ProductVariant }[]) => void;
   removeItem: (variantId: string) => void;
   updateQuantity: (variantId: string, quantity: number) => void;
   clearCart: () => void;
@@ -38,6 +39,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsOpen(true);
   }, []);
 
+  const addItems = useCallback((newItems: { product: Product; variant: ProductVariant }[]) => {
+    setItems((current) => {
+      const next = [...current];
+      newItems.forEach(({ product, variant }) => {
+        const index = next.findIndex((item) => item.variantId === variant.id);
+        if (index >= 0) {
+          next[index] = { ...next[index], quantity: next[index].quantity + 1 };
+        } else {
+          next.push({ variantId: variant.id, product, variant, quantity: 1 });
+        }
+      });
+      return next;
+    });
+    setIsOpen(true);
+  }, []);
+
   const removeItem = useCallback((variantId: string) => {
     setItems((prev) => prev.filter((i) => i.variantId !== variantId));
   }, []);
@@ -58,7 +75,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, isOpen, setIsOpen, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice }}
+      value={{ items, isOpen, setIsOpen, addItem, addItems, removeItem, updateQuantity, clearCart, totalItems, totalPrice }}
     >
       {children}
     </CartContext.Provider>

@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import BundleSection from "@/components/BundleSection";
 import FeaturedDrop from "@/components/FeaturedDrop";
 import BrandIdentity from "@/components/BrandIdentity";
 import Newsletter from "@/components/Newsletter";
@@ -11,6 +12,7 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
+        <BundleSection />
         <FeaturedDrop />
         <BrandIdentity />
         <Newsletter />
