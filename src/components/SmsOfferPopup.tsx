@@ -135,7 +135,7 @@ const SmsOfferPopup = () => {
                       aria-label="Phone number"
                       aria-invalid={Boolean(error)}
                       aria-describedby={error ? "sms-offer-error" : undefined}
-                      className="h-8 min-w-0 flex-1 border border-border bg-secondary px-2 text-[10px] uppercase tracking-[0.08em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10"
+                      className="h-8 min-w-0 flex-1 border border-border bg-secondary px-2 text-[9px] uppercase tracking-[0.05em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:text-[10px] sm:tracking-[0.08em]"
                     />
                     <Button
                       type="submit"
