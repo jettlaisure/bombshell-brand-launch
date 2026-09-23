@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Newsletter = () => {
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length >= 10) {
       setSubmitted(true);
-      setEmail("");
+      setPhone("");
     }
   };
 
