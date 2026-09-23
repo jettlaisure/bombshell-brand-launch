@@ -13,7 +13,9 @@ const ProductDetail = () => {
   const { data: product, isLoading } = useProductByHandle(handle);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const { addItem } = useCart();
+  const { addItem, addItems } = useCart();
+  const { data: products = [] } = useProducts();
+  const bundleProducts = useMemo(() => getBundleProducts(products), [products]);
 
   useEffect(() => {
     if (product) {
@@ -156,14 +158,22 @@ const ProductDetail = () => {
                 {selectedVariant.available ? "Add to Cart" : "Sold Out"}
               </button>
 
-              {isCombatZipUp(product) && (
-                <Link
-                  to="/"
-                  onClick={() => window.setTimeout(() => document.getElementById("bundle")?.scrollIntoView({ behavior: "smooth" }), 100)}
+              {isCombatZipUp(product) && bundleProducts.length === 3 && (
+                <button
+                  onClick={() =>
+                    addItems(
+                      bundleProducts
+                        .map((bundleProduct: Product) => ({
+                          product: bundleProduct,
+                          variant: bundleProduct.variants.find((v) => v.available) ?? bundleProduct.variants[0],
+                        }))
+                        .filter((item) => item.variant)
+                    )
+                  }
                   className="mt-3 block w-full max-w-md border border-border px-4 py-3 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
                 >
                   Bundle all 3 colors and save $100
-                </Link>
+                </button>
               )}
 
               {/* Tags */}
