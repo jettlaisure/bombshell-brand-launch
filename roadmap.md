@@ -16,4 +16,4 @@
 - [x] Add a one-time 15% off SMS signup popup
 - [x] Connect it to the existing Text Messaging List signup flow
 - [x] Include consent copy and legal links
-- [ ] Verify popup display, dismissal, submission, and mobile layout
+- [x] Verify popup display, dismissal, submission, and mobile layout
