@@ -17,4 +17,4 @@
 - [x] Connect it to the existing Text Messaging List signup flow
 - [x] Include consent copy and legal links
 - [x] Verify popup display, dismissal, submission, and mobile layout
-- [ ] Convert it to a compact, non-blocking first-visit prompt and re-verify navigation
+- [x] Convert it to a compact, non-blocking first-visit prompt and re-verify navigation
