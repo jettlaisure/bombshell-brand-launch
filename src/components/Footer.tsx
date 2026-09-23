@@ -14,7 +14,7 @@ const Footer = () => {
             <Link key="st" to="/sms-terms" className="nav-link">SMS Terms</Link>,
           ].map((item, i) => (
             <span key={i} className="flex items-center gap-6">
-              {i > 0 && <span className="w-px h-3 bg-border" />}
+              {i > 0 && <span className="hidden sm:block w-px h-3 bg-border" />}
               {item}
             </span>
           ))}
