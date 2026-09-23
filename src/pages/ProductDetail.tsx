@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useProductByHandle } from "@/hooks/useShopify";
+import { useProductByHandle, useProducts } from "@/hooks/useShopify";
 import { useCart } from "@/contexts/CartContext";
-import type { ProductVariant } from "@/types/shopify";
-import { isCombatZipUp } from "@/lib/combatBundle";
+import type { Product, ProductVariant } from "@/types/shopify";
+import { isCombatZipUp, getBundleProducts } from "@/lib/combatBundle";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
