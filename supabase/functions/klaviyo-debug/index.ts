@@ -16,7 +16,10 @@ serve(async () => {
     },
   );
   const body = await res.json();
-  const phones = (body.data ?? []).map((p: any) => p.attributes?.phone_number).filter(Boolean);
+  const phones = (body.data ?? []).map((p: any) => ({
+    phone: p.attributes?.phone_number,
+    email: p.attributes?.email,
+  }));
   return new Response(JSON.stringify({ phones }), {
     headers: { "Content-Type": "application/json" },
   });
