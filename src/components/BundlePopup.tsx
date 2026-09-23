@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useShopify";
+import { useCart } from "@/contexts/CartContext";
 import { getBundleProducts, getCombatColor } from "@/lib/combatBundle";
+import type { Product } from "@/types/shopify";
 
 const VISITED_KEY = "bombshell_bundle_visited";
 const SEEN_KEY = "bombshell_bundle_popup_seen";
@@ -14,8 +15,9 @@ const BundlePopup = () => {
   const [eligible] = useState(() => localStorage.getItem(VISITED_KEY) === "true" && localStorage.getItem(SEEN_KEY) !== "true");
   const { data: products = [] } = useProducts();
   const bundleProducts = useMemo(() => getBundleProducts(products), [products]);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { addItems } = useCart();
+
+  const pickVariant = (product: Product) => product.variants.find((v) => v.available) ?? product.variants[0];
 
   useEffect(() => {
     localStorage.setItem(VISITED_KEY, "true");
@@ -38,10 +40,11 @@ const BundlePopup = () => {
   }, [eligible]);
 
   const close = () => setOpen(false);
-  const goToBundle = () => {
+  const addBundle = () => {
+    addItems(
+      bundleProducts.map((product) => ({ product, variant: pickVariant(product) })).filter((item) => item.variant)
+    );
     close();
-    if (location.pathname !== "/") navigate("/");
-    window.setTimeout(() => document.getElementById("bundle")?.scrollIntoView({ behavior: "smooth" }), 100);
   };
 
   return (
@@ -64,8 +67,8 @@ const BundlePopup = () => {
           </div>
           <div className="p-5">
             <p className="font-heading text-xl uppercase">Get All 3 for $349.97 — Save $100</p>
-            <Button onClick={goToBundle} className="mt-4 h-11 w-full rounded-none text-[10px] uppercase tracking-[0.2em]">
-              Shop the Bundle
+            <Button onClick={addBundle} className="mt-4 h-11 w-full rounded-none text-[10px] uppercase tracking-[0.2em]">
+              Add All 3 — Save $100
             </Button>
           </div>
         </motion.aside>
