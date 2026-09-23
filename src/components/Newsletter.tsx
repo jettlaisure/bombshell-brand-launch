@@ -43,10 +43,11 @@ const Newsletter = () => {
         ) : (
           <form onSubmit={handleSubmit} className="flex gap-0">
             <input
-              type="email"
-              placeholder="EMAIL ADDRESS"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="tel"
+              inputMode="tel"
+              placeholder="PHONE NUMBER"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               required
               className="flex-1 bg-secondary border border-border px-5 py-3 text-xs uppercase tracking-[0.15em] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors"
             />
