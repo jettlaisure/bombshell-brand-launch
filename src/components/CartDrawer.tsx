@@ -9,7 +9,7 @@ import { useProducts } from "@/hooks/useShopify";
 import { getBundleProducts, getCombatColor, isCombatZipUp } from "@/lib/combatBundle";
 
 const CartDrawer = () => {
-  const { items, isOpen, setIsOpen, addItem, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
+  const { items, isOpen, setIsOpen, addItems, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
   const [checkingOut, setCheckingOut] = useState(false);
   const { data: products = [] } = useProducts();
   const bundleProducts = getBundleProducts(products);
