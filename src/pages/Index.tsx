@@ -12,7 +12,6 @@ const Index = () => {
       <main>
         <HeroSection />
         <BundleSection />
-        <FeaturedDrop />
         <BrandIdentity />
         <Newsletter />
       </main>
