@@ -94,7 +94,7 @@ const SmsOfferPopup = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="pointer-events-auto relative w-full border-y border-border bg-background px-3 pb-2 pt-2.5 text-left shadow-2xl sm:w-[20rem] sm:border sm:p-5 sm:text-center"
+            className="pointer-events-auto relative w-full border-y border-border bg-background px-3 pb-3.5 pt-4 text-left shadow-2xl sm:w-[20rem] sm:border sm:p-5 sm:text-center"
           >
             <Button
               type="button"
@@ -145,12 +145,12 @@ const SmsOfferPopup = () => {
                       aria-label="Phone number"
                       aria-invalid={Boolean(error)}
                       aria-describedby={error ? "sms-offer-error" : undefined}
-                      className="h-8 min-w-0 flex-1 border border-border bg-secondary px-2 text-[9px] uppercase tracking-[0.05em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:text-[10px] sm:tracking-[0.08em]"
+                      className="h-9 min-w-0 flex-1 border border-border bg-secondary px-2 text-[9px] uppercase tracking-[0.05em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:text-[10px] sm:tracking-[0.08em]"
                     />
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="h-8 shrink-0 rounded-none px-2 text-[9px] uppercase tracking-[0.12em] sm:h-10 sm:px-3"
+                      className="h-9 shrink-0 rounded-none px-2 text-[9px] uppercase tracking-[0.12em] sm:h-10 sm:px-3"
                     >
                       {isSubmitting ? "Sending" : "Get Code"}
                     </Button>
@@ -162,7 +162,7 @@ const SmsOfferPopup = () => {
                   </p>
                 )}
 
-                <p className="mt-1.5 pr-5 text-[7px] leading-[9px] text-muted-foreground sm:mt-2 sm:pr-0 sm:text-[8px] sm:leading-3">
+                <p className="mt-2.5 pr-5 text-[7px] leading-[9px] text-muted-foreground sm:mt-2 sm:pr-0 sm:text-[8px] sm:leading-3">
                   By signing up via text, you agree to receive recurring automated marketing messages at the phone number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe, HELP for help. Msg &amp; data rates may apply. Msg frequency varies. View our{" "}
                   <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">Privacy Policy</Link> and{" "}
                   <Link to="/sms-terms" className="underline underline-offset-2 hover:text-foreground">SMS Terms</Link>.
