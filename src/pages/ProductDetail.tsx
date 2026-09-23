@@ -165,7 +165,12 @@ const ProductDetail = () => {
                       bundleProducts
                         .map((bundleProduct: Product) => ({
                           product: bundleProduct,
-                          variant: bundleProduct.variants.find((v) => v.available) ?? bundleProduct.variants[0],
+                          variant:
+                            bundleProduct.variants.find(
+                              (v) => v.available && v.title === selectedVariant.title
+                            ) ??
+                            bundleProduct.variants.find((v) => v.available) ??
+                            bundleProduct.variants[0],
                         }))
                         .filter((item) => item.variant)
                     )
