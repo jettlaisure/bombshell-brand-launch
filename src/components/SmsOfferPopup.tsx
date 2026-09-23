@@ -66,6 +66,7 @@ const SmsOfferPopup = () => {
       if (submitError) throw submitError;
       if (data?.error) throw new Error(data.error);
 
+      window.localStorage.setItem(SIGNED_UP_KEY, "true");
       setSubmitted(true);
       setPhone("");
     } catch (submitError) {
