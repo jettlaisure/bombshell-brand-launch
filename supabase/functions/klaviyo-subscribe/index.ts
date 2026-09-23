@@ -94,7 +94,7 @@ serve(async (req) => {
             },
             custom_source: "Bombshell Homepage Signup",
           },
-          relationships: { list: { data: { type: "list", id: LIST_ID } } },
+          relationships: { list: { data: { type: "list", id: normalizedPhone ? SMS_LIST_ID : LIST_ID } } },
         },
       }),
     });
