@@ -31,6 +31,7 @@ serve(async (req) => {
 
   const API_KEY = Deno.env.get("KLAVIYO_API_KEY");
   const LIST_ID = Deno.env.get("KLAVIYO_LIST_ID");
+  const SMS_LIST_ID = Deno.env.get("KLAVIYO_SMS_LIST_ID") || LIST_ID;
   if (!API_KEY || !LIST_ID) {
     return new Response(JSON.stringify({ error: "Klaviyo not configured" }), {
       status: 500,
@@ -93,7 +94,7 @@ serve(async (req) => {
             },
             custom_source: "Bombshell Homepage Signup",
           },
-          relationships: { list: { data: { type: "list", id: LIST_ID } } },
+          relationships: { list: { data: { type: "list", id: normalizedPhone ? SMS_LIST_ID : LIST_ID } } },
         },
       }),
     });
