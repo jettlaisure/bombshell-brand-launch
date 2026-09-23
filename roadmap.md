@@ -11,3 +11,9 @@
 - [x] Add both links to the footer site-wide
 - [x] Add the supplied disclosure beside every active email/SMS signup
 - [x] Verify direct URLs and mobile layout
+
+## SMS discount popup
+- [x] Add a one-time 15% off SMS signup popup
+- [x] Connect it to the existing Text Messaging List signup flow
+- [x] Include consent copy and legal links
+- [ ] Verify popup display, dismissal, submission, and mobile layout
