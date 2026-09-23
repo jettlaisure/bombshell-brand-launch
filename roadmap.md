@@ -10,4 +10,4 @@
 - [x] Add SMS Terms at /sms-terms with exact supplied text and linked URLs/email
 - [x] Add both links to the footer site-wide
 - [x] Add the supplied disclosure beside every active email/SMS signup
-- [ ] Verify direct URLs and mobile layout
+- [x] Verify direct URLs and mobile layout
