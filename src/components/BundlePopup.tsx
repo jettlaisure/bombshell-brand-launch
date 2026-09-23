@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useProducts } from "@/hooks/useShopify";
+import { useCart } from "@/contexts/CartContext";
 import { getBundleProducts, getCombatColor } from "@/lib/combatBundle";
+import type { Product } from "@/types/shopify";
 
 const VISITED_KEY = "bombshell_bundle_visited";
 const SEEN_KEY = "bombshell_bundle_popup_seen";
