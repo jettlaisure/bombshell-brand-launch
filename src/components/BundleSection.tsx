@@ -1,35 +1,24 @@
-import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
 import { useProducts } from "@/hooks/useShopify";
-import { useCart } from "@/contexts/CartContext";
-import { getBundleProducts, getCombatColor, getVariantSize } from "@/lib/combatBundle";
-import type { ProductVariant } from "@/types/shopify";
+import { getBundleProducts } from "@/lib/combatBundle";
+import greyHoodieFeatured from "@/assets/grey-hoodie-featured.jpeg";
+import blackHoodieFeatured from "@/assets/black-hoodie-featured.jpeg";
+import greenHoodieFeatured from "@/assets/green-hoodie-featured.jpeg";
+
+// Override images for the landing page cards (by handle)
+const featuredImageOverrides: Record<string, string> = {
+  "combat-zip-up-heather-grey": greyHoodieFeatured,
+  "combat-zip-up-heather-gray": greyHoodieFeatured,
+  "combat-zip-up-black": blackHoodieFeatured,
+  "combat-zip-up-military-green": greenHoodieFeatured,
+};
 
 const BundleSection = () => {
-  const { data: products = [], isLoading } = useProducts();
-  const bundleProducts = useMemo(() => getBundleProducts(products), [products]);
-  const [selectedVariants, setSelectedVariants] = useState<Record<string, ProductVariant>>({});
-  const { addItems } = useCart();
-
-  useEffect(() => {
-    if (bundleProducts.length !== 3) return;
-    const sharedSizes = bundleProducts[0].variants
-      .filter((variant) => variant.available)
-      .map(getVariantSize)
-      .filter((size) => bundleProducts.every((product) => product.variants.some((variant) => variant.available && getVariantSize(variant) === size)));
-    const defaultSize = sharedSizes[0];
-    const defaults = Object.fromEntries(
-      bundleProducts.flatMap((product) => {
-        const variant = product.variants.find((item) => item.available && getVariantSize(item) === defaultSize)
-          ?? product.variants.find((item) => item.available);
-        return variant ? [[product.id, variant]] : [];
-      }),
-    );
-    setSelectedVariants(defaults);
-  }, [bundleProducts]);
-
-  const ready = bundleProducts.length === 3 && bundleProducts.every((product) => selectedVariants[product.id]?.available);
+  const { data: products = [] } = useProducts();
+  const bundleProducts = getBundleProducts(products);
+  const cards = bundleProducts.length === 3 ? bundleProducts : products.slice(0, 3);
 
   return (
     <section id="bundle" className="scroll-mt-20 border-b border-border bg-background py-16 md:py-24 section-padding">
@@ -37,7 +26,7 @@ const BundleSection = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        className="mx-auto max-w-6xl"
+        className="mx-auto max-w-5xl"
       >
         <div className="mb-8 flex flex-col items-start justify-between gap-4 md:mb-12 md:flex-row md:items-end">
           <h2 className="font-heading text-3xl uppercase md:text-5xl">Get All 3. Save $100.</h2>
@@ -47,57 +36,60 @@ const BundleSection = () => {
           </p>
         </div>
 
-        {isLoading ? (
-          <div className="py-24 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">Loading bundle…</div>
-        ) : bundleProducts.length === 3 ? (
-          <>
-            <div className="grid grid-cols-3 gap-2 md:gap-4">
-              {bundleProducts.map((product) => (
-                <article key={product.id} className="min-w-0">
-                  <div className="aspect-[3/4] overflow-hidden bg-secondary">
-                    <img
-                      src={product.images[0]?.src}
-                      alt={product.images[0]?.altText || product.title}
-                      className="h-full w-full object-cover object-top"
-                    />
-                  </div>
-                  <h3 className="mt-3 min-h-8 text-[9px] uppercase leading-4 md:min-h-0 md:text-xs">
-                    {getCombatColor(product)}
-                  </h3>
-                  <label className="mt-2 block">
-                    <span className="sr-only">Size for {getCombatColor(product)}</span>
-                    <select
-                      value={selectedVariants[product.id]?.id ?? ""}
-                      onChange={(event) => {
-                        const variant = product.variants.find((item) => item.id === event.target.value);
-                        if (variant) setSelectedVariants((current) => ({ ...current, [product.id]: variant }));
-                      }}
-                      className="h-10 w-full appearance-none border border-border bg-background px-2 text-[10px] uppercase tracking-[0.1em] text-foreground outline-none focus:border-foreground md:px-3 md:text-xs"
-                    >
-                      {product.variants.map((variant) => (
-                        <option key={variant.id} value={variant.id} disabled={!variant.available}>
-                          {getVariantSize(variant)}{variant.available ? "" : " — Sold out"}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </article>
-              ))}
-            </div>
-            <Button
-              className="mt-8 h-14 w-full rounded-none text-xs uppercase tracking-[0.2em] md:mt-10"
-              disabled={!ready}
-              onClick={() => addItems(bundleProducts.map((product) => ({ product, variant: selectedVariants[product.id] })))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          {cards.map((product, i) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="group"
             >
-              Add All 3 to Cart
-            </Button>
-            <p className="mt-3 text-center text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-              Automatic discount applied at checkout
-            </p>
-          </>
-        ) : (
-          <p className="py-16 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">Bundle temporarily unavailable.</p>
-        )}
+              <Link to={`/shop/${product.handle}`} className="block">
+                <div className="aspect-[3/4] bg-secondary relative overflow-hidden">
+                  <img
+                    src={featuredImageOverrides[product.handle] || product.images[0]?.src}
+                    alt={product.images[0]?.altText || product.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="bg-foreground text-background p-2.5 rounded-full">
+                      <ShoppingBag size={16} />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-start justify-between gap-2" style={{ fontFamily: "'Akira Expanded', sans-serif" }}>
+                  <div>
+                    <p className="text-[10px] md:text-xs uppercase tracking-[0.1em] font-medium text-foreground">
+                      {product.title}
+                    </p>
+                    <p className="text-[9px] md:text-[10px] text-muted-foreground mt-1">
+                      ${product.variants[0]?.price}
+                    </p>
+                  </div>
+                  <ShoppingBag size={16} className="text-muted-foreground mt-1 shrink-0 md:hidden" />
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="mt-12"
+        >
+          <Link
+            to="/shop"
+            className="inline-block px-10 py-3 border border-border text-xs uppercase tracking-[0.25em] text-muted-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-500"
+          >
+            View All
+          </Link>
+        </motion.div>
       </motion.div>
     </section>
   );
