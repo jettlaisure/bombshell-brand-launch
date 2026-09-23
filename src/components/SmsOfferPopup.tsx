@@ -74,7 +74,7 @@ const SmsOfferPopup = () => {
   return (
     <AnimatePresence>
       {open && (
-        <div className="pointer-events-none fixed bottom-3 right-3 z-40 pb-[env(safe-area-inset-bottom)] sm:bottom-5 sm:right-5">
+        <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-40 pb-[env(safe-area-inset-bottom)] sm:bottom-5 sm:right-5 sm:left-auto">
           <motion.aside
             role="dialog"
             aria-modal="false"
@@ -84,7 +84,7 @@ const SmsOfferPopup = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="pointer-events-auto relative w-[17.5rem] max-w-[calc(100vw-1.5rem)] border border-border bg-background p-4 text-center shadow-2xl sm:w-[20rem] sm:p-5"
+            className="pointer-events-auto relative w-full border-y border-border bg-background px-3 pb-2 pt-2.5 text-left shadow-2xl sm:w-[20rem] sm:border sm:p-5 sm:text-center"
           >
             <Button
               type="button"
@@ -92,7 +92,7 @@ const SmsOfferPopup = () => {
               size="icon"
               onClick={() => setOpen(false)}
               aria-label="Close SMS offer"
-              className="absolute right-0.5 top-0.5 h-8 w-8 rounded-none text-muted-foreground hover:text-foreground"
+              className="absolute right-0.5 top-0.5 h-6 w-6 rounded-none text-muted-foreground hover:text-foreground sm:h-8 sm:w-8"
             >
               <X aria-hidden="true" />
             </Button>
