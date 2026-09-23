@@ -3,13 +3,15 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import CartDrawer from "@/components/CartDrawer";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import Privacy from "./pages/Privacy";
+import SmsTerms from "./pages/SmsTerms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,7 +43,7 @@ const App = () => {
         <CartProvider>
           <Toaster />
             <Sonner />
-            <HashRouter>
+            <BrowserRouter>
               <>
                 <CartDrawer />
                 <Routes>
@@ -49,11 +51,13 @@ const App = () => {
                   <Route path="/shop" element={<Shop />} />
                   <Route path="/shop/:handle" element={<ProductDetail />} />
                   <Route path="/order-confirmation" element={<OrderConfirmation />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/sms-terms" element={<SmsTerms />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </>
-            </HashRouter>
+            </BrowserRouter>
         </CartProvider>
       </TooltipProvider>
     </QueryClientProvider>
