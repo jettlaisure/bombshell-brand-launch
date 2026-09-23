@@ -40,10 +40,11 @@ const BundlePopup = () => {
   }, [eligible]);
 
   const close = () => setOpen(false);
-  const goToBundle = () => {
+  const addBundle = () => {
+    addItems(
+      bundleProducts.map((product) => ({ product, variant: pickVariant(product) })).filter((item) => item.variant)
+    );
     close();
-    if (location.pathname !== "/") navigate("/");
-    window.setTimeout(() => document.getElementById("bundle")?.scrollIntoView({ behavior: "smooth" }), 100);
   };
 
   return (
