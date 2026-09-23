@@ -15,8 +15,9 @@ const BundlePopup = () => {
   const [eligible] = useState(() => localStorage.getItem(VISITED_KEY) === "true" && localStorage.getItem(SEEN_KEY) !== "true");
   const { data: products = [] } = useProducts();
   const bundleProducts = useMemo(() => getBundleProducts(products), [products]);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { addItems } = useCart();
+
+  const pickVariant = (product: Product) => product.variants.find((v) => v.available) ?? product.variants[0];
 
   useEffect(() => {
     localStorage.setItem(VISITED_KEY, "true");
