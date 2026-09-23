@@ -140,7 +140,7 @@ const SmsOfferPopup = () => {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="h-8 shrink-0 rounded-none px-2.5 text-[9px] uppercase tracking-[0.12em] sm:h-10 sm:px-3"
+                      className="h-8 shrink-0 rounded-none px-2 text-[9px] uppercase tracking-[0.12em] sm:h-10 sm:px-3"
                     >
                       {isSubmitting ? "Sending" : "Get Code"}
                     </Button>
