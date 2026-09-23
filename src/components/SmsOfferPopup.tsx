@@ -145,7 +145,7 @@ const SmsOfferPopup = () => {
                       aria-label="Phone number"
                       aria-invalid={Boolean(error)}
                       aria-describedby={error ? "sms-offer-error" : undefined}
-                      className="h-10 min-w-0 flex-1 border border-border bg-secondary px-3 text-[10px] uppercase tracking-[0.05em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:tracking-[0.08em]"
+                      className="h-10 min-w-0 flex-1 border border-border bg-secondary px-2.5 text-[9px] uppercase tracking-[0.04em] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none sm:h-10 sm:px-3 sm:text-[10px] sm:tracking-[0.08em]"
                     />
                     <Button
                       type="submit"
@@ -162,7 +162,7 @@ const SmsOfferPopup = () => {
                   </p>
                 )}
 
-                <p className="mt-3 pr-7 text-[8px] leading-[11px] text-muted-foreground sm:mt-4 sm:pr-0 sm:leading-3">
+                <p className="mt-3 text-[8px] leading-[12px] text-muted-foreground sm:mt-4 sm:pr-0 sm:leading-3">
                   By signing up via text, you agree to receive recurring automated marketing messages at the phone number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe, HELP for help. Msg &amp; data rates may apply. Msg frequency varies. View our{" "}
                   <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">Privacy Policy</Link> and{" "}
                   <Link to="/sms-terms" className="underline underline-offset-2 hover:text-foreground">SMS Terms</Link>.
