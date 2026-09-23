@@ -4,10 +4,20 @@ import { X, Minus, Plus, Loader2 } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { createShopifyCart } from "@/lib/shopify";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { useProducts } from "@/hooks/useShopify";
+import { getBundleProducts, getCombatColor, isCombatZipUp } from "@/lib/combatBundle";
 
 const CartDrawer = () => {
-  const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
+  const { items, isOpen, setIsOpen, addItem, removeItem, updateQuantity, totalItems, totalPrice } = useCart();
   const [checkingOut, setCheckingOut] = useState(false);
+  const { data: products = [] } = useProducts();
+  const bundleProducts = getBundleProducts(products);
+  const combatQuantity = items.filter((item) => isCombatZipUp(item.product)).reduce((sum, item) => sum + item.quantity, 0);
+  const bundleUnlocked = combatQuantity >= 3;
+  const missingCount = Math.max(0, 3 - combatQuantity);
+  const colorsInCart = new Set(items.filter((item) => isCombatZipUp(item.product)).map((item) => getCombatColor(item.product)));
+  const missingProducts = bundleProducts.filter((product) => !colorsInCart.has(getCombatColor(product)));
 
   const handleClose = () => setIsOpen(false);
 
@@ -120,6 +130,35 @@ const CartDrawer = () => {
               )}
             </div>
 
+            {combatQuantity > 0 && (
+              <div className="border-t border-border bg-secondary/50 px-6 py-4">
+                <p className="text-xs uppercase tracking-[0.12em]">
+                  {bundleUnlocked
+                    ? "Bundle unlocked — you’re saving $100"
+                    : `Add ${missingCount} more Combat Zip Up${missingCount === 1 ? "" : "s"} to save $100`}
+                </p>
+                {!bundleUnlocked && missingProducts.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {missingProducts.map((product) => {
+                      const variant = product.variants.find((item) => item.available);
+                      if (!variant) return null;
+                      return (
+                        <Button
+                          key={product.id}
+                          variant="outline"
+                          size="sm"
+                          className="h-8 rounded-none px-3 text-[9px] uppercase tracking-[0.1em]"
+                          onClick={() => addItem(product, variant)}
+                        >
+                          + {getCombatColor(product)}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Footer */}
             {items.length > 0 && (
               <div className="p-6 border-t border-border space-y-4">
@@ -127,6 +166,12 @@ const CartDrawer = () => {
                   <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Total</span>
                   <span className="font-heading text-lg">${totalPrice}</span>
                 </div>
+                {bundleUnlocked && (
+                  <div className="flex items-center justify-between text-accent">
+                    <span className="text-[10px] uppercase tracking-[0.15em]">Bundle discount at checkout</span>
+                    <span className="font-heading text-sm">−$100.00</span>
+                  </div>
+                )}
                 <button
                   className="w-full py-4 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   onClick={handleCheckout}
