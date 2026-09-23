@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { useProductByHandle, useProducts } from "@/hooks/useShopify";
 import { useCart } from "@/contexts/CartContext";
 import type { Product, ProductVariant } from "@/types/shopify";
-import { isCombatZipUp, getBundleProducts } from "@/lib/combatBundle";
+import { isCombatZipUp, getBundleProducts, getVariantSize } from "@/lib/combatBundle";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -165,7 +165,12 @@ const ProductDetail = () => {
                       bundleProducts
                         .map((bundleProduct: Product) => ({
                           product: bundleProduct,
-                          variant: bundleProduct.variants.find((v) => v.available) ?? bundleProduct.variants[0],
+                          variant:
+                            bundleProduct.variants.find(
+                              (v) => v.available && getVariantSize(v) === getVariantSize(selectedVariant)
+                            ) ??
+                            bundleProduct.variants.find((v) => v.available) ??
+                            bundleProduct.variants[0],
                         }))
                         .filter((item) => item.variant)
                     )
