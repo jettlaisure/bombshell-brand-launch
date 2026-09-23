@@ -111,7 +111,7 @@ const SmsOfferPopup = () => {
                 <p className="mb-1 hidden text-[9px] uppercase tracking-[0.25em] text-accent sm:block">SMS Exclusive</p>
                 <div className="flex items-center justify-between gap-3 pr-6 sm:block sm:pr-0">
                   <div className="min-w-0">
-                    <h2 id="sms-offer-title" className="font-heading text-lg uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
+                    <h2 id="sms-offer-title" className="whitespace-nowrap font-heading text-base uppercase leading-none tracking-[0] text-foreground sm:text-3xl">
                       Get 15% Off
                     </h2>
                     <p id="sms-offer-description" className="sr-only text-muted-foreground sm:not-sr-only sm:mt-2 sm:text-xs">
