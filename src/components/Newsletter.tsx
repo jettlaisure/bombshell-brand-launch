@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -56,6 +57,9 @@ const Newsletter = () => {
             </button>
           </form>
         )}
+        <p className="mx-auto mt-5 max-w-lg text-[10px] leading-5 text-muted-foreground">
+          By signing up via text, you agree to receive recurring automated marketing messages at the phone number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe, HELP for help. Msg &amp; data rates may apply. Msg frequency varies. View our <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">Privacy Policy</Link> and <Link to="/sms-terms" className="underline underline-offset-2 hover:text-foreground">SMS Terms</Link>.
+        </p>
       </motion.div>
     </section>
   );
