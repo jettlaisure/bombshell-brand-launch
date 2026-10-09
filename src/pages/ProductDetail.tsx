@@ -181,6 +181,12 @@ const ProductDetail = () => {
                 </button>
               )}
 
+              {isCombatZipUp(product) && (
+                <p className="mt-2 block w-full max-w-md border border-border px-4 py-3 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                  Buy 2, get one 30% off
+                </p>
+              )}
+
               {/* Tags */}
               {product.tags.length > 0 && (
                 <div className="flex gap-2 mt-8">
