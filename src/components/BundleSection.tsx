@@ -35,7 +35,7 @@ const BundleSection = () => {
         <div className="mb-8 flex flex-col items-start justify-between gap-4 md:mb-12 md:flex-row md:items-end">
           <div>
             <h2 className="font-heading text-3xl uppercase md:text-5xl">Get All 3. Save $100.</h2>
-            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">Or buy 2, get one 30% off</p>
+            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">Or buy 1, get one 30% off</p>
           </div>
           {bundleTotal > 0 && (
             <p className="font-heading text-xl md:text-2xl">

@@ -183,7 +183,7 @@ const ProductDetail = () => {
 
               {isCombatZipUp(product) && (
                 <p className="mt-2 block w-full max-w-md border border-border px-4 py-3 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-                  Buy 2, get one 30% off
+                  Buy 1, get one 30% off
                 </p>
               )}
 
