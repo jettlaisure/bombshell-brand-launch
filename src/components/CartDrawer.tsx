@@ -133,7 +133,7 @@ const CartDrawer = () => {
             {combatQuantity > 0 && !bundleUnlocked && (
               <div className="border-t border-border bg-secondary/50 px-6 py-4">
                 <p className="text-xs uppercase tracking-[0.12em]">
-                  {combatQuantity === 1 ? "Add one more, get it 30% off" : "Add a third and save $100"}
+                  {combatQuantity === 1 ? "Add one more, get it 30% off" : "Add a third and save $79.98"}
                 </p>
                 {missingProducts.length > 0 && (
                   <Button
@@ -148,7 +148,7 @@ const CartDrawer = () => {
                       )
                     }
                   >
-                    Add all 3 — save $100
+                    Add all 3 — save $79.98
                   </Button>
                 )}
               </div>

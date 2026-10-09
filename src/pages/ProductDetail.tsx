@@ -177,7 +177,7 @@ const ProductDetail = () => {
                   }
                   className="mt-3 block w-full max-w-md border border-border px-4 py-3 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
                 >
-                  Bundle all 3 colors and save $100
+                  Bundle all 3 colors and save $79.98
                 </button>
               )}
 
