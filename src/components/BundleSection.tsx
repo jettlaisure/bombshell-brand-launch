@@ -40,7 +40,7 @@ const BundleSection = () => {
           {bundleTotal > 0 && (
             <p className="font-heading text-xl md:text-2xl">
               <span className="mr-3 text-muted-foreground line-through">${bundleTotal.toFixed(2)}</span>
-              ${(bundleTotal - 100).toFixed(2)}
+              ${(bundleTotal - 79.98).toFixed(2)}
             </p>
           )}
         </div>
