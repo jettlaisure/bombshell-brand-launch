@@ -130,14 +130,12 @@ const CartDrawer = () => {
               )}
             </div>
 
-            {combatQuantity > 0 && (
+            {combatQuantity > 0 && !bundleUnlocked && (
               <div className="border-t border-border bg-secondary/50 px-6 py-4">
                 <p className="text-xs uppercase tracking-[0.12em]">
-                  {bundleUnlocked
-                    ? "Bundle unlocked — you’re saving $100"
-                    : `Add ${missingCount} more Combat Zip Up to save $100`}
+                  {combatQuantity === 1 ? "Add one more, get it 30% off" : "Add a third and save $100"}
                 </p>
-                {!bundleUnlocked && missingProducts.length > 0 && (
+                {missingProducts.length > 0 && (
                   <Button
                     variant="outline"
                     size="sm"
@@ -163,12 +161,6 @@ const CartDrawer = () => {
                   <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Total</span>
                   <span className="font-heading text-lg">${totalPrice}</span>
                 </div>
-                {bundleUnlocked && (
-                  <div className="flex items-center justify-between text-accent">
-                    <span className="text-[10px] uppercase tracking-[0.15em]">Bundle discount at checkout</span>
-                    <span className="font-heading text-sm">−$100.00</span>
-                  </div>
-                )}
                 <button
                   className="w-full py-4 bg-foreground text-background text-xs uppercase tracking-[0.25em] hover:bg-foreground/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   onClick={handleCheckout}

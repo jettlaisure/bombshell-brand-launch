@@ -19,6 +19,10 @@ const BundleSection = () => {
   const { data: products = [] } = useProducts();
   const bundleProducts = getBundleProducts(products);
   const cards = bundleProducts.length === 3 ? bundleProducts : products.slice(0, 3);
+  const bundleTotal =
+    bundleProducts.length === 3
+      ? bundleProducts.reduce((sum, p) => sum + parseFloat(p.variants[0]?.price ?? "0"), 0)
+      : 0;
 
   return (
     <section id="bundle" className="scroll-mt-20 border-b border-border bg-background py-16 md:py-24 section-padding">
@@ -29,11 +33,16 @@ const BundleSection = () => {
         className="mx-auto max-w-5xl"
       >
         <div className="mb-8 flex flex-col items-start justify-between gap-4 md:mb-12 md:flex-row md:items-end">
-          <h2 className="font-heading text-3xl uppercase md:text-5xl">Get All 3. Save $100.</h2>
-          <p className="font-heading text-xl md:text-2xl">
-            <span className="mr-3 text-muted-foreground line-through">$449.97</span>
-            $349.97
-          </p>
+          <div>
+            <h2 className="font-heading text-3xl uppercase md:text-5xl">Get All 3. Save $100.</h2>
+            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">Or buy 2, get one 30% off</p>
+          </div>
+          {bundleTotal > 0 && (
+            <p className="font-heading text-xl md:text-2xl">
+              <span className="mr-3 text-muted-foreground line-through">${bundleTotal.toFixed(2)}</span>
+              ${(bundleTotal - 100).toFixed(2)}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
